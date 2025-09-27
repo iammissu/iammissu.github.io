@@ -1,0 +1,3253 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<!-- title -->
+	
+<title>
+    
+        抗性&nbsp;&nbsp;✦&nbsp;
+    
+    Elog
+</title>
+
+	<!-- keywords,description -->
+	
+
+<meta name="author" content="iammissu" />
+
+<meta name="keywords" content="PoE,機制,Game" />
+
+<meta name="description" content="用於減少火焰、冰冷、閃電及混沌相對應的傷害。Wiki-Resistance
+
+$Final_{\text{R}}&amp;#x3D;(±R_{\text{0}}*(1+Σ_{\text{R}}％)*\Pi (1+More_{\text{R}}％)*\Pi (1−Less_{\text{R}}％))-Pen_{\text{R}}％$
+有效抗性有效抗性(Effective Resistance): 面板左邊括" />
+
+	<!-- favicon -->
+	
+		<link rel="shortcut icon" href="/favicon.png">
+	
+
+	<!-- css, script -->
+	
+<link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.58/darkreader.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+
+	<!-- custom css and js -->
+	
+  
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+  
+    
+      <script src="/js/main.js" ></script>
+    
+  
+
+
+
+  
+    
+  
+
+
+<link rel="stylesheet" href="/css/custom.css">
+
+
+<!-- KaTeX CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous">
+
+<!-- KaTeX auto-render JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+
+<!-- 自訂公式渲染 -->
+<script src="/js/math.js"></script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Node-tree 主題文章內容容器
+  const content = document.querySelector("#content, .article-body, .post-body");
+
+  if(!content) return;
+
+  // 渲染現有公式
+  renderMathInElement(content, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+
+  // 監聽後續 DOM 變化，動態渲染
+  const observer = new MutationObserver(() => {
+    renderMathInElement(content, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ]
+    });
+  });
+
+  observer.observe(content, { childList: true, subtree: true });
+});
+</script>
+
+	<!-- search -->
+	<script async>
+	window.searchEngine = "https://www.google.com/search?q=" ?? "https://www.google.com/search?q=";
+	window.homeHost = "https://iammissu.github.io" ?? window.location.host;
+</script>
+
+	<!-- statistics -->
+	
+
+	<!-- analysis -->
+	
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<header id="header">
+	<a id="title" href="/" class="logo">
+		<img id="logo" src="/favicon.png" alt="logo"/>
+		<span style="font-size: 28px; font-weight: bold;">Elog</span>
+	</a>
+
+	<ul id="menu">
+		
+		
+			<li class="menu-item">
+				<a href="/tags" class="menu-item-link">標籤</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/categories" class="menu-item-link">分類</a>
+			</li>
+		
+		
+		
+			<li class="menu-item dark-mode">
+				<a href="#" class="menu-item-link item-icon">
+					<i class="fa fa-moon-o fa-2x"></i>
+				</a>
+			</li>
+
+			<script async>
+				const darkModel = 1;
+				localStorage.setItem("darkModel", 1);
+
+				const darkModeIcon = document.querySelector("#menu .dark-mode i");
+
+				if (darkModel == 1) {
+					darkModeIcon.classList.replace("fa-moon-o", "fa-sun-o");
+					DarkReader.enable({
+						brightness: 100,
+						contrast: 90,
+						sepia: 10,
+					});
+				}
+
+				darkModeIcon.addEventListener("click", () => {
+					const isMoon = darkModeIcon.classList.contains("fa-moon-o");
+					darkModeIcon.classList.toggle("fa-moon-o", !isMoon);
+					darkModeIcon.classList.toggle("fa-sun-o", isMoon);
+					localStorage.setItem("darkModel", isMoon ? 1 : 0);
+					isMoon ? DarkReader.enable({ brightness: 100, contrast: 90, sepia: 10 }) : DarkReader.disable();
+				});
+			</script>
+		
+	</ul>
+</header>
+
+<script async>
+	let startHeight = 0;
+	window.addEventListener("scroll", () => {
+		const { scrollY: endHeight } = window;
+		const distance = endHeight - startHeight;
+		startHeight = endHeight;
+		document.querySelector("#header").style.display = distance > 0 && endHeight > 50 ? "none" : "";
+	});
+</script>
+	<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="全站搜尋">
+		<div id="tree">
+			
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="物品篩選器" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											物品篩選器
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="9.6" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											9.6
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.3b/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.3b">
+									
+										9.6.3b
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.3/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.3">
+									
+										9.6.3
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.2b/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.2b">
+									
+										9.6.2b
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.2/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.2">
+									
+										9.6.2
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.1d/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.1d">
+									
+										9.6.1d
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.1c/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.1c">
+									
+										9.6.1c
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.1b/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.1b">
+									
+										9.6.1b
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.1/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.1">
+									
+										9.6.1
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/06/09/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE1/9.6/9.6.0/" title="/2001/06/09/物品篩選器/PoE1/9.6/9.6.0">
+									
+										9.6.0
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE2" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE2
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="0.7" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											0.7
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2001/11/29/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE2/0.7/0.7.2/" title="/2001/11/29/物品篩選器/PoE2/0.7/0.7.2">
+									
+										0.7.2
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/11/29/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE2/0.7/0.7.1d/" title="/2001/11/29/物品篩選器/PoE2/0.7/0.7.1d">
+									
+										0.7.1d
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/11/29/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE2/0.7/0.7.1c/" title="/2001/11/29/物品篩選器/PoE2/0.7/0.7.1c">
+									
+										0.7.1c
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/11/29/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE2/0.7/0.7.1b/" title="/2001/11/29/物品篩選器/PoE2/0.7/0.7.1b">
+									
+										0.7.1b
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/11/29/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE2/0.7/0.7.1/" title="/2001/11/29/物品篩選器/PoE2/0.7/0.7.1">
+									
+										0.7.1
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/11/29/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/PoE2/0.7/0.7.0/" title="/2001/11/29/物品篩選器/PoE2/0.7/0.7.0">
+									
+										0.7.0
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2001/12/31/%E7%89%A9%E5%93%81%E7%AF%A9%E9%81%B8%E5%99%A8/%E7%89%A9%E5%93%81%E9%81%8E%E6%BF%BE%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/" title="/2001/12/31/物品篩選器/物品過濾基本介紹">
+									
+										物品過濾基本介紹
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="資訊表" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											資訊表
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="章節" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											章節
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/10/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E7%AB%A0%E7%AF%80/3.26%20(20250813)/" title="/2002/03/10/資訊表/PoE1/章節/3.26 (20250813)">
+									
+										3.26 (20250813)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2002/03/10/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E5%A5%B3%E7%A5%9E%E7%A5%AD%E5%93%81/%E5%A5%B3%E7%A5%9E%E7%A5%AD%E5%93%81/" title="/2002/03/10/資訊表/PoE1/女神祭品/女神祭品">
+											<i class="fa fa-plus-square-o"></i>
+											女神祭品
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="T17" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											T17
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/11/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/T17/3.26%20(20250812)/" title="/2002/03/11/資訊表/PoE1/T17/3.26 (20250812)">
+									
+										3.26 (20250812)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="終局王戰" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											終局王戰
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/12/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E7%B5%82%E5%B1%80%E7%8E%8B%E6%88%B0/3.26%20(20250815)/" title="/2002/03/12/資訊表/PoE1/終局王戰/3.26 (20250815)">
+									
+										3.26 (20250815)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="密教" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											密教
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/15/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E5%AF%86%E6%95%99/3.26%20(20250720)/" title="/2002/03/15/資訊表/PoE1/密教/3.26 (20250720)">
+									
+										3.26 (20250720)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="劫盜" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											劫盜
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/16/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E5%8A%AB%E7%9B%9C/3.26%20(20250801)/" title="/2002/03/16/資訊表/PoE1/劫盜/3.26 (20250801)">
+									
+										3.26 (20250801)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="掘獄" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											掘獄
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/17/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E6%8E%98%E7%8D%84/3.26%20(20250815)/" title="/2002/03/17/資訊表/PoE1/掘獄/3.26 (20250815)">
+									
+										3.26 (20250815)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="卡爾葛" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											卡爾葛
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/18/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E5%8D%A1%E7%88%BE%E8%91%9B/3.26%20(20250731)/" title="/2002/03/18/資訊表/PoE1/卡爾葛/3.26 (20250731)">
+									
+										3.26 (20250731)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="穿越" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											穿越
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/19/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E7%A9%BF%E8%B6%8A/3.26%20(20250811)/" title="/2002/03/19/資訊表/PoE1/穿越/3.26 (20250811)">
+									
+										3.26 (20250811)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="聖域" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											聖域
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/20/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E8%81%96%E5%9F%9F/3.26%20(20250802)/" title="/2002/03/20/資訊表/PoE1/聖域/3.26 (20250802)">
+									
+										3.26 (20250802)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="探險" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											探險
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/21/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E6%8E%A2%E9%9A%AA/3.26%20(20250802)/" title="/2002/03/21/資訊表/PoE1/探險/3.26 (20250802)">
+									
+										3.26 (20250802)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2002/03/22/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E7%8D%B8%E7%8D%B5/%E7%8D%B8%E7%8D%B5/" title="/2002/03/22/資訊表/PoE1/獸獵/獸獵">
+											<i class="fa fa-plus-square-o"></i>
+											獸獵
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="凋落" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											凋落
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/24/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E5%87%8B%E8%90%BD/3.23%20(20240225)/" title="/2002/03/24/資訊表/PoE1/凋落/3.23 (20240225)">
+									
+										3.23 (20240225)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="通牒" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											通牒
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/03/26/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E9%80%9A%E7%89%92/3.26%20(20250815)/" title="/2002/03/26/資訊表/PoE1/通牒/3.26 (20250815)">
+									
+										3.26 (20250815)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2002/03/29/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E6%A9%9F%E6%A2%B0%E5%9F%8E/%E6%A9%9F%E6%A2%B0%E5%9F%8E/" title="/2002/03/29/資訊表/PoE1/機械城/機械城">
+											<i class="fa fa-plus-square-o"></i>
+											機械城
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2002/04/01/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E7%93%A6%E7%88%BE%E7%A5%9D%E7%A6%8F/%E7%93%A6%E7%88%BE%E7%A5%9D%E7%A6%8F/" title="/2002/04/01/資訊表/PoE1/瓦爾祝福/瓦爾祝福">
+											<i class="fa fa-plus-square-o"></i>
+											瓦爾祝福
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2002/04/03/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E5%9C%96%E8%A7%A3%E8%A9%9E%E7%B6%B4/%E5%9C%96%E8%A7%A3%E8%A9%9E%E7%B6%B4/" title="/2002/04/03/資訊表/PoE1/圖解詞綴/圖解詞綴">
+											<i class="fa fa-plus-square-o"></i>
+											圖解詞綴
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2002/04/05/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E7%A4%A6%E5%9D%91%E5%8E%9F%E7%94%9F%E8%A9%9E%E7%B6%B4/%E7%A4%A6%E5%9D%91%E5%8E%9F%E7%94%9F%E8%A9%9E%E7%B6%B4/" title="/2002/04/05/資訊表/PoE1/礦坑原生詞綴/礦坑原生詞綴">
+											<i class="fa fa-plus-square-o"></i>
+											礦坑原生詞綴
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="新月裂片統計" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											新月裂片統計
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/04/15/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE1/%E6%96%B0%E6%9C%88%E8%A3%82%E7%89%87%E7%B5%B1%E8%A8%88/3.26/" title="/2002/04/15/資訊表/PoE1/新月裂片統計/3.26">
+									
+										3.26
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE2" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE2
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="絲克瑪試煉" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											絲克瑪試煉
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2002/09/03/%E8%B3%87%E8%A8%8A%E8%A1%A8/PoE2/%E7%B5%B2%E5%85%8B%E7%91%AA%E8%A9%A6%E7%85%89/0.2.1c%20(20250813)/" title="/2002/09/03/資訊表/PoE2/絲克瑪試煉/0.2.1c (20250813)">
+									
+										0.2.1c (20250813)
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="基礎知識" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											基礎知識
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="機制" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											機制
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="傷害" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											傷害
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E5%82%B7%E5%AE%B3/%E5%82%B7%E5%AE%B3%E4%BE%86%E6%BA%90/" title="/2003/03/13/基礎知識/機制/傷害/傷害來源">
+									
+										傷害來源
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="防禦" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											防禦
+										</a>
+			
+									
+							<ul>
+								<li class="file active">
+									<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E9%98%B2%E7%A6%A6/%E6%8A%97%E6%80%A7/" title="/2003/03/13/基礎知識/機制/防禦/抗性">
+									
+										抗性
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E9%98%B2%E7%A6%A6/%E6%81%A2%E5%BE%A9/" title="/2003/03/13/基礎知識/機制/防禦/恢復">
+									
+										恢復
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="狀態" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											狀態
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E7%8B%80%E6%85%8B/%E5%A2%9E%E7%9B%8A%E7%8B%80%E6%85%8B/" title="/2003/03/13/基礎知識/機制/狀態/增益狀態">
+									
+										增益狀態
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E7%8B%80%E6%85%8B/%E6%B8%9B%E7%9B%8A%E7%8B%80%E6%85%8B/" title="/2003/03/13/基礎知識/機制/狀態/減益狀態">
+									
+										減益狀態
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2003/05/01/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/PoE1/%E5%85%AC%E6%9C%83%E8%97%8F%E8%BA%AB%E8%99%95/%E5%85%AC%E6%9C%83%E8%97%8F%E8%BA%AB%E8%99%95/" title="/2003/05/01/基礎知識/PoE1/公會藏身處/公會藏身處">
+											<i class="fa fa-plus-square-o"></i>
+											公會藏身處
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2003/05/01/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/PoE1/%E5%BB%B6%E9%81%B2%E6%8E%89%E8%90%BD/%E5%BB%B6%E9%81%B2%E6%8E%89%E8%90%BD/" title="/2003/05/01/基礎知識/PoE1/延遲掉落/延遲掉落">
+											<i class="fa fa-plus-square-o"></i>
+											延遲掉落
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2003/05/01/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/PoE1/%E8%83%8C%E5%8C%85%E6%8A%80%E8%83%BD%E9%98%B2%E4%B8%9F/%E8%83%8C%E5%8C%85%E6%8A%80%E8%83%BD%E9%98%B2%E4%B8%9F/" title="/2003/05/01/基礎知識/PoE1/背包技能防丟/背包技能防丟">
+											<i class="fa fa-plus-square-o"></i>
+											背包技能防丟
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2003/05/20/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/PoE1/%E8%87%AA%E5%8B%95%E6%96%BD%E6%94%BE%E6%99%82%E7%A9%BA%E9%96%80/%E8%87%AA%E5%8B%95%E6%96%BD%E6%94%BE%E6%99%82%E7%A9%BA%E9%96%80/" title="/2003/05/20/基礎知識/PoE1/自動施放時空門/自動施放時空門">
+											<i class="fa fa-plus-square-o"></i>
+											自動施放時空門
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE2" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE2
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2003/09/01/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/PoE2/%E7%93%A6%E6%8A%80%E8%83%BD%E7%AC%AC4%E6%B4%9E(5L)/%E7%93%A6%E6%8A%80%E8%83%BD%E7%AC%AC4%E6%B4%9E(5L)/" title="/2003/09/01/基礎知識/PoE2/瓦技能第4洞(5L)/瓦技能第4洞(5L)">
+											<i class="fa fa-plus-square-o"></i>
+											瓦技能第4洞(5L)
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2003/09/02/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/PoE2/%E5%B9%BD%E9%AD%82%E6%88%96%E9%A6%B4%E7%8D%B8%E8%B3%A3%E5%95%86%E5%BA%97/%E5%B9%BD%E9%AD%82%E6%88%96%E9%A6%B4%E7%8D%B8%E8%B3%A3%E5%95%86%E5%BA%97/" title="/2003/09/02/基礎知識/PoE2/幽魂或馴獸賣商店/幽魂或馴獸賣商店">
+											<i class="fa fa-plus-square-o"></i>
+											幽魂或馴獸賣商店
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="基本公式" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											基本公式
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2008/01/01/%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F/PoE1/%E5%8F%97%E5%82%B7%E9%81%8B%E4%BD%9C%E9%A0%86%E5%BA%8F/%E5%8F%97%E5%82%B7%E9%81%8B%E4%BD%9C%E9%A0%86%E5%BA%8F/" title="/2008/01/01/基本公式/PoE1/受傷運作順序/受傷運作順序">
+											<i class="fa fa-plus-square-o"></i>
+											受傷運作順序
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="裝備製作" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											裝備製作
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2010/01/01/%E8%A3%9D%E5%82%99%E8%A3%BD%E4%BD%9C/PoE1/%E8%87%AA%E8%A3%BD%E5%81%87%E6%8E%B0%E9%AD%94%E6%B3%95%E7%8F%A0%E5%AF%B6/" title="/2010/01/01/裝備製作/PoE1/自製假掰魔法珠寶">
+									
+										自製假掰魔法珠寶
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="流派構建" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											流派構建
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="腐蝕箭矢" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											腐蝕箭矢
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a class="directory " href="/2012/01/06/%E6%B5%81%E6%B4%BE%E6%A7%8B%E5%BB%BA/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2%E5%8C%AF%E7%B8%BD/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2%E5%8C%AF%E7%B8%BD/" title="/2012/01/06/流派構建/PoE1/腐蝕箭矢/腐蝕箭矢匯總/腐蝕箭矢匯總">
+											<i class="fa fa-plus-square-o"></i>
+											腐蝕箭矢匯總
+										</a>
+										<div class="article-toc" style="display: none;"></div>
+			
+									
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="攻略影片" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											攻略影片
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="抽血地雷" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											抽血地雷
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.26" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.26
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,998%E5%B1%A4%E5%A5%A7%E7%88%BE/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,998層奧爾">
+									
+										刺客,998層奧爾
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,T17%E5%88%A9%E5%B8%8C%E4%BA%9E/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,T17利希亞">
+									
+										刺客,T17利希亞
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,T17%E5%A0%A1%E5%A3%98/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,T17堡壘">
+									
+										刺客,T17堡壘
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,85%E5%90%9E%E5%99%AC%E5%A4%A9%E5%9C%B0/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,85吞噬天地">
+									
+										刺客,85吞噬天地
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,85%E7%81%BC%E7%83%99%E7%B8%BD%E7%9D%A3/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,85灼烙總督">
+									
+										刺客,85灼烙總督
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,%E6%BC%A0%E8%A6%96%E5%8C%96%E8%BA%AB/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,漠視化身">
+									
+										刺客,漠視化身
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,%E6%81%90%E6%87%BC%E5%8C%96%E8%BA%AB/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,恐懼化身">
+									
+										刺客,恐懼化身
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%8A%BD%E8%A1%80%E5%9C%B0%E9%9B%B7/3.26/%E5%88%BA%E5%AE%A2,%E6%81%90%E6%87%BC%E9%82%80%E8%AB%8B/" title="/2013/05/20/攻略影片/PoE1/抽血地雷/3.26/刺客,恐懼邀請">
+									
+										刺客,恐懼邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="暗夜血契" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											暗夜血契
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.25" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.25
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%9A%97%E5%A4%9C%E8%A1%80%E5%A5%91/3.25/%E7%A7%98%E8%A1%93,85%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/20/攻略影片/PoE1/暗夜血契/3.25/秘術,85賽勒斯">
+									
+										秘術,85賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%9A%97%E5%A4%9C%E8%A1%80%E5%A5%91/3.25/%E7%A7%98%E8%A1%93,85%E5%A1%91%E7%95%8C%E8%80%85/" title="/2013/05/20/攻略影片/PoE1/暗夜血契/3.25/秘術,85塑界者">
+									
+										秘術,85塑界者
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%9A%97%E5%A4%9C%E8%A1%80%E5%A5%91/3.25/%E7%A7%98%E8%A1%93,T17%E5%A0%A1%E5%A3%98/" title="/2013/05/20/攻略影片/PoE1/暗夜血契/3.25/秘術,T17堡壘">
+									
+										秘術,T17堡壘
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%9A%97%E5%A4%9C%E8%A1%80%E5%A5%91/3.25/%E7%A7%98%E8%A1%93,%E9%BB%91%E9%A8%8E%E5%A3%AB/" title="/2013/05/20/攻略影片/PoE1/暗夜血契/3.25/秘術,黑騎士">
+									
+										秘術,黑騎士
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%9A%97%E5%A4%9C%E8%A1%80%E5%A5%91/3.25/%E7%A7%98%E8%A1%93,%E8%96%A9%E7%8F%8A/" title="/2013/05/20/攻略影片/PoE1/暗夜血契/3.25/秘術,薩珊">
+									
+										秘術,薩珊
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="爆炸箭矢" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											爆炸箭矢
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.24" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.24
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E7%88%86%E7%82%B8%E7%AE%AD%E7%9F%A2/3.24/%E9%85%8B%E9%95%B7,T17%E6%86%8E%E6%83%A1/" title="/2013/05/20/攻略影片/PoE1/爆炸箭矢/3.24/酋長,T17憎惡">
+									
+										酋長,T17憎惡
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E7%88%86%E7%82%B8%E7%AE%AD%E7%9F%A2/3.24/%E9%85%8B%E9%95%B7,T17%E5%A0%A1%E5%A3%98/" title="/2013/05/20/攻略影片/PoE1/爆炸箭矢/3.24/酋長,T17堡壘">
+									
+										酋長,T17堡壘
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E7%88%86%E7%82%B8%E7%AE%AD%E7%9F%A2/3.24/%E9%85%8B%E9%95%B7,T17%E8%81%96%E6%89%80/" title="/2013/05/20/攻略影片/PoE1/爆炸箭矢/3.24/酋長,T17聖所">
+									
+										酋長,T17聖所
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E7%88%86%E7%82%B8%E7%AE%AD%E7%9F%A2/3.24/%E9%85%8B%E9%95%B7,T17%E5%A3%81%E5%A3%98/" title="/2013/05/20/攻略影片/PoE1/爆炸箭矢/3.24/酋長,T17壁壘">
+									
+										酋長,T17壁壘
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E7%88%86%E7%82%B8%E7%AE%AD%E7%9F%A2/3.24/%E9%85%8B%E9%95%B7,T17%E9%AB%98%E5%9C%B0%E7%A5%9E%E5%A1%94/" title="/2013/05/20/攻略影片/PoE1/爆炸箭矢/3.24/酋長,T17高地神塔">
+									
+										酋長,T17高地神塔
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="龍捲射擊" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											龍捲射擊
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.23" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.23
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E9%BE%8D%E6%8D%B2%E5%B0%84%E6%93%8A/3.23/%E8%BF%BD%E7%8D%B5,%E8%BF%B7%E9%9C%A7%E4%B9%8B%E7%8E%8B/" title="/2013/05/20/攻略影片/PoE1/龍捲射擊/3.23/追獵,迷霧之王">
+									
+										追獵,迷霧之王
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E9%BE%8D%E6%8D%B2%E5%B0%84%E6%93%8A/3.23/%E8%BF%BD%E7%8D%B5,%E6%81%90%E6%87%BC%E9%82%80%E8%AB%8B/" title="/2013/05/20/攻略影片/PoE1/龍捲射擊/3.23/追獵,恐懼邀請">
+									
+										追獵,恐懼邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="爆裂陷阱" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											爆裂陷阱
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.22" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.22
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E7%88%86%E8%A3%82%E9%99%B7%E9%98%B1/3.22/%E8%A9%90%E6%AC%BA,%E5%A1%91%E5%9E%8B%E9%82%80%E8%AB%8B/" title="/2013/05/20/攻略影片/PoE1/爆裂陷阱/3.22/詐欺,塑型邀請">
+									
+										詐欺,塑型邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="圖騰陷阱" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											圖騰陷阱
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.21" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.21
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%9C%96%E9%A8%B0%E9%99%B7%E9%98%B1/3.21/%E8%BF%BD%E7%8D%B5,85%E5%90%9E%E5%99%AC%E5%A4%A9%E5%9C%B0/" title="/2013/05/20/攻略影片/PoE1/圖騰陷阱/3.21/追獵,85吞噬天地">
+									
+										追獵,85吞噬天地
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%9C%96%E9%A8%B0%E9%99%B7%E9%98%B1/3.21/%E8%BF%BD%E7%8D%B5,85%E7%81%BC%E7%83%99%E7%B8%BD%E7%9D%A3/" title="/2013/05/20/攻略影片/PoE1/圖騰陷阱/3.21/追獵,85灼烙總督">
+									
+										追獵,85灼烙總督
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="導雷" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											導雷
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.19" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.19
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%B0%8E%E9%9B%B7/3.19/%E5%88%BA%E5%AE%A2,85%E5%90%9E%E5%99%AC%E5%A4%A9%E5%9C%B0/" title="/2013/05/20/攻略影片/PoE1/導雷/3.19/刺客,85吞噬天地">
+									
+										刺客,85吞噬天地
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%B0%8E%E9%9B%B7/3.19/%E5%88%BA%E5%AE%A2,85%E7%81%BC%E7%83%99%E7%B8%BD%E7%9D%A3/" title="/2013/05/20/攻略影片/PoE1/導雷/3.19/刺客,85灼烙總督">
+									
+										刺客,85灼烙總督
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%B0%8E%E9%9B%B7/3.19/%E5%88%BA%E5%AE%A2,%E5%A5%A7%E8%8E%8E%E6%AF%94/" title="/2013/05/20/攻略影片/PoE1/導雷/3.19/刺客,奧莎比">
+									
+										刺客,奧莎比
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="腐蝕箭矢" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											腐蝕箭矢
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.21" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.21
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.21/%E8%A9%90%E6%AC%BA,85%E7%81%BC%E7%83%99%E7%B8%BD%E7%9D%A3/" title="/2013/05/20/攻略影片/PoE1/腐蝕箭矢/3.21/詐欺,85灼烙總督">
+									
+										詐欺,85灼烙總督
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="3.17" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.17
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E5%90%9E%E5%99%AC%E5%A4%A9%E5%9C%B0/" title="/2013/05/20/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,吞噬天地">
+									
+										秘術,吞噬天地
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E7%81%BC%E7%83%99%E7%B8%BD%E7%9D%A3/" title="/2013/05/20/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,灼烙總督">
+									
+										秘術,灼烙總督
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,賽勒斯">
+									
+										秘術,賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E6%81%90%E6%87%BC%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,恐懼邀請">
+									
+										秘術,恐懼邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E5%B0%8A%E6%AE%BA%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,尊殺邀請">
+									
+										秘術,尊殺邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E7%84%A1%E7%9B%A1%E6%B8%B4%E6%9C%9B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,無盡渴望">
+									
+										秘術,無盡渴望
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.17/%E7%A7%98%E8%A1%93,%E9%BB%AF%E6%98%9F/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.17/秘術,黯星">
+									
+										秘術,黯星
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="3.16" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.16
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,A9%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,A9釋界">
+									
+										秘術,A9釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,A9%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,A9賽勒斯">
+									
+										秘術,A9賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,A8%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,A8釋界">
+									
+										秘術,A8釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,A8%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,A8賽勒斯">
+									
+										秘術,A8賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,%E9%9A%B1%E5%8C%BF%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,隱匿邀請">
+									
+										秘術,隱匿邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,%E6%89%AD%E6%9B%B2%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,扭曲邀請">
+									
+										秘術,扭曲邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,%E5%A1%91%E5%9E%8B%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,塑型邀請">
+									
+										秘術,塑型邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,%E7%B5%82%E6%A5%B5%E9%98%BF%E8%8C%B2%E9%87%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,終極阿茲里">
+									
+										秘術,終極阿茲里
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,%E6%B7%B1%E6%B2%89%E8%A8%98%E6%86%B6/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,深沉記憶">
+									
+										秘術,深沉記憶
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.16/%E7%A7%98%E8%A1%93,T16%E4%B9%9D%E9%A0%AD%E8%9B%87/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.16/秘術,T16九頭蛇">
+									
+										秘術,T16九頭蛇
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="3.15" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.15
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,A9%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,A9釋界">
+									
+										秘術,A9釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,A9%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,A9賽勒斯">
+									
+										秘術,A9賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E4%BF%A0%E5%AE%A2,A9%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/俠客,A9賽勒斯">
+									
+										俠客,A9賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,A9%E7%B5%82%E6%A5%B5%E5%B0%8A%E5%B8%AB/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,A9終極尊師">
+									
+										秘術,A9終極尊師
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,A9%E7%B5%82%E6%A5%B5%E9%98%BF%E8%8C%B2%E9%87%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,A9終極阿茲里">
+									
+										秘術,A9終極阿茲里
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,A8%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,A8釋界">
+									
+										秘術,A8釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,%E9%81%BA%E5%BF%98%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,遺忘邀請">
+									
+										秘術,遺忘邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,%E9%9A%B1%E5%8C%BF%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,隱匿邀請">
+									
+										秘術,隱匿邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,%E6%89%AD%E6%9B%B2%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,扭曲邀請">
+									
+										秘術,扭曲邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,%E5%A1%91%E5%9E%8B%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,塑型邀請">
+									
+										秘術,塑型邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.15/%E7%A7%98%E8%A1%93,T16%E7%89%9B%E9%A0%AD%E4%BA%BA/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.15/秘術,T16牛頭人">
+									
+										秘術,T16牛頭人
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="3.14" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.14
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,A9%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,A9賽勒斯">
+									
+										俠客,A9賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,A8%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,A8釋界">
+									
+										俠客,A8釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,A8%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,A8賽勒斯">
+									
+										俠客,A8賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,176%E5%B1%A4%E5%A5%A7%E7%88%BE/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,176層奧爾">
+									
+										俠客,176層奧爾
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,%E6%B7%B1%E6%B2%89%E8%A8%98%E6%86%B6/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,深沉記憶">
+									
+										俠客,深沉記憶
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,T16%E7%89%9B%E9%A0%AD%E4%BA%BA/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,T16牛頭人">
+									
+										俠客,T16牛頭人
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.14/%E4%BF%A0%E5%AE%A2,%E8%A9%A6%E7%85%89%E5%A4%A7%E5%B8%AB/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.14/俠客,試煉大師">
+									
+										俠客,試煉大師
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="3.13" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.13
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,A9%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,A9釋界">
+									
+										秘術,A9釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,A9%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,A9賽勒斯">
+									
+										秘術,A9賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,A8%E9%87%8B%E7%95%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,A8釋界">
+									
+										秘術,A8釋界
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,A8%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,A8賽勒斯">
+									
+										秘術,A8賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E8%BF%BD%E7%8D%B5,A8%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/追獵,A8賽勒斯">
+									
+										追獵,A8賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E6%81%90%E6%87%BC%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,恐懼邀請">
+									
+										秘術,恐懼邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E9%81%BA%E5%BF%98%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,遺忘邀請">
+									
+										秘術,遺忘邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E9%9A%B1%E5%8C%BF%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,隱匿邀請">
+									
+										秘術,隱匿邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E6%89%AD%E6%9B%B2%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,扭曲邀請">
+									
+										秘術,扭曲邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E5%A1%91%E5%9E%8B%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,塑型邀請">
+									
+										秘術,塑型邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E8%B2%B4%E6%97%8F,%E5%A1%91%E5%9E%8B%E9%82%80%E8%AB%8B/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/貴族,塑型邀請">
+									
+										貴族,塑型邀請
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E7%B5%82%E6%A5%B5%E5%B0%8A%E5%B8%AB/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,終極尊師">
+									
+										秘術,終極尊師
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E7%B5%82%E6%A5%B5%E9%98%BF%E8%8C%B2%E9%87%8C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,終極阿茲里">
+									
+										秘術,終極阿茲里
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E5%8D%A1%E5%A1%94%E8%8E%89%E5%A8%9C/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,卡塔莉娜">
+									
+										秘術,卡塔莉娜
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E6%B7%B1%E6%B2%89%E8%A8%98%E6%86%B6v2/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,深沉記憶v2">
+									
+										秘術,深沉記憶v2
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,%E6%B7%B1%E6%B2%89%E8%A8%98%E6%86%B6/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,深沉記憶">
+									
+										秘術,深沉記憶
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,T16%E7%89%9B%E9%A0%AD%E4%BA%BAv2/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,T16牛頭人v2">
+									
+										秘術,T16牛頭人v2
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E8%85%90%E8%9D%95%E7%AE%AD%E7%9F%A2/3.13/%E7%A7%98%E8%A1%93,T16%E7%89%9B%E9%A0%AD%E4%BA%BA/" title="/2013/05/21/攻略影片/PoE1/腐蝕箭矢/3.13/秘術,T16牛頭人">
+									
+										秘術,T16牛頭人
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="冰霜之捷" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											冰霜之捷
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.11" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.11
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%86%B0%E9%9C%9C%E4%B9%8B%E6%8D%B7/3.11/%E5%88%BA%E5%AE%A2,T16%E9%9B%B2%E9%A0%82%E9%90%98%E6%A8%93/" title="/2013/05/21/攻略影片/PoE1/冰霜之捷/3.11/刺客,T16雲頂鐘樓">
+									
+										刺客,T16雲頂鐘樓
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%86%B0%E9%9C%9C%E4%B9%8B%E6%8D%B7/3.11/%E5%85%83%E7%B4%A0,T15%E9%97%87%E7%8D%84%E5%B0%96%E5%A1%94/" title="/2013/05/21/攻略影片/PoE1/冰霜之捷/3.11/元素,T15闇獄尖塔">
+									
+										元素,T15闇獄尖塔
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E5%86%B0%E9%9C%9C%E4%B9%8B%E6%8D%B7/3.11/%E5%85%83%E7%B4%A0,T15%E5%B2%A9%E6%BC%BF%E7%86%94%E6%B9%96/" title="/2013/05/21/攻略影片/PoE1/冰霜之捷/3.11/元素,T15岩漿熔湖">
+									
+										元素,T15岩漿熔湖
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="法術回音" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											法術回音
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.11" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.11
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%B3%95%E8%A1%93%E5%9B%9E%E9%9F%B3/3.11/%E6%AD%BB%E9%9D%88,A8%E8%B3%BD%E5%8B%92%E6%96%AFv2/" title="/2013/05/21/攻略影片/PoE1/法術回音/3.11/死靈,A8賽勒斯v2">
+									
+										死靈,A8賽勒斯v2
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%B3%95%E8%A1%93%E5%9B%9E%E9%9F%B3/3.11/%E6%AD%BB%E9%9D%88,A8%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/法術回音/3.11/死靈,A8賽勒斯">
+									
+										死靈,A8賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%B3%95%E8%A1%93%E5%9B%9E%E9%9F%B3/3.11/%E6%AD%BB%E9%9D%88,%E5%A5%A7%E8%8E%8E%E6%AF%94/" title="/2013/05/21/攻略影片/PoE1/法術回音/3.11/死靈,奧莎比">
+									
+										死靈,奧莎比
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="殭屍復甦" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											殭屍復甦
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="3.9" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											3.9
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%AE%AD%E5%B1%8D%E5%BE%A9%E7%94%A6/3.9/%E5%AE%88%E8%AD%B7,A8%E8%B3%BD%E5%8B%92%E6%96%AF/" title="/2013/05/21/攻略影片/PoE1/殭屍復甦/3.9/守護,A8賽勒斯">
+									
+										守護,A8賽勒斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/05/21/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE1/%E6%AE%AD%E5%B1%8D%E5%BE%A9%E7%94%A6/3.9/%E5%AE%88%E8%AD%B7,%E7%B5%82%E6%A5%B5%E5%B0%8A%E5%B8%AB/" title="/2013/05/21/攻略影片/PoE1/殭屍復甦/3.9/守護,終極尊師">
+									
+										守護,終極尊師
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE2" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE2
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="骷髏霜寒法師" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											骷髏霜寒法師
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="0.1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											0.1
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E9%9C%9C%E5%AF%92%E6%B3%95%E5%B8%AB/0.1/%E7%8D%84%E7%81%AB,%E9%9B%A34%E7%81%B0%E7%87%BC%E4%BB%B2%E8%A3%81%E8%80%85/" title="/2013/10/26/攻略影片/PoE2/骷髏霜寒法師/0.1/獄火,難4灰燼仲裁者">
+									
+										獄火,難4灰燼仲裁者
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E9%9C%9C%E5%AF%92%E6%B3%95%E5%B8%AB/0.1/%E7%8D%84%E7%81%AB,%E9%9B%A34%E5%A5%A7%E7%88%BE%E7%BE%85%E6%96%AF/" title="/2013/10/26/攻略影片/PoE2/骷髏霜寒法師/0.1/獄火,難4奧爾羅斯">
+									
+										獄火,難4奧爾羅斯
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E9%9C%9C%E5%AF%92%E6%B3%95%E5%B8%AB/0.1/%E7%8D%84%E7%81%AB,%E9%9B%A34%E7%83%88%E8%A8%B1/" title="/2013/10/26/攻略影片/PoE2/骷髏霜寒法師/0.1/獄火,難4烈許">
+									
+										獄火,難4烈許
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E9%9C%9C%E5%AF%92%E6%B3%95%E5%B8%AB/0.1/%E7%8D%84%E7%81%AB,%E8%BF%B7%E9%9C%A7%E4%B9%8B%E7%8E%8B/" title="/2013/10/26/攻略影片/PoE2/骷髏霜寒法師/0.1/獄火,迷霧之王">
+									
+										獄火,迷霧之王
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E9%9C%9C%E5%AF%92%E6%B3%95%E5%B8%AB/0.1/%E7%8D%84%E7%81%AB,%E9%8B%BC%E9%90%B5%E5%9F%8E%E5%A1%9E/" title="/2013/10/26/攻略影片/PoE2/骷髏霜寒法師/0.1/獄火,鋼鐵城塞">
+									
+										獄火,鋼鐵城塞
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="骷髏縱火者" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											骷髏縱火者
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="0.1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											0.1
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E7%B8%B1%E7%81%AB%E8%80%85/0.1/%E7%8D%84%E7%81%AB,%E9%8B%BC%E9%90%B5%E5%9F%8E%E5%A1%9E/" title="/2013/10/26/攻略影片/PoE2/骷髏縱火者/0.1/獄火,鋼鐵城塞">
+									
+										獄火,鋼鐵城塞
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E7%B8%B1%E7%81%AB%E8%80%85/0.1/%E7%8D%84%E7%81%AB,%E5%B2%A9%E7%9F%B3%E5%9F%8E%E5%A1%9E/" title="/2013/10/26/攻略影片/PoE2/骷髏縱火者/0.1/獄火,岩石城塞">
+									
+										獄火,岩石城塞
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E7%B8%B1%E7%81%AB%E8%80%85/0.1/%E7%8D%84%E7%81%AB,%E9%9D%92%E9%8A%85%E5%9F%8E%E5%A1%9E/" title="/2013/10/26/攻略影片/PoE2/骷髏縱火者/0.1/獄火,青銅城塞">
+									
+										獄火,青銅城塞
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E7%B8%B1%E7%81%AB%E8%80%85/0.1/%E7%8D%84%E7%81%AB,%E8%A9%A6%E7%85%89%E5%A4%A7%E5%B8%AB/" title="/2013/10/26/攻略影片/PoE2/骷髏縱火者/0.1/獄火,試煉大師">
+									
+										獄火,試煉大師
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2013/10/26/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/PoE2/%E9%AA%B7%E9%AB%8F%E7%B8%B1%E7%81%AB%E8%80%85/0.1/%E7%8D%84%E7%81%AB,%E6%BE%A4%E6%B4%9B%E5%85%8B/" title="/2013/10/26/攻略影片/PoE2/骷髏縱火者/0.1/獄火,澤洛克">
+									
+										獄火,澤洛克
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="聯盟挑戰" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											聯盟挑戰
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="吞噬天地" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											吞噬天地
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/11/24/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/%E8%81%AF%E7%9B%9F%E6%8C%91%E6%88%B0/%E5%90%9E%E5%99%AC%E5%A4%A9%E5%9C%B0/%E4%B8%8D%E5%8F%AF%E9%80%83%E8%84%AB%E4%B9%8B%E5%8E%84%E9%81%8B/" title="/2013/11/24/攻略影片/聯盟挑戰/吞噬天地/不可逃脫之厄運">
+									
+										不可逃脫之厄運
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="灼烙總督" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											灼烙總督
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/11/29/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/%E8%81%AF%E7%9B%9F%E6%8C%91%E6%88%B0/%E7%81%BC%E7%83%99%E7%B8%BD%E7%9D%A3/%E7%81%BC%E7%83%99%E7%AC%A6%E6%96%87/" title="/2013/11/29/攻略影片/聯盟挑戰/灼烙總督/灼烙符文">
+									
+										灼烙符文
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="賽勒斯" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											賽勒斯
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/12/02/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/%E8%81%AF%E7%9B%9F%E6%8C%91%E6%88%B0/%E8%B3%BD%E5%8B%92%E6%96%AF/%E5%96%9A%E9%86%92%E8%80%85%E7%9A%84%E8%8D%92%E8%95%AA/" title="/2013/12/02/攻略影片/聯盟挑戰/賽勒斯/喚醒者的荒蕪">
+									
+										喚醒者的荒蕪
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="試煉大師" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											試煉大師
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2013/12/20/%E6%94%BB%E7%95%A5%E5%BD%B1%E7%89%87/%E8%81%AF%E7%9B%9F%E6%8C%91%E6%88%B0/%E8%A9%A6%E7%85%89%E5%A4%A7%E5%B8%AB/%E6%95%B5%E5%B0%8D%E9%80%9A%E8%B2%A8/" title="/2013/12/20/攻略影片/聯盟挑戰/試煉大師/敵對通貨">
+									
+										敵對通貨
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="機制檢證" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											機制檢證
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="巔峰頭目" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											巔峰頭目
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2014/01/10/%E6%A9%9F%E5%88%B6%E6%AA%A2%E8%AD%89/PoE1/%E5%B7%94%E5%B3%B0%E9%A0%AD%E7%9B%AE/85%E7%B6%AD%E9%82%A3%E5%88%A9%E6%96%AF%203.21/" title="/2014/01/10/機制檢證/PoE1/巔峰頭目/85維那利斯 3.21">
+									
+										85維那利斯 3.21
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2014/01/10/%E6%A9%9F%E5%88%B6%E6%AA%A2%E8%AD%89/PoE1/%E5%B7%94%E5%B3%B0%E9%A0%AD%E7%9B%AE/85%E7%B6%AD%E9%82%A3%E5%88%A9%E6%96%AF%203.18/" title="/2014/01/10/機制檢證/PoE1/巔峰頭目/85維那利斯 3.18">
+									
+										85維那利斯 3.18
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="暴擊" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											暴擊
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2014/01/22/%E6%A9%9F%E5%88%B6%E6%AA%A2%E8%AD%89/PoE1/%E6%9A%B4%E6%93%8A/%E6%9A%B4%E6%93%8A%E9%99%8D%E7%B4%9A/" title="/2014/01/22/機制檢證/PoE1/暴擊/暴擊降級">
+									
+										暴擊降級
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="版本變革" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											版本變革
+										</a>
+			
+									
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE1" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE1
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2017/07/07/%E7%89%88%E6%9C%AC%E8%AE%8A%E9%9D%A9/PoE1/%E8%81%AF%E7%9B%9F%E6%A9%9F%E5%88%B6%E5%8F%8A%E7%89%88%E6%9C%AC%E8%AE%8A%E9%9D%A9/" title="/2017/07/07/版本變革/PoE1/聯盟機制及版本變革">
+									
+										聯盟機制及版本變革
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="PoE2" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											PoE2
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2017/08/08/%E7%89%88%E6%9C%AC%E8%AE%8A%E9%9D%A9/PoE2/%E8%81%AF%E7%9B%9F%E6%A9%9F%E5%88%B6%E5%8F%8A%E7%89%88%E6%9C%AC%E8%AE%8A%E9%9D%A9/" title="/2017/08/08/版本變革/PoE2/聯盟機制及版本變革">
+									
+										聯盟機制及版本變革
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+								</li>
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<div id="content">
+		<h1 id="article-title">
+	抗性
+</h1>
+
+<div class="article-meta">
+	<span> iammissu </span>
+	<span> 2003-03-13 00:15:39 </span>
+	<div id="article-categories">
+		
+			<span>Categories：</span>
+			
+				
+				<span>
+					<i class="fa fa-folder" aria-hidden="true">
+						<a href="/categories/Game/">
+							Game
+						</a>
+					</i>
+				
+				</span>
+				
+			
+		
+		
+			<span>Tags：</span>
+			
+				
+					<span>
+						<i class="fa fa-tag" aria-hidden="true">
+							<a href="/tags/PoE/">
+								PoE
+							</a>
+						</i>
+					</span>
+				
+			
+				
+					<span>
+						<i class="fa fa-tag" aria-hidden="true">
+							<a href="/tags/機制/">
+								機制
+							</a>
+						</i>
+					</span>
+				
+			
+		
+	</div>
+</div>
+
+<div id="article-content">
+	<p>用於減少火焰、冰冷、閃電及混沌相對應的傷害。<a target="_blank" rel="noopener" href="https://www.poewiki.net/wiki/Resistance">Wiki-Resistance</a></p>
+<p><img src="https://live.staticflickr.com/65535/53558222723_d35564bb81_o.png" alt="png"></p>
+<p>$Final_{\text{R}}&#x3D;(±R_{\text{0}}*(1+Σ_{\text{R}}％)*\Pi (1+More_{\text{R}}％)*\Pi (1−Less_{\text{R}}％))-Pen_{\text{R}}％$</p>
+<h3 id="有效抗性"><a href="#有效抗性" class="headerlink" title="有效抗性"></a>有效抗性</h3><p><span style="font-size:22px"><span style="color:#66FF99">有效抗性</span><span style="font-size:20px"><span style="color:#66FF99">(Effective Resistance)</span>: 面板左邊括號外的抗性，是玩家真實抗性。</p>
+<h3 id="絕對抗性"><a href="#絕對抗性" class="headerlink" title="絕對抗性"></a>絕對抗性</h3><p><span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px"><span style="color:#FF8800">(Uncapped Resistance)</span>: 面板右邊括號內的抗性，全部來源的抗性總和。</p>
+<h3 id="最大抗性"><a href="#最大抗性" class="headerlink" title="最大抗性"></a>最大抗性</h3><p><span style="font-size:22px"><span style="color:#FFCC33">最大抗性</span><span style="font-size:20px"><span style="color:#FFCC33">(Maximum Resistances)</span>: 有效抗性的上限。<br>玩家及怪物預設最大為75%，最大抗可受其它來源增減，上限90%，下限-200%。</p>
+<blockquote>
+<p>玩家抗性會受場景難度懲罰。<br>第一部(N): 無懲罰，空裝時面板0%。<br>完成第一部後(C): 玩家抗性-30%，空裝時面板-30%。<br>完成第二部後(M): 玩家抗性-30%，空裝時面板-60%。(共-60%)</p>
+</blockquote>
+<h3 id="n-抗性"><a href="#n-抗性" class="headerlink" title="+n%抗性"></a>+n%抗性</h3><p><span style="font-size:22px"><span style="color:#FFCC66">+n%抗性</span></span>: 從天賦、裝備及技能等各種來源的 “+n%抗性<span style="font-size:16px">(基礎值)</span>“ 的詞綴。</p>
+<h3 id="n-抗性-1"><a href="#n-抗性-1" class="headerlink" title="-n%抗性"></a>-n%抗性</h3><p><span style="font-size:22px"><span style="color:#33CCCC">-n%抗性</span></span>: 詛咒及曝曬等各種來源的降抗。<br>降抗的計算從<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px"><span style="color:#FF8800">(括號內)</span>開始扣除，會降低面板抗性。下限-200%。<br>紅圖元素要害降抗為34%，若無對抗手段，絕對抗性須撐至109%才能抵銷。</p>
+<blockquote>
+<p>例如: 賭神芬多</p>
+</blockquote>
+<h3 id="增加抗性"><a href="#增加抗性" class="headerlink" title="增加抗性"></a>增加抗性</h3><p><span style="font-size:22px"><span style="color:#006633">增加抗性</span><span style="font-size:20px"><span style="color:#006633">(increased Resistances)</span>: 可累加的增加抗性%，對降抗後的<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px">進行縮放。<br>無論絕對抗性正負，直接對數值縮放；意即當絕對抗性為負值時，反而會降低抗性。</p>
+<blockquote>
+<p>例如: 增加30%抗性, 更多50%抗性<br>當絕對抗性75%時: $75*(1+30％)*(1+50％)&#x3D;146％$<br>當絕對抗性-60%時: $-60*(1+30％)*(1+50％)&#x3D;-117％$</p>
+</blockquote>
+<blockquote>
+<p>例如: 邪眼</p>
+</blockquote>
+<h3 id="減少抗性"><a href="#減少抗性" class="headerlink" title="減少抗性"></a>減少抗性</h3><p><span style="font-size:22px"><span style="color:#FF6633">減少抗性</span><span style="font-size:20px"><span style="color:#FF6633">(Reduced Resistance)</span>: 可累加的減少抗性%，對降抗後的<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px">進行縮放。<br>無論絕對抗性正負，直接對數值縮放；意即當絕對抗性為負值時，反而會提高抗性。</p>
+<blockquote>
+<p>例如: 減少30%抗性, 更少50%抗性<br>當絕對抗性75%時: $75*(1-30％)*(1-50％)&#x3D;26％$<br>當絕對抗性-60%時: $-60*(1-30％)*(1-50％)&#x3D;-21％$</p>
+</blockquote>
+<p>減少抗性加總最高不會超過100%。(v3.17)</p>
+<blockquote>
+<p>例如: 減少120%抗性, 更少50%抗性<br>當絕對抗性75%時: $75*(1-100％)*(1-50％)&#x3D;0％$<br>當絕對抗性-60%時: $-60*(1-100％)*(1-50％)＝0％$</p>
+</blockquote>
+<blockquote>
+<p>例如: 嗜炎斗篷,酷寒斗篷,狂雷斗篷,毀滅白光</p>
+</blockquote>
+<h3 id="更多抗性"><a href="#更多抗性" class="headerlink" title="更多抗性"></a>更多抗性</h3><p><span style="font-size:22px"><span style="color:#33CC66">更多抗性</span><span style="font-size:20px"><span style="color:#33CC66">(More Resistance)</span>: 可累乘的更多抗性%，對降抗後的<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px">進行縮放。<br>無論絕對抗性正負，直接對數值縮放；意即當絕對抗性為負值時，反而會降低抗性。<br>(目前尚未有此詞綴)</p>
+<blockquote>
+<p>例如: 更多50%抗性<br>當絕對抗性75%時: $75*(1+50％)&#x3D;112％$<br>當絕對抗性-60%時: $-60*(1+50％)&#x3D;-90％$</p>
+</blockquote>
+<h3 id="更少抗性"><a href="#更少抗性" class="headerlink" title="更少抗性"></a>更少抗性</h3><p><span style="font-size:22px"><span style="color:#FF6699">更少抗性</span><span style="font-size:20px"><span style="color:#FF6699">(Less Resistance)</span>: 可累乘的更少抗性%，對降抗後的<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px">進行縮放。<br>無論絕對抗性正負，直接對數值縮放；意即當絕對抗性為負值時，反而會提高抗性。</p>
+<blockquote>
+<p>例如: 更少50%抗性<br>當絕對抗性75%時: $75*(1-50％)&#x3D;37％$<br>當絕對抗性-60%時: $-60*(1-50％)&#x3D;-30％$</p>
+</blockquote>
+<blockquote>
+<p>例如: 致命的驕傲-拉其塔:戰爭淬煉</p>
+</blockquote>
+<h3 id="限制有效抗性"><a href="#限制有效抗性" class="headerlink" title="限制有效抗性"></a>限制有效抗性</h3><p><span style="font-size:22px"><span style="color:#FFCCCC">限制有效抗性</span><span style="font-size:20px"><span style="color:#FFCCCC">(暫稱)</span>: 有效抗性強制恆為n%，無視有效抗性正負及更多更少。穿抗有效。</p>
+<blockquote>
+<p>例如: 多里亞尼之型: PvP附近敵人的面板閃電抗性 [-200%(-37%)]<br><img src="https://live.staticflickr.com/65535/53558222723_d35564bb81_o.png" alt="png"></p>
+</blockquote>
+<h3 id="限制絕對抗性"><a href="#限制絕對抗性" class="headerlink" title="限制絕對抗性"></a>限制絕對抗性</h3><p><span style="font-size:22px"><span style="color:#99FFFF">限制絕對抗性</span><span style="font-size:20px"><span style="color:#99FFFF">(暫稱)</span>: 絕對抗性強制恆為n%，無視絕對抗性正負及更多更少。穿抗有效。</p>
+<blockquote>
+<p>例如:<br>夜幕: 零元素抗 [0%(0%)]<br>嗜炎斗篷: 火焰抗性為75% [75%(75%)]<br>酷寒斗篷: 冰冷抗性為75% [75%(75%)]<br>狂雷斗篷: 閃電抗性為75% [75%(75%)]</p>
+</blockquote>
+<h3 id="限制最大抗性"><a href="#限制最大抗性" class="headerlink" title="限制最大抗性"></a>限制最大抗性</h3><p><span style="font-size:22px"><span style="color:#99CC66">限制最大抗性</span><span style="font-size:20px"><span style="color:#99CC66">(暫稱)</span>: 最大抗性強制恆為n%，無視最大抗性增減及更多更少。</p>
+<blockquote>
+<p>例如: 智者織衫</p>
+</blockquote>
+<h3 id="穿透抗性"><a href="#穿透抗性" class="headerlink" title="穿透抗性"></a>穿透抗性</h3><p><span style="font-size:22px"><span style="color:#FFFF00">穿透抗性</span><span style="font-size:20px"><span style="color:#FFFF00">(Resistance Penetration)</span>: 有擊中判定，擊中時穿透目標抗性。<br>穿抗的計算從<span style="font-size:22px"><span style="color:#66FF99">有效抗性</span><span style="font-size:20px"><span style="color:#66FF99">(括號外)</span>開始扣除，不會降低面板抗性。穿透無下限。<span style="font-size:16px">(1代)</span></p>
+<h3 id="忽視抗性"><a href="#忽視抗性" class="headerlink" title="忽視抗性"></a>忽視抗性</h3><p><span style="font-size:22px"><span style="color:#FF6633">忽視抗性</span><span style="font-size:20px"><span style="color:#FF6633">(Ignore Resistances)</span>: 有擊中判定，無視抗性，擊中時強制以0%計算傷害。<br>不會改變面板抗性，穿抗無效¹。<br>¹來源: <a target="_blank" rel="noopener" href="https://www.reddit.com/r/PathOfExileBuilds/comments/10qzal9/comment/j6vrtwo/?context=8&depth=9">Mark_GGG</a></p>
+<blockquote>
+<p>例如: 判官-命運審判, 永恆屍布</p>
+</blockquote>
+<h3 id="顛倒抗性"><a href="#顛倒抗性" class="headerlink" title="顛倒抗性"></a>顛倒抗性</h3><p><span style="font-size:22px"><span style="color:#99CCFF">顛倒抗性</span><span style="font-size:20px"><span style="color:#99CCFF">(Resistance Inversion)</span>: 有擊中判定，擊中時將目標<span style="color:#99CCFF">當前抗性視為顛倒</span>計算傷害。<br>目標抗性越高，效益越高。不會改變面板抗性，穿抗在抗性被反轉後生效。</p>
+<p>$R_{\text{反轉}}％ &#x3D; R_{\text{當前}}％ * -1$</p>
+<blockquote>
+<p>例如: 萊基亞塔的舞步</p>
+</blockquote>
+<h3 id="異靈之體"><a href="#異靈之體" class="headerlink" title="異靈之體"></a>異靈之體</h3><p><span style="font-size:22px"><span style="color:#FF99FF">異靈之體</span><span style="font-size:20px"><span style="color:#FF99FF">(Chaos Inoculation)</span>: 免疫混沌傷害(Immune)。不會改變面板抗性。(v3.14)</p>
+<h3 id="降抗-穿抗疊加"><a href="#降抗-穿抗疊加" class="headerlink" title="降抗&#x2F;穿抗疊加"></a>降抗&#x2F;穿抗疊加</h3><p>降抗的計算從<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px"><span style="color:#FF8800">(括號內)</span>開始扣除，穿抗的計算從<span style="font-size:22px"><span style="color:#66FF99">有效抗性</span><span style="font-size:20px"><span style="color:#66FF99">(括號外)</span>開始扣除。<br>當目標的絕對抗性被降抗後 <span style="font-family: 'Arial', 'Times New Roman'; font-size: 22px;">&#8805;</span>75% 時，穿抗從目標有效抗性的上限75%開始扣除¹。<br>當目標的絕對抗性被降抗後 <span style="font-family: 'Arial', 'Times New Roman'; font-size: 22px;">&lt;</span>75% 時，穿抗從被降抗後的當前有效抗性開始扣除。<br>(絕對抗性 <span style="font-family: 'Arial', 'Times New Roman'; font-size: 22px;">≤</span>75% 時，絕對抗性 &#x3D; 有效抗性)<br>¹來源: <a target="_blank" rel="noopener" href="https://www.pathofexile.com/forum/view-thread/982929">GGG-Reducing enemy resistance</a></p>
+<p><span style="font-size:24px"><strong>疊加範例</strong></span> (僅用於說明疊加狀況)<br><span style="font-size:22px"><strong>(1)降低抗性</strong></span><br>降抗的計算從<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px"><span style="color:#FF8800">(括號內)</span>開始扣除，會減少面板抗性。</p>
+<blockquote>
+<p>例1: 目標面板火抗30%(30%), 火焰降抗40%<br>目標絕對火抗: $30％-40％&#x3D;-10％$<br>目標面板火抗: $-10％(-10％)$</p>
+</blockquote>
+<blockquote>
+<p>例2: 目標面板火抗75%(75%), 火焰降抗40%<br>目標絕對火抗: $75％-40％&#x3D;35％$<br>目標面板火抗: $35％(35％)$</p>
+</blockquote>
+<blockquote>
+<p>例3: 目標面板火抗75%(140%), 火焰降抗40%<br>目標絕對火抗: $140％-40％&#x3D;100％$<br>目標面板火抗: $75％(100％)$</p>
+</blockquote>
+<p><span style="font-size:22px"><strong>(2)穿透抗性</strong></span><br>穿抗的計算從<span style="font-size:22px"><span style="color:#66FF99">有效抗性</span><span style="font-size:20px"><span style="color:#66FF99">(括號外)</span>開始扣除，不會減少面板抗性。</p>
+<blockquote>
+<p>例1: 目標面板火抗30%(30%), 火焰穿透40%<br>目標被穿抗時的有效火抗30%: $30％-40％&#x3D;-10％$</p>
+</blockquote>
+<blockquote>
+<p>例2: 目標面板火抗75%(75%), 火焰穿透40%<br>目標被穿抗時的有效火抗75%: $75％-40％&#x3D;35％$</p>
+</blockquote>
+<blockquote>
+<p>例3: 目標面板火抗75%(140%), 火焰穿透40%<br>目標被穿抗時的有效火抗75%: $75％-40％&#x3D;35％$</p>
+</blockquote>
+<p><span style="font-size:22px">(3)降低抗性＆穿透抗性</span><br>降抗的計算從<span style="font-size:22px"><span style="color:#FF8800">絕對抗性</span><span style="font-size:20px"><span style="color:#FF8800">(括號內)</span>開始扣除，會減少面板抗性。<br>穿抗的計算從<span style="font-size:22px"><span style="color:#66FF99">有效抗性</span><span style="font-size:20px"><span style="color:#66FF99">(括號外)</span>開始扣除，不會減少面板抗性。</p>
+<blockquote>
+<p>例1: 目標面板火抗30%(30%), 火焰降抗50%, 火焰穿透40%<br>目標絕對火抗: $30％-50％&#x3D;-20％$<br>目標面板火抗: $-20％(-20％)$<br>目標被穿抗時的有效火抗-20％: $-20％-40％&#x3D;-60％$</p>
+</blockquote>
+<blockquote>
+<p>例2: 目標面板火抗75%(75%), 火焰降抗50%, 火焰穿透40%<br>目標絕對火抗: $75％-50％&#x3D;25％$<br>目標面板火抗: $25％(25％)$<br>目標被穿抗時的有效火抗25％: $25％-40％&#x3D;-15％$</p>
+</blockquote>
+<blockquote>
+<p>例3: 目標面板火抗75%(140%), 火焰降抗50%, 火焰穿透40%<br>目標絕對火抗: $140％-50％&#x3D;90％$<br>目標面板火抗: $75％(90％)$<br>目標被穿抗時的有效火抗75％: $75％-40％&#x3D;35％$</p>
+</blockquote>
+
+	
+    <div class="copyright-box">
+		<div class="license-box">
+			<div class="license-header">
+				
+				<div class="license-title">
+					抗性
+				</div>
+				<div class="license-subTitle">https://iammissu.github.io/2003/03/13/基礎知識/機制/防禦/抗性/index.html</div>
+			</div>
+			<div class="license-meta">
+				
+					<div class="license-meta-item">
+						<div>作者</div>
+						<div>
+							<a href="">
+								iammissu
+							</a>
+						</div>
+					</div>
+				
+				
+				
+					<div class="license-meta-item license-meta-date">
+					<div>更新於</div>
+					<div>2025年9月27日</div>
+					</div>
+				
+				
+				
+					<div class="license-meta-item">
+					<div>許可協議</div>
+					<div>
+						
+						
+						
+							<a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+								<span class="hint--top hint--rounded" aria-label="BY - 署名">
+									BY - 署名
+								</span>
+							</a>
+						
+						
+					</div>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+    
+
+    
+
+    
+        
+        <script async reload>
+            fetch("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/nord.css")
+                .then((response) => response.text())
+                .then((cssContent) => {
+                    const style = document.createElement("style");
+                    
+                        cssContent = cssContent
+                            .replace(".hljs-code,", "")
+                            .replaceAll("_", " ")
+                            .replaceAll("hljs-", "hljs .")
+                            .replaceAll(".hljs", " .highlight")
+                            .replaceAll(".built in", ".built_in")
+                            .replaceAll("title.", "");
+                        const figures = document.querySelectorAll("figure.highlight td.gutter");
+                        figures.forEach(figure=>{
+                            figure.classList.add("highlight");
+                        })
+                    
+                    style.innerHTML = cssContent;
+                    document.head.appendChild(style);
+                })
+                .catch((error) => {
+                    console.error("Error loading CSS:", error);
+                });
+        </script>
+    
+
+
+
+
+
+    <script reload>
+        var targets = document.querySelectorAll("figure.highlight, #article-content > pre:not(.highlight,.hljs)");
+        targets.forEach((block) => {
+            const copyBtn = document.createElement("button");
+            copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+            copyBtn.className = "code-copy";
+
+            
+                copyBtn.style.color = "#fff";
+            
+
+            copyBtn.addEventListener("click", () => {
+                const text = block.querySelector("td.code")?.textContent || block.querySelector("code")?.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    copyBtn.innerHTML = "Copied!";
+                    setTimeout(() => {
+                        copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+                    }, 2000);
+                });
+            });
+            block.appendChild(copyBtn);
+        });
+    </script>
+
+
+
+
+<div class="post-guide">
+	<div class="item left">
+	
+		<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E5%82%B7%E5%AE%B3/%E5%82%B7%E5%AE%B3%E4%BE%86%E6%BA%90/">
+			<i class="fa fa-angle-left" aria-hidden="true"></i>
+			傷害來源
+		</a>
+	
+	</div>
+	<div class="item right">
+		
+		<a href="/2003/03/13/%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98/%E6%A9%9F%E5%88%B6/%E9%98%B2%E7%A6%A6/%E6%81%A2%E5%BE%A9/">
+			恢復
+			<i class="fa fa-angle-right" aria-hidden="true"></i>
+		</a>
+		
+	</div>
+</div>
+
+
+
+
+	</div>
+
+	<div id="footer">
+	<div>
+		
+		
+	</div>
+	 <div> Theme <a href="https://github.com/Exisi/hexo-theme-node-tree"	target="_blank">Node-Tree</a> Powered by <a href="https://hexo.io" target="_blank">Hexo</a> </div> 
+</div>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+
+<script async>
+    const topTopBtn = document.querySelector("#totop-toggle");
+	topTopBtn.addEventListener("click", () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+</script>
+</body>
+</html>
