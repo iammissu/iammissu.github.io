@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoE 黃裝工藝模擬(計算武器物傷,防禦值)</title>
+    <style>
+        :root {
+            --poe-rare: #ffff77; --poe-blue: #8888ff; --poe-craft: #00d1d1;
+            --poe-enchant: #b4ffb4; --poe-bg: #0b0b0b;
+        }
+        body { background: var(--poe-bg); color: #e0e0e0; font-family: "Microsoft JhengHei", sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+
+        /* 標題樣式：縮小括號文字 */
+        h1 { color: #d1d1d1; text-align: center; margin-bottom: 20px; }
+        h1 span.small-text {
+            font-size: 0.8em;
+            color: #c8c5c5;
+            margin-left: 5px;
+            vertical-align: middle;
+            font-weight: normal;
+        }
+
+        .main-layout { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 1200px; }
+        .poe-card { width: 360px; background: #000; border: 2px solid #444; border-image: linear-gradient(to bottom, #3d3b38, #3d2f1e) 1; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); min-height: 500px; display: flex; flex-direction: column; }
+        .item-name { color: var(--poe-rare); font-size: 1.6em; font-weight: bold; text-align: center; border-bottom: 1px solid #333; padding-bottom: 12px; margin-bottom: 12px; }
+        .item-stats { border-bottom: 1px solid #333; padding-bottom: 12px; margin-bottom: 12px; color: #7f7f7f; font-size: 1.15em; text-align: center; }
+        .stat-line { margin: 6px 0; }
+        .final-val { font-size: 1.7em; color: #fff; font-weight: bold; }
+        .dps-val { font-size: 1.5em; color: #ffd700; font-weight: bold; }
+        .mod-line { text-align: center; margin: 6px 0; font-size: 1.15em; cursor: pointer; transition: 0.2s; line-height: 1.4; width: 100%; font-weight: 500; }
+        .mod-line:hover { color: #ff5555 !important; text-decoration: line-through; }
+        .enchant { color: var(--poe-enchant); }
+        .implicit, .explicit { color: var(--poe-blue); }
+        .crafted { color: var(--poe-craft) !important; }
+        .divider { border-top: 1px solid #333; width: 80%; margin: 8px 0; align-self: center; }
+        .control-panel { width: 480px; background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; }
+        textarea { width: 100%; height: 100px; background: #000; color: #0f0; border: 1px solid #333; padding: 10px; font-size: 12px; margin-bottom: 15px; resize: none; }
+        .attr-input-box { border: 1px solid #444; padding: 12px; margin-bottom: 10px; border-radius: 4px; background: #252525; }
+        .input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .input-row label { flex: 0 0 90px; font-size: 0.9em; color: #aaa; }
+        .input-row input { flex: 1; background: #222; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 4px; }
+        select { width: 100%; background: #222; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+        button { width: 100%; padding: 14px; background: #20359d; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <h1>PoE 黃裝工藝模擬<span class="small-text">(計算武器物傷,防禦值)</span></h1>
+
+    <div class="main-layout">
+        <div class="poe-card">
+            <div id="disp-name" class="item-name"></div>
+            <div id="disp-stats" class="item-stats"></div>
+            <div id="disp-mods" class="mod-container"></div>
+        </div>
+
+        <div class="control-panel">
+            <label>在遊戲中對裝備按 Ctrl+C, 在下方 Ctrl+V 貼上數據:</label>
+            <textarea id="raw-input"></textarea>
+            <div id="item-info-tag" style="padding:4px 10px; background:#333; border-radius:4px; font-size:0.85em; color:#ffd700; margin-bottom:12px; display:inline-block;">類型：未識別</div>
+            <div id="dynamic-inputs"></div>
+            <div class="input-row"><label>品質(%)</label><input type="number" id="sim-qual" value="0"></div>
+            <label>工藝 (取最大值):</label>
+            <select id="craft-select"></select>
+            <button onclick="applySelectedCraft()">套用工藝並重算</button>
+            <button onclick="location.reload()" style="background:#444;">重置清空</button>
+        </div>
+    </div>
+
+    <script>
+        const els = {
+            input: document.getElementById('raw-input'), qual: document.getElementById('sim-qual'),
+            craft: document.getElementById('craft-select'), tag: document.getElementById('item-info-tag'),
+            dispName: document.getElementById('disp-name'), dispStats: document.getElementById('disp-stats'),
+            dispMods: document.getElementById('disp-mods'), inputsArea: document.getElementById('dynamic-inputs')
+        };
+
+        const baseKeywords = ["法杖", "弓", "長靴", "手套", "頭盔", "鎧甲", "法袍", "背心", "戰甲", "皮帽", "王冠", "護帶", "盾", "連身裙", "斧", "劍", "錘", "匕首", "爪", "冠", "杖"];
+        let activeAttrs = {}; let modPool = { enchant: [], implicit: [], explicit: [], crafted: [] };
+        let itemCategory = "其他";
+
+        els.qual.addEventListener('input', render);
+
+        els.input.addEventListener('input', () => {
+            const text = els.input.value.trim();
+            if (!text) return;
+            const rawLines = text.split('\n').map(l => l.trim().replace(/\(augmented\)/g, '').trim());
+
+            let baseName = "";
+            for (let i = 0; i < Math.min(rawLines.length, 6); i++) {
+                if (baseKeywords.some(kw => rawLines[i].includes(kw)) && !rawLines[i].includes(":")) {
+                    baseName = rawLines[i]; break;
+                }
+            }
+            els.dispName.innerText = baseName || "未識別裝備";
+
+            itemCategory = text.includes("物理傷害:") ? "武器" : "防具";
+            els.tag.innerText = `類型：${itemCategory}`;
+            activeAttrs = {}; els.inputsArea.innerHTML = "";
+            if (itemCategory === "武器") parseWeapon(text, rawLines); else parseArmor(text, rawLines);
+
+            modPool = { enchant: [], implicit: [], explicit: [], crafted: [] };
+            let isAfterHeader = false;
+            rawLines.forEach(line => {
+                if (line.includes("物品等級:")) { isAfterHeader = true; return; }
+                if (!isAfterHeader || !line || line.startsWith("---")) return;
+                if (line.includes("備註:") || line.includes("物理 DPS")) return;
+
+                if (line.includes("(enchant)")) modPool.enchant.push(line.replace("(enchant)", "").trim());
+                else if (line.includes("(implicit)")) modPool.implicit.push(line.replace("(implicit)", "").trim());
+                else if (line.includes("(crafted)")) modPool.crafted.push(line.replace("(crafted)", "").trim());
+                else modPool.explicit.push(line);
+            });
+
+            updateCraftOptions(); render();
+        });
+
+        function parseArmor(text, lines) {
+            const q = parseInt(text.match(/品質: \+(\d+)%/)?.at(1) || 0); els.qual.value = q;
+            ["護甲", "閃避值", "能量護盾"].filter(t => text.includes(t + ":")).forEach(type => {
+                const key = type.includes("能量") ? "能量" : type.substring(0, 2);
+                let inc = 0, flat = 0;
+                lines.forEach(l => {
+                    if (l.includes(key) && !/(充能|回復|速度|轉移|抗性|需求)/.test(l)) {
+                        const mI = l.match(/增加 (\d+)%/); if (mI) inc += parseInt(mI);
+                        const mF = l.match(/^\+(\d+)/); if (mF && !l.includes('%')) flat += parseInt(mF);
+                    }
+                });
+                const total = parseInt(text.match(new RegExp(`${type}: (\\d+)`))?.at(1) || 0);
+                activeAttrs[type] = { base: Math.round((total / (1 + q / 100) / (1 + inc / 100)) - flat), inc, flat };
+                addArmorUI(type, activeAttrs[type]);
+            });
+        }
+
+        function parseWeapon(text, lines) {
+            const q = parseInt(text.match(/品質: \+(\d+)%/)?.at(1) || 0); els.qual.value = q;
+            const pM = text.match(/物理傷害: (\d+)-(\d+)/), miP = parseInt(pM?.at(1) || 0), maP = parseInt(pM?.at(2) || 0);
+            const aps = parseFloat(text.match(/每秒攻擊次數: ([\d.]+)/)?.at(1) || 1.0);
+            let inc = 0, fMin = 0, fMax = 0, incAps = 0;
+            lines.forEach(l => {
+                const mI = l.match(/增加 (\d+)% 物理傷害/); if (mI) inc += parseInt(mI);
+                const mF = l.match(/附加 (\d+)[^0-9]+(\d+) 物理傷害/); if (mF) { fMin += parseInt(mF); fMax += parseInt(mF); }
+                const mA = l.match(/增加 (\d+)% 攻擊速度/); if (mA) incAps += parseInt(mA);
+            });
+            activeAttrs["物理"] = { baseMin: Math.round((miP / (1 + q/100) / (1 + inc/100)) - fMin), baseMax: Math.round((maP / (1 + q/100) / (1 + inc/100)) - fMax), inc, fMin, fMax, baseAps: (aps / (1 + incAps/100)).toFixed(2), incAps };
+            addWeaponUI(activeAttrs["物理"]);
+        }
+
+        function addArmorUI(t, d) {
+            const div = document.createElement('div'); div.className = 'attr-input-box';
+            div.innerHTML = `<label style="color:#ffd700; margin-bottom:8px;">${t} 參數</label>
+                <div class="input-row"><label>基底(值)</label><input type="number" data-t="${t}" data-f="base" value="${d.base}"></div>
+                <div class="input-row"><label>增加%</label><input type="number" data-t="${t}" data-f="inc" value="${d.inc}"></div>
+                <div class="input-row"><label>+#值</label><input type="number" data-t="${t}" data-f="flat" value="${d.flat}"></div>`;
+            els.inputsArea.appendChild(div);
+            div.querySelectorAll('input').forEach(inp => inp.addEventListener('input', (e) => { activeAttrs[e.target.dataset.t][e.target.dataset.f] = parseFloat(e.target.value) || 0; render(); }));
+        }
+
+        function addWeaponUI(d) {
+            const div = document.createElement('div'); div.className = 'attr-input-box';
+            div.innerHTML = `<label style="color:#ffd700; margin-bottom:8px;">物理傷害&攻速 參數</label>
+                <div class="input-row"><label>底小傷/大傷</label><input type="number" data-f="baseMin" value="${d.baseMin}"><input type="number" data-f="baseMax" value="${d.baseMax}"></div>
+                <div class="input-row"><label>物傷%</label><input type="number" data-f="inc" value="${d.inc}"></div>
+                <div class="input-row"><label>攻速%</label><input type="number" data-f="incAps" value="${d.incAps}"></div>
+                <div class="input-row"><label>基底攻速</label><input type="number" step="0.01" data-f="baseAps" value="${d.baseAps}"></div>`;
+            els.inputsArea.appendChild(div);
+            div.querySelectorAll('input').forEach(inp => inp.addEventListener('input', (e) => { activeAttrs["物理"][e.target.dataset.f] = parseFloat(e.target.value) || 0; render(); }));
+        }
+
+        function updateCraftOptions() {
+            let h = `<option value="">-- 選擇工藝 --</option>`;
+            if (itemCategory === "防具") {
+                const isHeavy = els.input.value.includes("胸甲") || els.input.value.includes("盾牌");
+                const fV = isHeavy ? 320 : 75; const esV = isHeavy ? 69 : 22;
+                h += `<optgroup label="增加% (74%)">
+                    <option value="a_inc|74|護甲與閃避">增加 74% 護甲與閃避</option>
+                    <option value="a_inc|74|護甲與能量護盾">增加 74% 護甲與能量護盾</option>
+                    <option value="a_inc|74|閃避與能量護盾">增加 74% 閃避與能量護盾</option>
+                </optgroup>`;
+                h += `<optgroup label="+#值">
+                    <option value="a_flat|${fV}|點護甲">+${fV} 點護甲</option>
+                    <option value="a_flat|${fV}|點閃避值">+${fV} 點閃避值</option>
+                    <option value="a_flat|${esV}|能量護盾">+${esV} 能量護盾</option>
+                </optgroup>`;
+                h += `<optgroup label="複合生命 (21%)">
+                    <option value="a_inc|21|護甲與閃避 / +生命">增加 21% 護甲與閃避 / +生命</option>
+                    <option value="a_inc|21|護甲與能量護盾 / +生命">增加 21% 護甲與能量護盾 / +生命</option>
+                    <option value="a_inc|21|閃避與能量護盾 / +生命">增加 21% 閃避與能量護盾 / +生命</option>
+                </optgroup>`;
+            } else {
+                const is2H = els.input.value.includes("雙手") || els.input.value.includes("弓");
+                const fMi = is2H ? 24 : 17; const fMa = is2H ? 42 : 30;
+                const a = (els.input.value.includes("杖") || els.input.value.includes("弓")) ? 13 : 20;
+                h += `<optgroup label="物傷%"><option value="w_inc|129|物理傷害">增加 129% 物理傷害</option><option value="w_flat|${fMi}|${fMa}|物理傷害">附加 (${fMi}-${fMa}) 物理傷害</option></optgroup>`;
+                h += `<optgroup label="攻速%"><option value="w_aps|${a}|攻擊速度">增加 ${a}% 攻擊速度</option></optgroup>`;
+            }
+            els.craft.innerHTML = h;
+        }
+
+        function applySelectedCraft() {
+            const v = els.craft.value; if (!v) return;
+            const p = v.split('|'), txt = els.craft.options[els.craft.selectedIndex].text;
+            if (itemCategory === "防具") {
+                const num = parseInt(p[1]);
+                Object.keys(activeAttrs).forEach(t => {
+                    const key = t.includes("能量") ? "能量" : t.substring(0, 2);
+                    if (p[2].includes(key)) {
+                        activeAttrs[t][p[0] === 'a_inc' ? 'inc' : 'flat'] += num;
+                        const input = els.inputsArea.querySelector(`input[data-t="${t}"][data-f="${p[0] === 'a_inc' ? 'inc' : 'flat'}"]`);
+                        if (input) input.value = activeAttrs[t][p[0] === 'a_inc' ? 'inc' : 'flat'];
+                    }
+                });
+            } else {
+                const d = activeAttrs["物理"];
+                if (p[0] === "w_inc") d.inc += parseInt(p[1]);
+                else if (p[0] === "w_flat") { d.fMin += parseInt(p[1]); d.fMax += parseInt(p[2]); }
+                else if (p[0] === "w_aps") d.incAps += parseInt(p[1]);
+                els.inputsArea.querySelectorAll('input').forEach(i => { if(d[i.dataset.f]!==undefined) i.value = d[i.dataset.f]; });
+            }
+            modPool.crafted.push(txt); render();
+        }
+
+        function render() {
+            const q = parseFloat(els.qual.value) || 0;
+            let h = `<div class="stat-line">品質: <span class="blue">+${q}%</span></div>`;
+            if (itemCategory === "武器") {
+                const d = activeAttrs["物理"];
+                const mi = Math.round((d.baseMin + d.fMin) * (1 + q / 100) * (1 + d.inc / 100)), ma = Math.round((d.baseMax + d.fMax) * (1 + q / 100) * (1 + d.inc / 100));
+                const fa = (d.baseAps * (1 + d.incAps / 100)).toFixed(2);
+                h += `<div class="stat-line">物理傷害: <span class="white">${mi}-${ma}</span></div><div class="stat-line">攻擊速度: <span class="white">${fa}</span></div><div class="stat-line" style="margin-top:10px;">物理 DPS: <span class="dps-val">${(((mi + ma) / 2) * fa).toFixed(1)}</span></div>`;
+            } else {
+                Object.keys(activeAttrs).forEach(t => {
+                    const d = activeAttrs[t]; h += `<div class="stat-line">${t}: <span class="final-val">${Math.round((d.base + d.flat) * (1 + q / 100) * (1 + d.inc / 100))}</span></div>`;
+                });
+            }
+            els.dispStats.innerHTML = h;
+            let mH = "";
+            if (modPool.enchant.length > 0) { modPool.enchant.forEach(m => mH += `<div class="mod-line enchant">${m}</div>`); mH += `<div class="divider"></div>`; }
+            if (modPool.implicit.length > 0) { modPool.implicit.forEach(m => mH += `<div class="mod-line implicit">${m}</div>`); mH += `<div class="divider"></div>`; }
+            modPool.explicit.forEach((m, i) => mH += `<div class="mod-line explicit" onclick="modPool.explicit.splice(${i},1);render()">${m}</div>`);
+            modPool.crafted.forEach((m, i) => mH += `<div class="mod-line crafted" onclick="modPool.crafted.splice(${i},1);render()">${m}</div>`);
+            els.dispMods.innerHTML = mH;
+        }
+    </script>
+</body>
+</html>
