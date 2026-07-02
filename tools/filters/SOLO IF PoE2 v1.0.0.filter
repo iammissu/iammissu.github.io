@@ -1,0 +1,3145 @@
+#=========================================================================================================
+#SOLO Item Filter by iammissu
+#=========================================================================================================
+#版本:SOLO Item Filter PoE2 v1.0.0
+#類型:Universal,通用版(U版/適合前期)
+#音效:https://u.pcloud.link/publink/show?code=XZHEdhkZhCpjUNOntlkbQ0L1gneebY9d8SYX
+#介紹:https://iammissu.github.io/
+#預覽:https://iammissu.github.io/tools/poe_filter_preview
+#OPay:https://payment.opay.tw/Broadcaster/Donate/6613E7A9FF912F36221813026AAE9474
+#PayPal:https://www.paypal.com/paypalme/iammissu
+#=========================================================================================================
+#[00001-01000][任務物品](啟動各機制的關聯物品)
+#[01001-01500][特殊通貨](聯盟通貨)
+#[01501-02000][基礎通貨]
+#[10001-11000][技能寶石]
+#[11001-15000][傳奇物品]
+#[15001-16000][地圖物品]
+#[16001-17000][藥劑]
+#[17001-18000][品質物品]
+#[21001-21500][特定詞綴物品(武器)]
+#[21501-21700][特定詞綴物品(護甲)]
+#[21701-22000][特定詞綴物品(能盾)]
+#[22201-23000][特定詞綴物品(飾品)]
+#[23101-24000][特定詞綴物品(珠寶)]
+#[46001-50000][特殊物品](聯盟基底)
+#[50001-60000][基底物品]
+#=========================================================================================================
+#[00001-01000][任務物品](啟動各機制的關聯物品)
+#[00021][任務物品(T0)<遺鑰>]淺紫框,淺紫字,深紫咖啡底,紫光,大紫星形,音效釣魚物品,字體46(遺鑰,魚竿,白化的羽毛)
+#[00042][任務物品(T0)<終局>]淺紫框,淺紫字,深紫咖啡底,紫光,大紫星形,音效T0通貨,字體46(血禍碎片<1/2/3>,Call of the Shadows)
+#[00049][任務物品(T1)<終局>]灰框,白字,暗紅底,紅光,大紅星形,音效T1通貨,字體46(巔峰鑰匙)
+#[00055][任務物品(T1)<終局>]灰框,淺紫字,深紫咖啡底,紫光,大紫星形,音效T1通貨,字體46(晉見帝王,裂痕石,The Triskelion Reforged,Head of the King,Breachlord Sac,Raven's Reflection)
+#=========================================================================================================
+#[00067][任務物品(T2)<試煉><腐化1+>]灰框,綠字,暗紅底,白光,大白星形,音效T2通貨,字體44(最後通牒雕刻)
+#[00077][任務物品(T9)<試煉>]灰框,綠字,紫咖啡底,字體42(最後通牒雕刻,絲克瑪試煉代幣)
+#[00100][任務物品(T2)<試煉>]灰框,綠字,暗紅底,紅光,大紅星形,音效T2通貨,字體44(怯懦之運,致命之運,勝利之運,骷髏馬克的邀請)
+#[00987][任務物品(T9)<試煉>]灰框,綠字,黑底,字體42(銅鑰匙,白銀鑰匙)
+#[00988][任務物品(T9)<試煉>]灰框,綠字,墨藍底,藍光,大藍星形,音效任務物品,字體44(金鑰匙,Cryptic Key)
+#[00996][任務物品(T9)<任務>]灰框,綠字,墨藍底,藍光,大藍星形,音效任務物品,字體44(知識之書,輿圖天賦書,專精之書,烏娜的魯特琴,鍛造工具,卡巴拉部落聖物,太陽部落聖物,遺書,屍蛇毒液,犧牲之心,凜冬狼的頭顱,燭光精髓,遊民秘釀,寶石花顱骨,燃燒心臟,傑洛特顱骨,火焰核心,寶石殼顱骨,劇毒藥水,瓦拉庫的刺青,塔薩里奧的刺青,努葛瑪呼的刺青,塔赫亞的閃電刺青,塔薩里奧的冰冷刺青,努葛瑪呼的火焰刺青,亞瑪的刺青)
+#[01000][任務物品(T9)<任務>]黑框,綠字,黑底,綠光,大綠星形,音效任務物品,字體42(任務物品,地區物品)
+Show #[00021]
+    DisableDropSound
+    BaseType "Reliquary Key" "Fishing Rod" "Albino Rhoa Feather"
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Star
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Fishing_Item.wav"
+    SetFontSize 46
+Show #[00042]
+    DisableDropSound
+    BaseType "Primary Calamity Fragment" "Secondary Calamity Fragment" "Tertiary Calamity Fragment" "Call of the Shadows"
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Star
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[00049]
+    DisableDropSound
+    Class "Pinnacle Keys"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 120 20 0 255
+    PlayEffect Red
+    MinimapIcon 0 Red Star
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[00055]
+    DisableDropSound
+    BaseType "An Audience with the King" "Breachstone" "The Triskelion Reforged" "Head of the King" "Breachlord Sac" "Raven's Reflection"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Star
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+#=========================================================================================================
+Show #[00067]
+    DisableDropSound
+    Corrupted True
+    BaseType "Inscribed Ultimatum"
+    SetBorderColor 118 107 106 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 120 20 0 255
+    PlayEffect White
+    MinimapIcon 0 White Star
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[00077]
+    DisableDropSound
+    BaseType "Inscribed Ultimatum" "Barya"
+    SetBorderColor 118 107 106 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[00100]
+    DisableDropSound
+    BaseType "Cowardly Fate" "Deadly Fate" "Victorious Fate" "Kulemak's Invitation"
+    SetBorderColor 118 107 106 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 120 20 0 255
+    PlayEffect Red
+    MinimapIcon 0 Red Star
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[00987]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Bronze Key" "Silver Key"
+    SetBorderColor 118 107 106 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[00988]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Gold Key" "Cryptic Key"
+    SetBorderColor 118 107 106 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 0 50 80 255
+    PlayEffect Blue
+    MinimapIcon 0 Blue Star
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Quest_Item.wav"
+    SetFontSize 44
+Show #[00996]
+    DisableDropSound
+    Class "Quest Item"
+    BaseType "Knowledge " "Atlas Book of Skill" "Book of Specialisation" "Una's Lute" "Smithing Tools" "Kabala Clan Relic" "Sun Clan Relic" "Final Letter" "Corpse-snake Venom" "Sacrificial Heart" "Head of the Winter Wolf" "Candlemass' Essence" "Vagrant's Brew" "Gembloom Skull" "Burning Heart" "Gemrot Skull" "The Flame Core" "Gemcrust Skull" "Venom Draught of" "Dexterity Tattoo of Tawhoa" "Intelligence Tattoo of Tasalio" "Strength Tattoo of Ngamahu" "Lightning Tattoo of Tawhoa" "Cold Tattoo of Tasalio" "Fire Tattoo of Ngamahu" "Tattoo of Hinekora"
+    SetBorderColor 118 107 106 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 0 50 80 255
+    PlayEffect Blue
+    MinimapIcon 0 Blue Star
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Quest_Item.wav"
+    SetFontSize 44
+Show #[01000]
+    DisableDropSound
+    Class "Quest Item" "Instance Local Items"
+    SetBorderColor 0 0 0 255
+    SetTextColor 74 230 58 255
+    SetBackgroundColor 0 0 0 255
+    PlayEffect Green
+    MinimapIcon 0 Green Star
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Quest_Item.wav"
+    SetFontSize 42
+
+#[01001-01500][特殊通貨](聯盟通貨)
+#[01050][特殊通貨(T0)<升級>]淺紫框,淺紫字,深紫咖啡底,紫光,大紫鑽石,音效T0通貨,字體46(Aldur’s Legacy,特克羅德的邪眼,瓜特利斯的假說,吉卡尼的假說,克特帕托的假說,吉卡尼靈魂核心,濃縮液態孤立,濃縮液態苦難,浮誇精髓,極恐精髓,艾斯卡巴靈魂核心,伯爵夫人瑟絲可的箭術符文,流浪女巫艾珊德菈的智慧符文,萊拉克許魔偶,席里斯魔偶,費爾羅的追擊符文)
+#[01051][特殊通貨(T1)<升級>]灰框,淺紫字,深紫咖啡底,紫光,大紫鑽石,音效T1通貨,字體46(Legacy of,希特克拉多的假說,薩摩特的狂暴靈魂核心,濃縮液態恐懼,阿姆那姆的邪眼,爵士勒爾德的暖春符文,爵士格特的野性符文,克特帕托靈魂核心,特卡蒂靈魂核心,狡兔魔偶,薩卡瓦爾的天空符文,巨狼意志符文,完美戰鬥精髓,完美迅捷精髓,高階豐裕精髓)
+#[01064][特殊通貨(T2)<升級>]灰框,水藍字,紫藍底,藍光,大藍鑽石,音效T2通貨,字體44(Medved's Crest of the Circle,Vorana's Crest of the Scythe,Uhtred's Crest of the Chalice,Olroth's Crest of the Sun)
+#[01068][特殊通貨(T3)<升級>]灰框,水藍字,紫藍底,大藍鑽石,音效特殊通貨,字體44(Exceptional Verisium,Venerable Starlit Ore,Revered Starlit Ore,Veridical Starlit Ore,Warding Starlit Ore,Blazing Flux,Chilling Flux,Crackling Flux)
+#[01072][特殊通貨(T3)<升級>]灰框,水藍字,暗藍底,藍光,中藍星形,音效特殊通貨,字體44(裂痕裂片,幻像斷片,願力斷片,符文斷片,Verisium,Shattered Triskelion,Altered Collarbone,Starlit Ore,Void Flux)
+#=========================================================================================================
+#[01088][特殊通貨(T2)<工藝>]紅框,青瓷綠字,深綠底,綠光,大綠鑽石,音效T2通貨,字體44()
+#[01090][特殊通貨(T2)<工藝>]灰框,青瓷綠字,深綠底,綠光,大綠鑽石,音效T2通貨,字體44(高階精髓,完美精髓,深淵精髓,液態絕望,液態厭惡)
+#[01099][特殊通貨(T3)<工藝>]灰框,青瓷綠字,黑底,中綠鑽石,音效特殊通貨,字體44(精髓,液態,合金)
+#=========================================================================================================
+#[01125][特殊通貨(T2)<裂痕>]灰框,桃紅字,桃紫底,粉紅光,大粉鑽石,音效T2通貨,字體44(掠奪的催化劑,火焰催化劑,冰冷催化劑,閃電催化劑)
+#[01128][特殊通貨(T3)<裂痕>]灰框,桃紅字,桃紫底,大粉鑽石,音效特殊通貨,字體44(嘶鳴的催化劑,甲殼的催化劑,混沌催化劑)
+#[01130][特殊通貨(T3)<裂痕>]灰框,桃紅字,黑底,中粉紅鑽石,音效特殊通貨,字體44(催化劑)
+#[01145][特殊通貨(T3)<裂痕>]紅框,淡紫字,紫咖啡底,紫光,大紫圓形,音效6,字體44(瓦爾虹吸器)
+#[01149][特殊通貨(T3)<裂痕>]淡紫框,淡紫字,紫咖啡底,紫光,大紫圓形,音效6,字體44(Lavish Wombgift,Ornate Wombgift,Banded Wombgift,Signet Wombgift,Revelatory Wombgift)
+#[01155][特殊通貨(T9)<裂痕>]灰框,淡紫字,暗紫底,字體42(胎贈)
+#=========================================================================================================
+#[01335][特殊通貨(T2)<增幅>]灰框,檀紫字,靛藍底,紫光,大紫圓形,音效T2通貨,字體44(柯戈的邪眼)
+#[01340][特殊通貨(T3)<增幅>]灰框,檀紫字,灰黑底,紫光,大紫圓形,音效001,字體44(Masterwork Rune,Raven-Touched Shard,Serle's Triumph,Cadigan's Epiphany,Astrid's Creativity,Uhtred's Sidereus,Kolr's Hunt,Vorana's Carnage,Thrud's Might,Medved's Tending,Katla's Gloom,Aldur’s Legacy,of Aldur,Emergent,Carved,Perfect,Warding Rune of,Ancient Rune of,靈魂核心,魔偶,終局符文,邪眼,假說,高階領導符文,高階奉獻符文,高階崇高符文,高階迅捷符文)
+#[01344][特殊通貨(T9)(防截斷)<增幅>]灰框,蔚藍字,灰黑底,字體44(高階鍛鐵符文,高階肉體符文,Greater Ward Rune)
+#[01345][特殊通貨(T9)<增幅>]灰框,蔚藍字,灰黑底,字體44(高階符文)
+#[01350][特殊通貨(T9)<增幅>]灰框,淡藍字,灰黑底,字體42(增幅物品)
+#=========================================================================================================
+#[01420][特殊通貨(T9)<探險>]灰框,褐黃字,紫咖啡底,字體44(異域幣鑄)
+#[01425][特殊通貨(T9)<探險>]灰框,褐黃字,靛藍底,字體44(破碎之環文物,黑暗血鐮文物,秩序文物,豔陽文物)
+#=========================================================================================================
+#[01480][特殊通貨(T0)<預兆>]白框,黑字,暗粉黃底,澄光,大澄月亮,音效T0通貨,字體46(機會之兆,右旋抺除之兆,左旋抺除之兆,右旋抺除之兆,左旋抺除之兆,削切之兆,右旋廢止之兆,左旋廢止之兆,光明之兆,聖化之兆,右旋結晶之兆)
+#[01484][特殊通貨(T1)<預兆>]白框,黑字,暗粉黃底,澄光,大澄月亮,音效T1通貨,字體46(深淵迴響之兆,左旋結晶之兆)
+#[01488][特殊通貨(T2)<預兆>]黑框,黑字,深粉黃底,黃光,大黃月亮,音效T2通貨,字體44('s Saga,腐化之兆,改善之兆,混沌稀有度之兆,混沌怪物之兆,催化喜悅之兆,黑血者之兆)
+#[01492][特殊通貨(T3)<預兆>]黑框,黑字,粉黃底,黃光,大黃月亮,音效8,字體44(Omen of Chaotic Effectiveness,腐敗之兆,祝福之兆,右旋死靈術之兆,左旋死靈術之兆,復興之兆,大幅提升之兆,右旋提升之兆,左旋提升之兆,增援之兆,混沌數量之兆,遠古之兆,領主之兆)
+#[01496][特殊通貨(T9)<預兆>]黑框,黑字,淡粉黃底,字體42(預兆)
+Show #[01050]
+    DisableDropSound
+    BaseType "Aldur’s Legacy" "Tecrod's Gaze" "Guatelitzi's Thesis" "Jiquani's Thesis" "Quipolatl's Thesis" "Soul Core of Jiquani" "Concentrated Liquid Isolation" "Concentrated Liquid Suffering" "Essence of Hysteria" "Essence of Horror" "Soul Core of Azcapa" "Countess Seske's Rune of Archery" "Hedgewitch Assandra's Rune of Wisdom" "Idol of Ralakesh" "Idol of Sirrius" "Farrul's Rune of the Chase"
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Diamond
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[01051]
+    DisableDropSound
+    BaseType "Legacy of" "Citaqualotl's Thesis" "Tzamoto's Soul Core of Ferocity" "Concentrated Liquid Fear" "Amanamu's Gaze" "Thane Leld's Rune of Spring" "Thane Girt's Rune of Wildness" "Soul Core of Quipolatl" "Soul Core of Tacati" "Rabbit Idol" "Saqawal's Rune of the Sky" "The Greatwolf's Rune of Willpower" "Perfect Essence of Battle" "Perfect Essence of Haste" "Greater Essence of Opulence"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Diamond
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[01064]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Medved's Crest of the Circle" "Vorana's Crest of the Scythe" "Uhtred's Crest of the Chalice" "Olroth's Crest of the Sun"
+    SetBorderColor 118 107 106 255
+    SetTextColor 0 215 255 255
+    SetBackgroundColor 0 0 180 255
+    PlayEffect Blue
+    MinimapIcon 0 Blue Diamond
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[01068]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Exceptional Verisium" "Venerable Starlit Ore" "Revered Starlit Ore" "Veridical Starlit Ore" "Warding Starlit Ore" "Blazing Flux" "Chilling Flux" "Crackling Flux"
+    SetBorderColor 118 107 106 255
+    SetTextColor 0 215 255 255
+    SetBackgroundColor 0 0 180 255
+    MinimapIcon 0 Blue Diamond
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_Special.wav"
+    SetFontSize 44
+Show #[01072]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Breach Splinter" "Simulacrum Splinter" "Petition Splinter" "Runic Splinter" "Verisium" "Shattered Triskelion" "Altered Collarbone" "Starlit Ore" "Void Flux"
+    SetBorderColor 118 107 106 255
+    SetTextColor 0 215 255 255
+    SetBackgroundColor 0 0 120 255
+    PlayEffect Blue
+    MinimapIcon 1 Blue Star
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_Special.wav"
+    SetFontSize 44
+#=========================================================================================================
+#Show #[01088]
+#    DisableDropSound
+#    Class "Stackable Currency"
+#    BaseType ""
+#    SetBorderColor 255 0 0 255
+#    SetTextColor 131 176 124 255
+#    SetBackgroundColor 21 76 64 255
+#    PlayEffect Green
+#    MinimapIcon 0 Green Diamond
+#    PlayAlertSound 3 155
+#    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+#    SetFontSize 44
+Show #[01090]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Greater Essence of" "Perfect Essence of" "Essence of the Abyss" "Liquid Despair" "Liquid Disgust"
+    SetBorderColor 118 107 106 255
+    SetTextColor 131 176 124 255
+    SetBackgroundColor 21 76 64 255
+    PlayEffect Green
+    MinimapIcon 0 Green Diamond
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[01099]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Essence of" "Liquid" "Alloy"
+    SetBorderColor 118 107 106 255
+    SetTextColor 131 176 124 255
+    SetBackgroundColor 0 0 0 255
+    MinimapIcon 1 Green Diamond
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_Special.wav"
+    SetFontSize 44
+#=========================================================================================================
+Show #[01125]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Reaver Catalyst" "Xoph's Catalyst" "Tul's Catalyst" "Esh's Catalyst"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 77 99 255
+    SetBackgroundColor 49 0 49 255
+    PlayEffect Pink
+    MinimapIcon 0 Pink Diamond
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[01128]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Sibilant Catalyst" "Carapace Catalyst" "Chayula's Catalyst"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 77 99 255
+    SetBackgroundColor 49 0 49 255
+    MinimapIcon 0 Pink Diamond
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_Special.wav"
+    SetFontSize 44
+Show #[01130]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Catalyst"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 77 99 255
+    SetBackgroundColor 0 0 0 255
+    MinimapIcon 1 Pink Diamond
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_Special.wav"
+    SetFontSize 44
+Show #[01145]
+    DisableDropSound
+    Class "Incubators"
+    BaseType "Vaal Siphoner"
+    SetBorderColor 255 0 0 255
+    SetTextColor 200 130 250 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 6 60
+    SetFontSize 44
+Show #[01149]
+    DisableDropSound
+    BaseType "Lavish Wombgift" "Ornate Wombgift" "Banded Wombgift" "Signet Wombgift" "Revelatory Wombgift"
+    SetBorderColor 200 130 250 255
+    SetTextColor 200 130 250 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 6 60
+    SetFontSize 44
+Show #[01155]
+    DisableDropSound
+    Class "Wombgift"
+    SetBorderColor 118 107 106 255
+    SetTextColor 200 130 250 255
+    SetBackgroundColor 38 3 58 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[01335]
+    DisableDropSound
+    Class "Augment"
+    BaseType "Kurgal's Gaze"
+    SetBorderColor 118 107 106 255
+    SetTextColor 219 114 224 255
+    SetBackgroundColor 0 40 100 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[01340]
+    DisableDropSound
+    Class "Augment"
+    BaseType "Masterwork Rune" "Raven-Touched Shard" "Serle's Triumph" "Cadigan's Epiphany" "Astrid's Creativity" "Uhtred's Sidereus" "Kolr's Hunt" "Vorana's Carnage" "Thrud's Might" "Medved's Tending" "Katla's Gloom" "Aldur’s Legacy" "of Aldur" "Emergent" "Carved" "Perfect" "Warding Rune of" "Ancient Rune of" "Soul Core of" "Idol" "Rune of" "'s Gaze" "'s Thesis" "Greater Rune of Leadership" "Greater Rune of Tithing" "Greater Rune of Nobility" "Greater Rune of Alacrity"
+    SetBorderColor 118 107 106 255
+    SetTextColor 219 114 224 255
+    SetBackgroundColor 30 35 45 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_001.wav" 245
+    SetFontSize 44
+Show #[01344]
+    DisableDropSound
+    Class "Augment"
+    BaseType "Greater Iron Rune" "Greater Body Rune" "Greater Ward Rune"
+    SetBorderColor 118 107 106 255
+    SetTextColor 28 185 248 255
+    SetBackgroundColor 30 35 45 255
+    SetFontSize 44
+Show #[01345]
+    DisableDropSound
+    Class "Augment"
+    BaseType "Greater"
+    SetBorderColor 118 107 106 255
+    SetTextColor 28 185 248 255
+    SetBackgroundColor 30 35 45 255
+    SetFontSize 44
+Show #[01350]
+    DisableDropSound
+    Class "Augment"
+    SetBorderColor 118 107 106 255
+    SetTextColor 131 198 245 255
+    SetBackgroundColor 30 35 45 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[01420]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Exotic Coinage"
+    SetBorderColor 118 107 106 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[01425]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Broken Circle Artifact" "Black Scythe Artifact" "Order Artifact" "Sun Artifact"
+    SetBorderColor 118 107 106 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 40 100 255
+    SetFontSize 44
+#=========================================================================================================
+Show #[01480]
+    DisableDropSound
+    Class "Omen"
+    BaseType "Omen of Chance" "Omen of Dextral Erasure" "Omen of Sinistral Erasure" "Omen of Whittling" "Omen of Dextral Annulment" "Omen of Sinistral Annulment" "Omen of Light" "Omen of Sanctification" "Omen of Dextral Crystallisation"
+    SetBorderColor 255 255 255 255
+    SetTextColor 0 0 0 255
+    SetBackgroundColor 245 84 0 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Moon
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[01484]
+    DisableDropSound
+    Class "Omen"
+    BaseType "Omen of Abyssal Echoes" "Omen of Sinistral Crystallisation"
+    SetBorderColor 255 255 255 255
+    SetTextColor 0 0 0 255
+    SetBackgroundColor 245 84 0 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Moon
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[01488]
+    DisableDropSound
+    Class "Omen"
+    BaseType "'s Saga" "Omen of Corruption" "Omen of Amelioration" "Omen of Chaotic Rarity" "Omen of Chaotic Monsters" "Omen of Catalysing Exaltation" "Omen of the Blackblooded"
+    SetBorderColor 0 0 0 255
+    SetTextColor 0 0 0 255
+    SetBackgroundColor 245 99 3 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Moon
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[01492]
+    DisableDropSound
+    Class "Omen"
+    BaseType "Omen of Chaotic Effectiveness" "Omen of Putrefaction" "Omen of the Blessed" "Omen of Dextral Necromancy" "Omen of Sinistral Necromancy" "Omen of Resurgence" "Omen of Greater Exaltation" "Omen of Dextral Exaltation" "Omen of Sinistral Exaltation" "Omen of Reinforcements" "Omen of Chaotic Quantity" "Omen of the Ancients" "Omen of the Sovereign"
+    SetBorderColor 0 0 0 255
+    SetTextColor 0 0 0 255
+    SetBackgroundColor 245 125 33 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Moon
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_008.wav" 300
+    SetFontSize 44
+Show #[01496]
+    DisableDropSound
+    Class "Omen"
+    SetBorderColor 0 0 0 255
+    SetTextColor 0 0 0 255
+    SetBackgroundColor 245 146 72 255
+    SetFontSize 42
+
+#[01501-02000][基礎通貨]
+#[01600][基礎通貨(T0)]淺紫框,淺紫字,深紫咖啡底,紫光,大紫鑽石,音效T0通貨,字體46(卡蘭德的魔鏡,魔鏡碎片,神聖石,破裂石,悉妮蔻拉的髮絲,完美崇高石,完美混沌石,瓦爾栽培寶珠,古老的顎骨,古老的肋骨,古老的鎖骨)
+#[01601][基礎通貨(T1)]灰框,淺紫字,深紫咖啡底,紫光,大紫鑽石,音效T1通貨,字體46(完美工匠石,核心擾亂器,結晶腐化,策匠石,萃取石,保存良好的鎖骨,Vaal Armourer's Infuser,Vaal Blacksmith's Infuser,Vaal Arcanist's Infuser,Vaal Catalysing Infuser)
+#[01602][基礎通貨(T2)]灰框,淺紫字,深紫咖啡底,紫光,大紫鑽石,音效T2通貨,字體44(完美富豪石,無效石,機會石,高階崇高石,高階混沌石,保存良好的顱骨,保存良好的肋骨,遠古灌注器)
+#[01603][基礎通貨(T9)]灰框,淺紫字,深紫咖啡底,字體44(無效石碎片,機率碎片)
+#[01616][基礎通貨(T3)]灰框,紅字,深紅咖啡底,大紅鑽石,音效T3通貨,字體44(崇高石,混沌石,點金石,奧術蝕刻師,寶石匠的稜鏡,瓦爾寶珠,高階工匠石,完美蛻變石,完美增幅石,護甲片,玻璃彈珠,高階富豪石,保存良好的顎骨)
+#=========================================================================================================
+#[01626][基礎通貨(T9)]灰框,紫字,黑底,字體44(高階蛻變石,高階增幅石)
+#[01627][基礎通貨(T9)(U)(S)<區等79+>]隱藏,灰框,紫字,黑底,字體44(蛻變石,增幅石)
+#[01632][基礎通貨(T9)(U)]灰框,紫字,黑底,中紅鑽石,音效基本,字體44(巧匠石,磨刀石,富豪石,蛻變石,增幅石,破碎的顎骨,破碎的肋骨,破碎的鎖骨,低階工匠石,混沌石碎片,崇高石碎片,高階蛻變石,高階增幅石)
+#[01639][基礎通貨(T9)(U)]黑框,紫字,黑底,字體42(富豪石碎片,蛻變石碎片,點金石碎片,工匠碎片)
+#[01908][基礎通貨(T9)(U)<區等65+>]隱藏,黑框,褐黃字,黑底,字體42(知識卷軸)
+#[01920][基礎通貨(T9)]黑框,褐黃字,黑底,字體42(知識卷軸)
+#=========================================================================================================
+#[01970][基礎通貨(T9)<疊堆3000+>]黑框,褐黃字,黑底,灰光,中白鑽石,字體38(黃金)
+#[01973][基礎通貨(T9)(U)<區等79+/疊堆499->]隱藏,黑框,褐黃字,黑底,字體36(黃金)
+#[01993][基礎通貨(T9)(U)<區等65+/疊堆99->]隱藏,黑框,褐黃字,黑底,字體36(黃金)
+#[01997][基礎通貨(T9)]黑框,褐黃字,黑底,灰光,字體36(黃金)
+#[01999][基礎通貨(T9)]紅框,褐黃字,黑底,字體46
+Show #[01600]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Mirror of Kalandra" "Mirror Shard" "Divine Orb" "Fracturing Orb" "Hinekora's Lock" "Perfect Exalted Orb" "Perfect Chaos Orb" "Vaal Cultivation Orb" "Ancient Jawbone" "Ancient Rib" "Ancient Collarbone"
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Diamond
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[01601]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Perfect Jeweller's Orb" "Core Destabiliser" "Crystallised Corruption" "Architect's Orb" "Orb of Extraction" "Preserved Collarbone" "Vaal Armourer's Infuser" "Vaal Blacksmith's Infuser" "Vaal Arcanist's Infuser" "Vaal Catalysing Infuser"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Diamond
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[01602]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Perfect Regal Orb" "Orb of Annulment" "Orb of Chance" "Greater Exalted Orb" "Greater Chaos Orb" "Preserved Cranium" "Preserved Rib" "Ancient Infuser"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Diamond
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[01603]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Annulment Shard" "Chance Shard"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    SetFontSize 44
+Show #[01616]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Exalted Orb" "Chaos Orb" "Orb of Alchemy" "Arcanist's Etcher" "Gemcutter's Prism" "Vaal Orb" "Greater Jeweller's Orb" "Perfect Orb of Transmutation" "Perfect Orb of Augmentation" "Armourer's Scrap" "Glassblower's Bauble" "Greater Regal Orb" "Preserved Jawbone"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 50 0 255
+    SetBackgroundColor 35 5 35 255
+    MinimapIcon 0 Red Diamond
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T3.wav" 130
+    SetFontSize 44
+#=========================================================================================================
+Show #[01626]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Greater Orb of Transmutation" "Greater Orb of Augmentation"
+    SetBorderColor 118 107 106 255
+    SetTextColor 230 0 88 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 44
+Hide #[01627]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Orb of Transmutation" "Orb of Augmentation"
+    AreaLevel >= 79
+    SetBorderColor 118 107 106 255
+    SetTextColor 230 0 88 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 44
+Show #[01632]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Artificer's Orb" "Blacksmith's Whetstone" "Regal Orb" "Orb of Transmutation" "Orb of Augmentation" "Gnawed Jawbone" "Gnawed Rib" "Gnawed Collarbone" "Lesser Jeweller's Orb" "Chaos Shard" "Exalted Shard" "Greater Orb of Transmutation" "Greater Orb of Augmentation"
+    SetBorderColor 118 107 106 255
+    SetTextColor 230 0 88 255
+    SetBackgroundColor 0 0 0 255
+    MinimapIcon 1 Red Diamond
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Basic.wav" 60
+    SetFontSize 44
+Show #[01639]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Regal Shard" "Transmutation Shard" "Alchemy Shard" "Artificer's Shard"
+    SetBorderColor 0 0 0 255
+    SetTextColor 230 0 88 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Hide #[01908]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Scroll of Wisdom"
+    AreaLevel >= 65
+    SetBorderColor 0 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[01920]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Scroll of Wisdom"
+    SetBorderColor 0 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[01970]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Gold"
+    StackSize >= 3000
+    SetBorderColor 0 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    PlayEffect Grey
+    MinimapIcon 1 White Diamond
+    SetFontSize 38
+Hide #[01973]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Gold"
+    AreaLevel >= 79
+    StackSize <= 499
+    SetBorderColor 0 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 36
+Hide #[01993]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Gold"
+    AreaLevel >= 65
+    StackSize <= 99
+    SetBorderColor 0 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 36
+Show #[01997]
+    DisableDropSound
+    Class "Stackable Currency"
+    BaseType "Gold"
+    SetBorderColor 0 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    PlayEffect Grey
+    SetFontSize 36
+Show #[01999]
+    DisableDropSound
+    Class "Stackable Currency"
+    SetBorderColor 255 0 0 255
+    SetTextColor 170 158 130 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 46
+
+#[10001-11000][技能寶石]
+#[10714][技能寶石(T0)<族裔>]  紅框,白字,潮水綠底,青光,大青圓形,音效T0通貨,字體46(德瑞的毀滅,艾許的光芒,烏特雷的出走,瑞佛的狂暴,薩雷許的折磨,托沃的崩裂,烏特雷的徵兆,索伏的燃焰,卡洛翰的決心,萊基亞塔的流動,達拉的渴望,烏爾尼多的擁抱,烏特雷的占卜術,阿特路伊的出血)
+#[10716][技能寶石(T1)<族裔>]  紅框,白字,潮水綠底,青光,大青圓形,音效T1通貨,字體46(托沃的崩裂,烏特雷的徵兆,艾許的光芒,阿姆那姆的稅賦,仲裁者的燃灼)
+#[10718][技能寶石(T2)<族裔>]  紅框,白字,潮水綠底,青光,大青圓形,音效T2通貨,字體44(魔甘娜的風暴,澤洛克的克制,漢恩的城塞,菈妲的強襲,艾里絲的管鐘,亞瓊的獎章,阿茲里的不耐,布魯特斯的腦,卡塔爾的恢復,特克羅德的復仇,澤佛伊的惡名)
+#[10723][技能寶石(T3)<族裔>]  紅框,白字,潮水綠底,青光,大青圓形,音效技能寶石,字體44(族裔,Prototype Seventeen,Her Declaration)
+#[10800][技能寶石(T3)<腐化2>] 紅框,白字,潮水綠底,青光,大青圓形,音效技能寶石,字體44(切割)
+#[10970][技能寶石(T0)<等級20>]紅框,白字,潮水綠底,青光,大青圓形,音效T0通貨,字體46(主動20,精魂20)
+#[10973][技能寶石(T1)<等級08>]紅框,白字,潮水綠底,青光,大青圓形,音效T1通貨,字體46(精魂8)
+#[10976][技能寶石(T2)<等級09>]紅框,白字,潮水綠底,青光,大青圓形,音效T2通貨,字體44(精魂9,精魂19)
+#[10977][技能寶石(T3)<等級01>]紅框,白字,潮水綠底,青光,大青圓形,音效T3通貨,字體44(主動1,精魂4,精魂14,精魂15,精魂16)
+#[10980][技能寶石(T3)<等級19>]紅框,白字,潮水綠底,青光,大青圓形,音效技能寶石,字體44(主動19,精魂19)
+#[10982][技能寶石(T9)(U)(S)<等級05>]灰框,白字,潮水綠底,字體42(輔助5)
+#[10994][技能寶石(T9)(U)(S)<等級18>]灰框,白字,潮水綠底,字體42(主動18)
+#[10998][技能寶石(T9)(U)<區等65+>]隱藏,灰框,白字,潮水綠底,字體38(輔助)
+#[10999][技能寶石(T9)]灰框,白字,潮水綠底,字體42(主動,輔助,精魂)
+#[11000][技能寶石(T9)]灰框,白字,潮水綠底,字體42(切割)
+Show #[10714]
+    DisableDropSound
+    Class "Support Gem"
+    BaseType "Doedre's Undoing" "Esh's Radiance" "Uhtred's Exodus" "Rigwald's Ferocity" "Ixchel's Torment" "Tul's Stillness" "Uhtred's Omen" "Xoph's Pyre" "Garukhan's Resolve" "Rakiata's Flow" "Dialla's Desire" "Uul-Netol's Embrace" "Uhtred's Augury" "Atalui's Bloodletting"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[10716]
+    DisableDropSound
+    Class "Support Gem"
+    BaseType "Tul's Stillness" "Uhtred's Omen" "Esh's Radiance" "Amanamu's Tithe" "Arbiter's Ignition"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[10718]
+    DisableDropSound
+    Class "Support Gem"
+    BaseType "Morgana's Tempest" "Zarokh's Refrain" "Ahn's Citadel" "Ratha's Assault" "Ailith's Chimes" "Arjun's Medal" "Atziri's Impatience" "Brutus' Brain" "Khatal's Rejuvenation" "Tecrod's Revenge" "Zerphi's Infamy"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[10723]
+    DisableDropSound
+    Class "Support Gem"
+    BaseType "'s " "s' " "' " "Prototype Seventeen" "Her Declaration" "’s " "s’ " "’ "
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 7 190
+    CustomAlertSoundOptional "SOLO_IF_Sound_Gem.wav"
+    SetFontSize 44
+Show #[10800]
+    DisableDropSound
+    TwiceCorrupted True
+    Class "Gem"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 7 190
+    CustomAlertSoundOptional "SOLO_IF_Sound_Gem.wav"
+    SetFontSize 44
+Show #[10970]
+    DisableDropSound
+    BaseType "Uncut Skill Gem (Level 20)" "Uncut Spirit Gem (Level 20)"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[10973]
+    DisableDropSound
+    BaseType "Uncut Spirit Gem (Level 8)"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[10976]
+    DisableDropSound
+    BaseType "Uncut Spirit Gem (Level 9)" "Uncut Spirit Gem (Level 19)"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[10977]
+    DisableDropSound
+    BaseType "Uncut Skill Gem (Level 1)" "Uncut Spirit Gem (Level 4)" "Uncut Spirit Gem (Level 14)" "Uncut Spirit Gem (Level 15)" "Uncut Spirit Gem (Level 16)"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T3.wav" 130
+    SetFontSize 44
+Show #[10980]
+    DisableDropSound
+    BaseType "Uncut Skill Gem (Level 19)" "Uncut Spirit Gem (Level 19)"
+    SetBorderColor 255 0 0 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Circle
+    PlayAlertSound 7 190
+    CustomAlertSoundOptional "SOLO_IF_Sound_Gem.wav"
+    SetFontSize 44
+Show #[10982]
+    DisableDropSound
+    BaseType "Uncut Support Gem (Level 5)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    SetFontSize 42
+Show #[10994]
+    DisableDropSound
+    BaseType "Uncut Skill Gem (Level 18)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    SetFontSize 42
+Hide #[10998]
+    DisableDropSound
+    BaseType "Support Gem"
+    AreaLevel >= 65
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    SetFontSize 38
+Show #[10999]
+    DisableDropSound
+    BaseType "Skill Gem" "Support Gem" "Spirit Gem"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    SetFontSize 42
+Show #[11000]
+    DisableDropSound
+    Class "Gem"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 255 255 255
+    SetBackgroundColor 45 85 85 255
+    SetFontSize 42
+
+#[11001-15000][傳奇物品]
+#[12198][傳奇物品(T0)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T0通貨,字體46(戒指<卡蘭德之觸>)
+#[12200][傳奇物品(T0)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T0通貨,字體46(映像之杖<阿茲里的統御>,獻祭法衣<阿茲里的威權>,鑄模長手套<阿茲里的捷思>,部落之面<謎容>,祭壇長袍<血誓>,尖叉長矛<阿茲里的蔑視>,藍玉戒指<夢語之痕>)
+#[12240][傳奇物品(T0)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T0通貨,字體46(映像之杖<阿茲里的統御>,獻祭法衣<阿茲里的威權>,鑄模長手套<阿茲里的捷思>,部落之面<謎容>,祭壇長袍<血誓>,尖叉長矛<阿茲里的蔑視>,冠軍胸甲<堅銅戰罩>,深淵先行者碑牌<始料未及的後果>,燼木魔符<帝王之怒>,巨大魔力藥劑<拉維安加之泉>,宏偉手鐲<無與倫比>,征服者鎧甲<岡姆的壯志>,白銀護符<斧頭之隕>,解凍護符<萌芽希望>,灌注箭袋<卡迪羅的詭計>,華麗護手<死亡之聲>,黃金護符<儀式通道>,神聖法器<獻祭之心>,精良護腕<馬雷葛蘿的血染手套>,排列輕盾<烈日碎片>,香爐聖物<終焉烈焰>,隱秘裹手<精華收割器>,終極生命藥劑<奧爾羅斯的決心>,裝甲便帽<極地之嗥>,永凍長杖<冰語低點>,鉤刺長矛<賽塔的長矛>)
+#[12270][傳奇物品(T0)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T0通貨,字體46(珠寶)
+#=========================================================================================================
+#[12344][傳奇物品(T1)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T1通貨,字體46(精良腰帶<夜惡降臨>)
+#[12345][傳奇物品(T1)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T1通貨,字體46(紗布裹手<瘟疫之指>,毒蛇便帽<限制之令>)
+#[12351][傳奇物品(T1)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T1通貨,字體46(紗布裹手<瘟疫之指>,毒蛇便帽<限制之令>,器皿聖物<第二聖事>,恆星項鍊<均衡之符>,磨煉塔盾<史瓦林>,祭壇長袍<血誓>,部落之面<謎容>)
+#=========================================================================================================
+#[12700][傳奇物品(T2)<3S+>]傳奇,亮粉紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(胸甲,弓,十字弓,細杖,長杖,魔符,雙手劍,雙手斧,雙手錘,陷阱)
+#[12701][傳奇物品(T2)<2S+>]傳奇,亮粉紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(爪,匕首,法杖,權杖,單手劍,單手斧,單手錘,長矛,鏈錘,盾,輕盾,法器,頭部,手套,鞋子)
+#[12731][傳奇物品(T2)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(預兆紋章盾<瑪哈薩多的陰謀>)
+#[12777][傳奇物品(T2)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(鍛鐵輕盾<鮮血屏障>,長腰帶<靈魂束縛>,穿透箭袋<穿心>,青金石戒指<浩劫種子>,珍珠戒指<蛇巢>)
+#[12788][傳奇物品(T2)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(鍛鐵輕盾<鮮血屏障>,長腰帶<靈魂束縛>,穿透箭袋<穿心>,宏偉華服<不敗亡者>,蠕蟲細杖<崩塌的地平線>,尖頂巨盔<顫慄之鋼>,鈍釘木棒<壕溝之音>,實用腰帶<獨創>,華麗腰帶<瑞斯拉薩之纏>,終極魔力藥劑<融解漩渦>,拋光護手<艾瑞斯凡恩之翼>,沉重之冠<科那索姆>,毛氈便帽<金縷帽>,裹腳便鞋<苦行之履>,殉難之冠<夜幕>)
+#[12888][傳奇物品(T2)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(護符)
+#[14770][傳奇物品(T9)<腐化2>]傳奇,紅框,橘字,紫咖啡底,橘光,大橘圓形,音效傳奇物品,字體44
+#[14777][傳奇物品(T9)<栽培>]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效傳奇物品,字體44
+#[14800][傳奇物品(T9)<特定>]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效傳奇物品,字體44(Veridical Chain,Aberrant Sledge,Warding Quarterstaff,Heartwood Shortbow,Trarthan Cannon,Twisted Wand,Runic Fork,Perching Staff,Ancient Visor,Ancient Leggings,Ancient Gauntlets,Ornate Ringmail,Ancient Mail,Grasping Mail,Primal Markings,Stalking Belt,Invoking Belt,Sinew Belt,Forking Belt,Glacial Fortress,Venerable Defender)
+#=========================================================================================================
+#[14989][傳奇物品(T9)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效傳奇物品,字體44(重革腰帶<獵首>)
+#[14992][傳奇物品(T9)]傳奇,灰框,橘字,紫咖啡底,橘光,大橘圓形,音效傳奇物品,字體44(藍玉戒指<夢語之痕>,惡毒魔符<血肉傀儡>,巨型重錘<信仰之錘>,圖騰巨棍棒<爾奇的巨靈之錘>,金光戒指<貪慾之記/賭神芬多>,粗製弓<鰥寡之托>,紫晶戒指<明恩的慧心/原罪>,繩索腕帶<幽墓束縛>,宏偉手鐲<無與倫比>,格子便鞋<烏勒爾之骨>,鑲邊脛甲<踐踏之鞋>,宏偉面紗<唯我論>,緊閉之盔<刺殺>,羽毛頭冠<惡縫之面>,毛氈便帽<金縷帽>,尖頂巨盔<顫慄之鋼>,纏繞巨盔<黑陽之冠>,日耀項鍊<火焰之花>,帝金護身符<毒蛇之卵>,蠕蟲細杖<崩塌的地平線>,鳴響長杖<暗影重擔>,邊緣之盔<灰製>,黃金頭環<阿茲里的蔑視>,朝聖者法衣<晨曦之擁>,編織法器<縫紉之光>,翠玉護身符<暴風之語/拒絕命運>,蒼藍項鍊<永恆凝視>,綠寶石戒指<竊罪>,珍珠戒指<蛇巢>)
+#[14995][傳奇物品(T9)(防截斷)]傳奇,灰框,橘字,黑底,橘光,大橘圓形,音效傳奇物品,字體44(鍛鐵/青金石/紅玉/藍玉/黃玉/紫晶/三相/金光/潛能/珍珠/綠寶石/裂痕戒指/深淵之記,Two-Stone Ring,Vitalic Ring,Mnemonic Ring,Kinetic Ring,Oneiric Ring)
+#[14996][傳奇物品(T2)]傳奇,紅框,橘字,深紅底,橘光,大橘圓形,音效T2通貨,字體44(戒指<絲克瑪的決意>)
+#[14999][傳奇物品(T9)]傳奇,灰框,橘字,黑底,橘光,大橘圓形,音效傳奇物品,字體44
+Show #[12198]
+    DisableDropSound
+    Mirrored True
+    Class "Rings"
+    BaseType "Ring"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[12200]
+    DisableDropSound
+    IsVaalUnique True
+    BaseType "Reflecting Staff" "Sacrificial Regalia" "Moulded Mitts" "Tribal Mask" "Altar Robe" "Pronged Spear" "Sapphire Ring"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[12240]
+    DisableDropSound
+    BaseType "Reflecting Staff" "Sacrificial Regalia" "Moulded Mitts" "Tribal Mask" "Altar Robe" "Pronged Spear" "Champion Cuirass" "Abyss Precursor Tablet" "Ashbark Talisman" "Gargantuan Mana Flask" "Grand Manchettes" "Conqueror Plate" "Silver Charm" "Thawing Charm" "Primed Quiver" "Ornate Gauntlets" "Golden Charm" "Sacred Focus" "Fine Bracers" "Array Buckler" "Incense Relic" "Furtive Wraps" "Ultimate Life Flask" "Armoured Cap" "Permafrost Staff" "Barbed Spear"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[12270]
+    DisableDropSound
+    Class "Jewel"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+#=========================================================================================================
+Show #[12344]
+    DisableDropSound
+    BaseType "Fine Belt"
+    Rarity = Unique
+    ItemLevel >= 82
+    Sockets = 2
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[12345]
+    DisableDropSound
+    IsVaalUnique True
+    BaseType "Gauze Wraps" "Viper Cap"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[12351]
+    DisableDropSound
+    BaseType "Gauze Wraps" "Viper Cap" "Vase Relic" "Stellar Amulet" "Crucible Tower Shield" "Altar Robe" "Tribal Mask"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+#=========================================================================================================
+Show #[12700]
+    DisableDropSound
+    Corrupted False
+    Class "Body Armour" "Bow" "Crossbows" "Quarterstaves" "Staves" "Talismans" "Two Hand Swords" "Two Hand Axes" "Two Hand Maces" "Traps"
+    Sockets >= 3
+    Rarity = Unique
+    SetBorderColor 255 148 201 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[12701]
+    DisableDropSound
+    Corrupted False
+    Class "Claws" "Daggers" "Wands" "Sceptres" "One Hand Swords" "One Hand Axes" "One Hand Maces" "Spears" "Flails" "Shields" "Bucklers" "Foci" "Helmets" "Gloves" "Boots"
+    Sockets >= 2
+    Rarity = Unique
+    SetBorderColor 255 148 201 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[12731]
+    DisableDropSound
+    BaseType "Omen Crest Shield"
+    AreaLevel = 80
+    ItemLevel = 82
+    Sockets = 2
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[12777]
+    DisableDropSound
+    IsVaalUnique True
+    BaseType "Iron Buckler" "Long Belt" "Penetrating Quiver" "Lazuli Ring" "Pearl Ring"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[12788]
+    DisableDropSound
+    BaseType "Iron Buckler" "Long Belt" "Penetrating Quiver" "Grand Regalia" "Wyrm Quarterstaff" "Spired Greathelm" "Spiked Club" "Utility Belt" "Ornate Belt" "Ultimate Mana Flask" "Burnished Gauntlets" "Heavy Crown" "Felt Cap" "Wrapped Sandals" "Martyr Crown"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[12888]
+    DisableDropSound
+    Class "Charm"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[14770]
+    DisableDropSound
+    TwiceCorrupted True
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+Show #[14777]
+    DisableDropSound
+    HasVaalUniqueMod True
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Square
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+Show #[14800]
+    DisableDropSound
+    BaseType "Veridical Chain" "Aberrant Sledge" "Warding Quarterstaff" "Heartwood Shortbow" "Trarthan Cannon" "Twisted Wand" "Runic Fork" "Perching Staff" "Ancient Visor" "Ancient Leggings" "Ancient Gauntlets" "Ornate Ringmail" "Ancient Mail" "Grasping Mail" "Primal Markings" "Stalking Belt" "Invoking Belt" "Sinew Belt" "Forking Belt" "Glacial Fortress" "Venerable Defender"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Square
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+#=========================================================================================================
+Show #[14989]
+    DisableDropSound
+    BaseType "Heavy Belt"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+Show #[14992]
+    DisableDropSound
+    BaseType "Sapphire Ring" "Vicious Talisman" "Giant Maul" "Totemic Greatclub" "Gold Ring" "Crude Bow" "Amethyst Ring" "Rope Cuffs" "Grand Manchettes" "Lattice Sandals" "Trimmed Greaves" "Grand Visage" "Closed Helm" "Feathered Tiara" "Felt Cap" "Spired Greathelm" "Wrapped Greathelm" "Solar Amulet" "Gold Amulet" "Wyrm Quarterstaff" "Chiming Staff" "Brimmed Helm" "Gold Circlet" "Pilgrim Vestments" "Woven Focus" "Jade Amulet" "Azure Amulet" "Emerald Ring" "Pearl Ring"
+    Rarity = Unique
+    SetBorderColor 118 107 106 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+Show #[14995]
+    DisableDropSound
+    BaseType "Iron Ring" "Lazuli Ring" "Ruby Ring" "Sapphire Ring" "Topaz Ring" "Amethyst Ring" "Prismatic Ring" "Gold Ring" "Unset Ring" "Pearl Ring" "Emerald Ring" "Breach Ring" "Abyssal Signet" "Two-Stone Ring" "Vitalic Ring" "Mnemonic Ring" "Kinetic Ring" "Oneiric Ring"
+    Rarity = Unique
+    SetBorderColor 118 107 106 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 0 0 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+Show #[14996]
+    DisableDropSound
+    Class "Ring"
+    BaseType "Ring"
+    Rarity = Unique
+    SetBorderColor 255 0 0 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 60 20 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[14999]
+    DisableDropSound
+    Rarity = Unique
+    SetBorderColor 118 107 106 255
+    SetTextColor 175 96 37 255
+    SetBackgroundColor 0 0 0 255
+    PlayEffect Brown
+    MinimapIcon 0 Brown Circle
+    PlayAlertSound 8 150
+    CustomAlertSoundOptional "SOLO_IF_Sound_Unique_Item.wav" 35
+    SetFontSize 44
+
+#[15001-16000][地圖物品]
+#[15016][地圖物品(T2)<碑牌><腐化1+>]紅框,藍綠字,墨藍底,紅光,大紅顛倒屋,音效T2通貨,字體44(碑牌)
+#[15018][地圖物品(T2)<碑牌>]灰框,藍綠字,墨藍底,藍光,大藍顛倒屋,音效T2通貨,字體44(裂痕先行者碑牌,探險先行者碑牌,譫妄先行者碑牌,祭祀先行者碑牌,深淵先行者碑牌,Temple Precursor Tablet)
+#[15020][地圖物品(T3)<碑牌>]灰框,藍綠字,紫咖啡底,中青顛倒屋,音效T3通貨,字體44(碑牌)
+#[15070][地圖物品(T3)<探險>]灰框,淺藍字,靛藍底,藍光,大藍方形,音效16,字體44(日誌)
+#=========================================================================================================
+#[15340][地圖物品(T3)(U)<附魔/區等79+/階級6-10>]隱藏,灰框,草綠字,暗綠底,字體44
+#[15345][地圖物品(T3)(U)<附魔/區等79+/階級1-05>]隱藏,灰框,藍白字,暗綠底,字體44
+#[15350][地圖物品(T3)<附魔/階級11-16>]灰框,藍綠字,暗綠底,青光,大青方形,音效地圖物品,字體44
+#[15355][地圖物品(T3)<附魔/階級06-10>]灰框,草綠字,暗綠底,中綠方形,音效基本,字體44
+#[15360][地圖物品(T3)<附魔/階級01-05>]灰框,藍白字,暗綠底,中白方形,音效基本,字體44
+#=========================================================================================================
+#[15514][地圖物品(T3)(U)<區等79+/階級6-10>]隱藏,灰框,草綠字,紫咖啡底,字體44
+#[15516][地圖物品(T3)(U)<區等79+/階級1-05>]隱藏,灰框,藍白字,紫咖啡底,字體44
+#[15581][地圖物品(T3)(U)<區等75+/階級6-10>]灰框,草綠字,紫咖啡底,字體44
+#[15582][地圖物品(T3)(U)<區等75+/階級1-05>]灰框,藍白字,紫咖啡底,字體44
+#[15888][地圖物品(T3)<階級11-16>]灰框,藍綠字,紫咖啡底,青光,大青方形,音效地圖物品,字體44
+#[15901][地圖物品(T3)<階級06-10>]灰框,草綠字,紫咖啡底,中綠方形,音效基本,字體44
+#[15902][地圖物品(T3)<階級01-05>]灰框,藍白字,紫咖啡底,中白方形,音效基本,字體44
+Show #[15016]
+    DisableDropSound
+    Corrupted True
+    Class "Tablet"
+    SetBorderColor 255 0 0 255
+    SetTextColor 23 234 234 255
+    SetBackgroundColor 0 50 80 255
+    PlayEffect Red
+    MinimapIcon 0 Red UpsideDownHouse
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[15018]
+    DisableDropSound
+    Class "Tablet"
+    BaseType "Breach Precursor Tablet" "Expedition Precursor Tablet" "Delirium Precursor Tablet" "Ritual Precursor Tablet" "Abyss Precursor Tablet" "Temple Precursor Tablet"
+    SetBorderColor 118 107 106 255
+    SetTextColor 23 234 234 255
+    SetBackgroundColor 0 50 80 255
+    PlayEffect Blue
+    MinimapIcon 0 Blue UpsideDownHouse
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[15020]
+    DisableDropSound
+    Class "Tablet"
+    SetBorderColor 118 107 106 255
+    SetTextColor 23 234 234 255
+    SetBackgroundColor 80 0 40 255
+    MinimapIcon 1 Cyan UpsideDownHouse
+    PlayAlertSound 1 90
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T3.wav" 130
+    SetFontSize 44
+Show #[15070]
+    DisableDropSound
+    Class "Expedition Logbook"
+    BaseType "Expedition Logbook"
+    SetBorderColor 118 107 106 255
+    SetTextColor 154 185 217 255
+    SetBackgroundColor 0 40 100 255
+    PlayEffect Blue
+    MinimapIcon 0 Blue Square
+    PlayAlertSound 16 230
+    SetFontSize 44
+#=========================================================================================================
+Hide #[15340]
+    DisableDropSound
+    AnyEnchantment True
+    Class "Waystones"
+    BaseType "Waystone (Tier 6)" "Waystone (Tier 7)" "Waystone (Tier 8)" "Waystone (Tier 9)" "Waystone (Tier 10)"
+    AreaLevel >= 79
+    SetBorderColor 118 107 106 255
+    SetTextColor 102 235 0 255
+    SetBackgroundColor 0 82 0 255
+    SetFontSize 44
+Hide #[15345]
+    DisableDropSound
+    AnyEnchantment True
+    Class "Waystones"
+    BaseType "Waystone (Tier 1)" "Waystone (Tier 2)" "Waystone (Tier 3)" "Waystone (Tier 4)" "Waystone (Tier 5)"
+    AreaLevel >= 79
+    SetBorderColor 118 107 106 255
+    SetTextColor 145 214 210 255
+    SetBackgroundColor 0 82 0 255
+    SetFontSize 44
+Show #[15350]
+    DisableDropSound
+    AnyEnchantment True
+    Class "Waystones"
+    BaseType "Waystone (Tier 11)" "Waystone (Tier 12)" "Waystone (Tier 13)" "Waystone (Tier 14)" "Waystone (Tier 15)" "Waystone (Tier 16)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 23 234 234 255
+    SetBackgroundColor 0 82 0 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Square
+    PlayAlertSound 12 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Map_Item.wav"
+    SetFontSize 44
+Show #[15355]
+    DisableDropSound
+    AnyEnchantment True
+    Class "Waystones"
+    BaseType "Waystone (Tier 6)" "Waystone (Tier 7)" "Waystone (Tier 8)" "Waystone (Tier 9)" "Waystone (Tier 10)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 102 235 0 255
+    SetBackgroundColor 0 82 0 255
+    MinimapIcon 1 Green Square
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Basic.wav" 60
+    SetFontSize 44
+Show #[15360]
+    DisableDropSound
+    AnyEnchantment True
+    Class "Waystones"
+    BaseType "Waystone (Tier 1)" "Waystone (Tier 2)" "Waystone (Tier 3)" "Waystone (Tier 4)" "Waystone (Tier 5)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 145 214 210 255
+    SetBackgroundColor 0 82 0 255
+    MinimapIcon 1 White Square
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Basic.wav" 60
+    SetFontSize 44
+#=========================================================================================================
+Hide #[15514]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 6)" "Waystone (Tier 7)" "Waystone (Tier 8)" "Waystone (Tier 9)" "Waystone (Tier 10)"
+    AreaLevel >= 79
+    SetBorderColor 118 107 106 255
+    SetTextColor 102 235 0 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Hide #[15516]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 1)" "Waystone (Tier 2)" "Waystone (Tier 3)" "Waystone (Tier 4)" "Waystone (Tier 5)"
+    AreaLevel >= 79
+    SetBorderColor 118 107 106 255
+    SetTextColor 145 214 210 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[15581]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 6)" "Waystone (Tier 7)" "Waystone (Tier 8)" "Waystone (Tier 9)" "Waystone (Tier 10)"
+    AreaLevel >= 75
+    SetBorderColor 118 107 106 255
+    SetTextColor 102 235 0 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[15582]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 1)" "Waystone (Tier 2)" "Waystone (Tier 3)" "Waystone (Tier 4)" "Waystone (Tier 5)"
+    AreaLevel >= 75
+    SetBorderColor 118 107 106 255
+    SetTextColor 145 214 210 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[15888]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 11)" "Waystone (Tier 12)" "Waystone (Tier 13)" "Waystone (Tier 14)" "Waystone (Tier 15)" "Waystone (Tier 16)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 23 234 234 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Cyan
+    MinimapIcon 0 Cyan Square
+    PlayAlertSound 12 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Map_Item.wav"
+    SetFontSize 44
+Show #[15901]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 6)" "Waystone (Tier 7)" "Waystone (Tier 8)" "Waystone (Tier 9)" "Waystone (Tier 10)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 102 235 0 255
+    SetBackgroundColor 80 0 40 255
+    MinimapIcon 1 Green Square
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Basic.wav" 60
+    SetFontSize 44
+Show #[15902]
+    DisableDropSound
+    Class "Waystones"
+    BaseType "Waystone (Tier 1)" "Waystone (Tier 2)" "Waystone (Tier 3)" "Waystone (Tier 4)" "Waystone (Tier 5)"
+    SetBorderColor 118 107 106 255
+    SetTextColor 145 214 210 255
+    SetBackgroundColor 80 0 40 255
+    MinimapIcon 1 White Square
+    PlayAlertSound 11 120
+    CustomAlertSoundOptional "SOLO_IF_Sound_Basic.wav" 60
+    SetFontSize 44
+
+#[16001-17000][藥劑]
+#[16137][藥劑(T2)<特定>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效T2通貨,字體44(恢復)(終極生命藥劑)
+#[16149][藥劑(T2)<Q21+>]亮粉紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效T2通貨,字體44(終極生命藥劑,卓越魔力藥劑,終極魔力藥劑)
+#[16153][藥劑(T9)(U)<Q1+><非腐/非複>]灰框,黑底,字體42(終極生命藥劑,卓越魔力藥劑,終極魔力藥劑)
+#[16154][藥劑(T9)<Q10+><非腐/非複>]灰框,黑底,字體42(藥劑)
+#=========================================================================================================
+#[16702][藥劑(T9)<區等3->] 灰框,黑底,字體37(低階生命藥劑,低階魔力藥劑)
+#[16704][藥劑(T9)<區等9->] 灰框,黑底,字體37(中型生命藥劑,中型魔力藥劑)
+#[16706][藥劑(T9)<區等15->]灰框,黑底,字體37(良質生命藥劑,良質魔力藥劑)
+#[16708][藥劑(T9)<區等22->]灰框,黑底,字體37(優質生命藥劑,優質魔力藥劑)
+#[16710][藥劑(T9)<區等29->]灰框,黑底,字體37(巨型生命藥劑,巨型魔力藥劑)
+#[16712][藥劑(T9)<區等39->]灰框,黑底,字體37(高階生命藥劑,高階魔力藥劑)
+#[16714][藥劑(T9)<區等49->]灰框,黑底,字體37(巨大生命藥劑,巨大魔力藥劑)
+#[16716][藥劑(T9)<區等59->]灰框,黑底,字體37(卓越生命藥劑,卓越魔力藥劑)
+#[16718][藥劑(T9)<區等64->]灰框,黑底,字體37(終極生命藥劑,卓越魔力藥劑,終極魔力藥劑)
+#[16720][藥劑(T9)<區等74-><非腐/非複>]魔法,灰框,黑底,字體42(終極生命藥劑,卓越魔力藥劑,終極魔力藥劑)
+#[17000][藥劑(T9)<區等01+>]隱藏,黑底,字體34(生命藥劑,魔力藥劑)
+Show #[16137]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Sapping" "Vitiating" "Depleting" "Dizzying" "Impairing"
+    HasExplicitMod "of the Ample"
+    BaseType "Ultimate Life Flask"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[16149]
+    DisableDropSound
+    BaseType "Ultimate Life Flask" "Transcendent Mana Flask" "Ultimate Mana Flask"
+    Quality >= 21
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[16153]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Ultimate Life Flask" "Transcendent Mana Flask" "Ultimate Mana Flask"
+    Quality >= 1
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16154]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Flask"
+    Quality >= 10
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[16702]
+    DisableDropSound
+    BaseType "Lesser Life Flask" "Lesser Mana Flask"
+    AreaLevel <= 3
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16704]
+    DisableDropSound
+    BaseType "Medium Life Flask" "Medium Mana Flask"
+    AreaLevel <= 9
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16706]
+    DisableDropSound
+    BaseType "Greater Life Flask" "Greater Mana Flask"
+    AreaLevel <= 15
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16708]
+    DisableDropSound
+    BaseType "Grand Life Flask" "Grand Mana Flask"
+    AreaLevel <= 22
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16710]
+    DisableDropSound
+    BaseType "Giant Life Flask" "Giant Mana Flask"
+    AreaLevel <= 29
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16712]
+    DisableDropSound
+    BaseType "Colossal Life Flask" "Colossal Mana Flask"
+    AreaLevel <= 39
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16714]
+    DisableDropSound
+    BaseType "Gargantuan Life Flask" "Gargantuan Mana Flask"
+    AreaLevel <= 49
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16716]
+    DisableDropSound
+    BaseType "Transcendent Life Flask" "Transcendent Mana Flask"
+    AreaLevel <= 59
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16718]
+    DisableDropSound
+    BaseType "Ultimate Life Flask" "Transcendent Mana Flask" "Ultimate Mana Flask"
+    AreaLevel <= 64
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[16720]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Ultimate Life Flask" "Transcendent Mana Flask" "Ultimate Mana Flask"
+    AreaLevel <= 74
+    Rarity = Magic
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Hide #[17000]
+    DisableDropSound
+    Class "Life Flasks" "Mana Flasks"
+    AreaLevel >= 1
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 34
+
+#[17001-18000][品質物品]
+#[17223][品質物品(T0)<非腐/非複><物等82+/T1詞綴/Q26+>][T1]淺紫框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T0通貨,字體46(日耀項鍊,雜響權杖,徵兆權杖,內臟箭袋,毀滅者之弓,蒼涼十字弓,攻城十字弓,尖刺長矛,剃刃細杖,巨型巨錘,惡毒長袍,先祖頭冠,海妖鱗手套,絲克瑪便鞋,捷足輕鞋,塔薩里安法器,聖賢魔符)
+#[17224][品質物品(T0)<非腐/非複><物等82+/T1詞綴/Q26+>][T2]淺紫框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T0通貨,字體46(恆星項鍊,雙子之弓,雙生之弓,雙子十字弓,雷霆細杖,夢境細杖,神禦細杖,盲信巨錘,塔赫亞巨棍棒,劫掠者便帽,亮澤護腕,龍膚長靴,帝國巨盔,巨型長手套,塔薩里安脛甲,羽絨之衣,快速打擊背心,總督胸甲,士兵胸甲,光滑外衣,訓鷹者外衣,狼皮披肩,巫術師披肩,漫步者外衣,奔流之衣,聖禮長袍,樸素裝束,海洋風暴披肩)
+#[17225][品質物品(T0)<非腐/非複><物等82+/T1詞綴/Q26+>][T3]淺紫框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T0通貨,字體46(死亡鎖甲,海盜外套,隱祕之冠,衛士之盔,獰笑之面,追隨者腕帶,烏鐵護手,牢固裹手,烏鋼鎧靴,隱祕護腿,捷足輕鞋,烏鋼紋章盾,耀金圓盾,塔赫亞塔盾)
+#[17228][品質物品(T0)<非腐/非複><物等81+/T1詞綴/Q26+>][T1]淺紫框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T0通貨,字體46(調和法杖,虹吸法杖,單挑法杖,電能法杖,塔赫亞塔盾)
+#[17229][品質物品(T0)<非腐/非複><物等81+/T1詞綴/Q26+>][T2]淺紫框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T0通貨,字體46(死神長杖,咆哮長杖,映像之杖)
+#=========================================================================================================
+#[17246][品質物品(T1)<非腐/非複><區等65+/3S+>]亮粉紅框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46#82[T1](毀滅者之弓,攻城十字弓,剃刃細杖,巨型巨錘,惡毒長袍)#82[T2](雙子之弓,雙生之弓,雙子十字弓,雷霆細杖,夢境細杖,神禦細杖,盲信巨錘,塔赫亞巨棍棒,羽絨之衣,快速打擊背心,總督胸甲,士兵胸甲,光滑外衣,訓鷹者外衣,狼皮披肩,巫術師披肩,漫步者外衣,奔流之衣,聖禮長袍,樸素裝束,海洋風暴披肩)#82[T3](死亡鎖甲,海盜外套)#81[T2](死神長杖,咆哮長杖,映像之杖)
+#[17247][品質物品(T1)<非腐/非複><區等65+/2S+>]亮粉紅框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46#82[T1](雜響權杖,尖刺長矛,先祖頭冠,海妖鱗手套,絲克瑪便鞋,捷足輕鞋,塔薩里安法器)#82[T2](劫掠者便帽,亮澤護腕,龍膚長靴,帝國巨盔,巨型長手套,塔薩里安脛甲)#82[T3](隱祕之冠,衛士之盔,獰笑之面,追隨者腕帶,烏鐵護手,牢固裹手,烏鋼鎧靴,隱祕護腿,捷足輕鞋,烏鋼紋章盾,耀金圓盾,塔赫亞塔盾)#81[T1](調和法杖,虹吸法杖,單挑法杖,電能法杖,塔赫亞塔盾)
+#=========================================================================================================
+#[17263][品質物品(T2)<非腐/非複><物等01+/Q23+>][T1]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(日耀項鍊,雜響權杖,徵兆權杖,內臟箭袋,毀滅者之弓,蒼涼十字弓,攻城十字弓,尖刺長矛,剃刃細杖,巨型巨錘,惡毒長袍,先祖頭冠,海妖鱗手套,絲克瑪便鞋,捷足輕鞋,塔薩里安法器,聖賢魔符)
+#[17264][品質物品(T2)<非腐/非複><物等01+/Q23+>][T2]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(恆星項鍊,雙子之弓,雙生之弓,雙子十字弓,雷霆細杖,夢境細杖,神禦細杖,盲信巨錘,塔赫亞巨棍棒,劫掠者便帽,亮澤護腕,龍膚長靴,帝國巨盔,巨型長手套,塔薩里安脛甲,羽絨之衣,快速打擊背心,總督胸甲,士兵胸甲,光滑外衣,訓鷹者外衣,狼皮披肩,巫術師披肩,漫步者外衣,奔流之衣,聖禮長袍,樸素裝束,海洋風暴披肩)
+#[17265][品質物品(T2)<非腐/非複><物等01+/Q23+>][T3]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(死亡鎖甲,海盜外套,隱祕之冠,衛士之盔,獰笑之面,追隨者腕帶,烏鐵護手,牢固裹手,烏鋼鎧靴,隱祕護腿,捷足輕鞋,烏鋼紋章盾,耀金圓盾,塔赫亞塔盾)
+#[17268][品質物品(T2)<非腐/非複><物等01+/Q23+>][T1]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(調和法杖,虹吸法杖,單挑法杖,電能法杖,塔赫亞塔盾)
+#[17269][品質物品(T2)<非腐/非複><物等01+/Q23+>][T2]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(死神長杖,咆哮長杖,映像之杖)
+#=========================================================================================================
+#[17272][品質物品(T2)(防截斷)<非腐/非複><Q14+>]亮粉紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效T2通貨,字體44(護符)
+#[17273][品質物品(T2)(防截斷)<非腐/非複><Q26+>]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(爪,匕首,法杖,單手劍,單手斧,單手錘,權杖,長矛,鏈錘,弓,長杖,魔符,雙手劍,雙手斧,雙手錘,細杖,十字弓,陷阱,盾,輕盾,法器,頭部,手套,鞋子,胸甲)
+#[17286][品質物品(T2)<非腐/非複><區等65+/3S+>]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(胸甲,弓,十字弓,細杖,長杖,魔符,雙手劍,雙手斧,雙手錘,陷阱)
+#[17287][品質物品(T2)<非腐/非複><區等65+/2S+>]亮粉紅框,鵝黃字,紫咖啡底,澄光,大澄圓形,音效T2通貨,字體44(爪,匕首,法杖,權杖,單手劍,單手斧,單手錘,長矛,鏈錘,盾,輕盾,法器,頭部,手套,鞋子)
+#[17295][品質物品(T9)<非腐/非複><區等64-/2S+>]藍框,黑底,字體42(胸甲,弓,十字弓,細杖,長杖,魔符,雙手劍,雙手斧,雙手錘,陷阱)
+#[17296][品質物品(T9)<非腐/非複><區等64-/1S+>]藍框,黑底,字體42(爪,匕首,法杖,權杖,單手劍,單手斧,單手錘,長矛,鏈錘,盾,輕盾,法器,頭部,手套,鞋子)
+Show #[17223]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Solar Amulet" "Rattling Sceptre" "Omen Sceptre" "Visceral Quiver" "Obliterator Bow" "Desolate Crossbow" "Siege Crossbow" "Spiked Spear" "Razor Quarterstaff" "Massive Greathammer" "Vile Robe" "Ancestral Tiara" "Sirenscale Gloves" "Sekhema Sandals" "Daggerfoot Shoes" "Tasalian Focus" "Maji Talisman"
+    ItemLevel >= 82
+    Quality >= 26
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[17224]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Stellar Amulet" "Gemini Bow" "Twin Bow" "Gemini Crossbow" "Bolting Quarterstaff" "Dreaming Quarterstaff" "Aegis Quarterstaff" "Fanatic Greathammer" "Tawhoan Greatclub" "Freebooter Cap" "Polished Bracers" "Drakeskin Boots" "Imperial Greathelm" "Massive Mitts" "Tasalian Greaves" "Feathered Raiment" "Slipstrike Vest" "Warlord Cuirass" "Soldier Cuirass" "Sleek Jacket" "Falconer's Jacket" "Wolfskin Mantle" "Conjurer Mantle" "Rambler Jacket" "Flowing Raiment" "Sacramental Robe" "Austere Garb" "Seastorm Mantle"
+    ItemLevel >= 82
+    Quality >= 26
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[17225]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Death Mail" "Corsair Coat" "Cryptic Crown" "Gladiatorial Helm" "Grinning Mask" "Adherent Cuffs" "Blacksteel Gauntlets" "Secured Wraps" "Blacksteel Sabatons" "Cryptic Leggings" "Daggerfoot Shoes" "Blacksteel Crest Shield" "Golden Targe" "Tawhoan Tower Shield"
+    ItemLevel >= 82
+    Quality >= 26
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[17228]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Attuned Wand" "Siphoning Wand" "Dueling Wand" "Galvanic Wand" "Tawhoan Tower Shield"
+    ItemLevel >= 81
+    Quality >= 26
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+Show #[17229]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Reaping Staff" "Roaring Staff" "Reflecting Staff"
+    ItemLevel >= 81
+    Quality >= 26
+    SetBorderColor 255 0 255 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 4 230
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T0.wav"
+    SetFontSize 46
+#=========================================================================================================
+Show #[17246]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Obliterator Bow" "Siege Crossbow" "Razor Quarterstaff" "Massive Greathammer" "Vile Robe" "Gemini Bow" "Twin Bow" "Gemini Crossbow" "Bolting Quarterstaff" "Dreaming Quarterstaff" "Aegis Quarterstaff" "Fanatic Greathammer" "Tawhoan Greatclub" "Feathered Raiment" "Slipstrike Vest" "Warlord Cuirass" "Soldier Cuirass" "Sleek Jacket" "Falconer's Jacket" "Wolfskin Mantle" "Conjurer Mantle" "Rambler Jacket" "Flowing Raiment" "Sacramental Robe" "Austere Garb" "Seastorm Mantle" "Death Mail" "Corsair Coat" "Reaping Staff" "Roaring Staff" "Reflecting Staff"
+    AreaLevel >= 65
+    Sockets >= 3
+    SetBorderColor 255 148 201 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[17247]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Rattling Sceptre" "Spiked Spear" "Ancestral Tiara" "Sirenscale Gloves" "Sekhema Sandals" "Daggerfoot Shoes" "Tasalian Focus" "Freebooter Cap" "Polished Bracers" "Drakeskin Boots" "Imperial Greathelm" "Massive Mitts" "Tasalian Greaves" "Cryptic Crown" "Gladiatorial Helm" "Grinning Mask" "Adherent Cuffs" "Blacksteel Gauntlets" "Secured Wraps" "Blacksteel Sabatons" "Cryptic Leggings" "Daggerfoot Shoes" "Blacksteel Crest Shield" "Golden Targe" "Tawhoan Tower Shield" "Attuned Wand" "Siphoning Wand" "Dueling Wand" "Galvanic Wand" "Tawhoan Tower Shield"
+    AreaLevel >= 65
+    Sockets >= 2
+    SetBorderColor 255 148 201 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+#=========================================================================================================
+Show #[17263]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Solar Amulet" "Rattling Sceptre" "Omen Sceptre" "Visceral Quiver" "Obliterator Bow" "Desolate Crossbow" "Siege Crossbow" "Spiked Spear" "Razor Quarterstaff" "Massive Greathammer" "Vile Robe" "Ancestral Tiara" "Sirenscale Gloves" "Sekhema Sandals" "Daggerfoot Shoes" "Tasalian Focus" "Maji Talisman"
+    ItemLevel >= 1
+    Quality >= 23
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17264]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Stellar Amulet" "Gemini Bow" "Twin Bow" "Gemini Crossbow" "Bolting Quarterstaff" "Dreaming Quarterstaff" "Aegis Quarterstaff" "Fanatic Greathammer" "Tawhoan Greatclub" "Freebooter Cap" "Polished Bracers" "Drakeskin Boots" "Imperial Greathelm" "Massive Mitts" "Tasalian Greaves" "Feathered Raiment" "Slipstrike Vest" "Warlord Cuirass" "Soldier Cuirass" "Sleek Jacket" "Falconer's Jacket" "Wolfskin Mantle" "Conjurer Mantle" "Rambler Jacket" "Flowing Raiment" "Sacramental Robe" "Austere Garb" "Seastorm Mantle"
+    ItemLevel >= 1
+    Quality >= 23
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17265]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Death Mail" "Corsair Coat" "Cryptic Crown" "Gladiatorial Helm" "Grinning Mask" "Adherent Cuffs" "Blacksteel Gauntlets" "Secured Wraps" "Blacksteel Sabatons" "Cryptic Leggings" "Daggerfoot Shoes" "Blacksteel Crest Shield" "Golden Targe" "Tawhoan Tower Shield"
+    ItemLevel >= 1
+    Quality >= 23
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17268]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Attuned Wand" "Siphoning Wand" "Dueling Wand" "Galvanic Wand" "Tawhoan Tower Shield"
+    ItemLevel >= 1
+    Quality >= 23
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17269]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Reaping Staff" "Roaring Staff" "Reflecting Staff"
+    ItemLevel >= 1
+    Quality >= 23
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+#=========================================================================================================
+Show #[17272]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Charm"
+    Quality >= 14
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17273]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Claw" "Dagger" "Wands" "One Hand Sword" "One Hand Axe" "One Hand Mace" "Sceptres" "Spear" "Flail" "Bow" "Staves" "Talismans" "Two Hand Sword" "Two Hand Axe" "Two Hand Mace" "Quarterstaves" "Crossbow" "Traps" "Shield" "Bucklers" "Foci" "Helmets" "Gloves" "Boots" "Body Armours"
+    Quality >= 26
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17286]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Body Armour" "Bow" "Crossbows" "Quarterstaves" "Staves" "Talismans" "Two Hand Swords" "Two Hand Axes" "Two Hand Maces" "Traps"
+    AreaLevel >= 65
+    Sockets >= 3
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17287]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Claws" "Daggers" "Wands" "Sceptres" "One Hand Swords" "One Hand Axes" "One Hand Maces" "Spears" "Flails" "Shields" "Bucklers" "Foci" "Helmets" "Gloves" "Boots"
+    AreaLevel >= 65
+    Sockets >= 2
+    SetBorderColor 255 148 201 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Orange
+    MinimapIcon 0 Orange Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[17295]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Body Armour" "Bow" "Crossbows" "Quarterstaves" "Staves" "Talismans" "Two Hand Swords" "Two Hand Axes" "Two Hand Maces" "Traps"
+    AreaLevel <= 64
+    Sockets >= 2
+    SetBorderColor 20 170 240 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[17296]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Claws" "Daggers" "Wands" "Sceptres" "One Hand Swords" "One Hand Axes" "One Hand Maces" "Spears" "Flails" "Shields" "Bucklers" "Foci" "Helmets" "Gloves" "Boots"
+    AreaLevel <= 64
+    Sockets >= 1
+    SetBorderColor 20 170 240 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+
+#[21001-21500][特定詞綴物品(武器)]
+#[21008][特定詞綴物品(武器)(T1)<等級+4/+5>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(權杖)(T1召寶)
+#[21010][特定詞綴物品(武器)(T1)<等級+5/+7>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(長矛,雙手錘)(T1投射寶/T1近戰寶)
+#[21012][特定詞綴物品(武器)(T1)<等級+4/+7>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(法杖,長杖,陷阱)(T1火寶/T1冰寶/T1電寶/T1混寶/T1物寶/T1法寶/T1陷阱寶)
+#[21017][特定詞綴物品(武器)(T1)<等級+6>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(長杖)(T1法寶)
+#[21024][特定詞綴物品(武器)(T2)<等級+2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(箭袋)(T1投射寶)
+#=========================================================================================================
+#[21033][特定詞綴物品(武器)(T1)<精魂3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(權杖)(T1~T5魔力 + T1~T8精魂 + T1~T7複合精魂)
+#[21036][特定詞綴物品(武器)(T1)<元傷1>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(細杖)(T1火傷/T1冰傷/T1電傷)
+#[21049][特定詞綴物品(武器)(T1)<元傷1>][T1][T2]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(毀滅者之弓,雙子之弓,雙生之弓)(T1電傷)
+#[21057][特定詞綴物品(武器)(T1)<物傷2>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(T1~T4物傷 + T1~T4物傷%)
+#[21058][特定詞綴物品(武器)(T1)<物傷1>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(T1物傷%)
+#[21059][特定詞綴物品(武器)(T1)<物傷1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(T1~T3物傷%)
+#[21077][特定詞綴物品(武器)(T1)<物等82+/T1詞綴><暴率1>][T1]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(毀滅者之弓,蒼涼十字弓,攻城十字弓,尖刺長矛,剃刃細杖,巨型巨錘)(T1暴率)
+#[21078][特定詞綴物品(武器)(T1)<物等82+/T1詞綴><暴率1>][T2]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(雙子之弓,雙生之弓,雙子十字弓,雷霆細杖,夢境細杖,神禦細杖,盲信巨錘,塔赫亞巨棍棒)(T1暴率)
+#[21290][特定詞綴物品(武器)(T2)<附加3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(T1~T4附火 + T1~T4附冰 + T1~T4附電)
+#[21361][特定詞綴物品(武器)(T2)<法傷1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(T1法傷/T1火傷/T1冰傷/T1電傷/T1混傷/T1物法傷/T1魔力/T1附火/T1附冰/T1附電)
+#[21477][特定詞綴物品(武器)(T2)<暴率3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(內臟箭袋,灌注箭袋)(T1~T3暴率 + T1~T3暴傷 + T1~T3弓傷/T1~T3攻速)
+Show #[21008]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Slavedriver" "of the Tyrant"
+    Class "Sceptres"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21010]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Sniper" "of War"
+    Class "Spears" "Two Hand Maces"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21012]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Inferno" "of Frostbite" "of Thunder" "of Armageddon" "of Grief" "of the Wizard" "of Pyrotechnics"
+    Class "Wands" "Staves" "Traps"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21017]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Sorcerer"
+    Class "Staves"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21024]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Fletcher"
+    Class "Quiver"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+#=========================================================================================================
+Show #[21033]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Gentian" "Chalybeous" "Mazarine" "Blue" "Zaffre"
+    HasExplicitMod "Lord's" "Baron's" "Viscount's" "Marquess'" "Count's" "Duke's" "Prince's" "King's"
+    HasExplicitMod "Advisor's" "Counselor's" "Emissary's" "Minister's" "Envoy's" "Diplomat's" "Chancellor's"
+    Class "Sceptres"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21036]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Carbonising" "Crystalising" "Vapourising"
+    Class "Quarterstaff"
+    BaseType " Quarterstaff"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21049]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Vapourising"
+    BaseType "Obliterator Bow" "Gemini Bow" "Twin Bow"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21057]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flaring" "Tempered" "Razor-sharp" "Annealed"
+    HasExplicitMod "Merciless" "Tyrannical" "Cruel" "Bloodthirsty"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21058]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Merciless"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21059]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Merciless" "Tyrannical" "Cruel"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21077]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Unmaking"
+    BaseType "Obliterator Bow" "Desolate Crossbow" "Siege Crossbow" "Spiked Spear" "Razor Quarterstaff" "Massive Greathammer"
+    ItemLevel >= 82
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21078]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Unmaking"
+    BaseType "Gemini Bow" "Twin Bow" "Gemini Crossbow" "Bolting Quarterstaff" "Dreaming Quarterstaff" "Aegis Quarterstaff" "Fanatic Greathammer" "Tawhoan Greatclub"
+    ItemLevel >= 82
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21290]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flamebound" "Infernal" "Zealot's" "Fanatic's"
+    HasExplicitMod "Frostbound" "Ruthless" "Malicious" "Destructive"
+    HasExplicitMod "Stormbound" "Electrifying" "Vorpal" "Fatal"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21361]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Runic" "Pyromancer's" "Cryomancer's" "Electromancer's" "Malevolent" "Torturer's" "Blue" "Flamebound" "Frostbound" "Stormbound"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21477]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Unmaking" "of Ruin" "of Calamity"
+    HasExplicitMod "of Destruction" "of Ferocity" "of Fury"
+    HasExplicitMod "Impaling" "Lacerating" "Incisive" "of Renown" "of Mastery" "of Ease"
+    BaseType "Visceral Quiver" "Primed Quiver"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+
+#[21501-21700][特定詞綴物品(護甲)]
+#[21507][特定詞綴物品(護甲)(T9)(防截斷)<非腐/非複>]灰框,暗藍底,字體42(裂痕戒指)
+#[21511][特定詞綴物品(護甲)(T2)<等級+2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(頭部)(T1召寶)
+#[21513][特定詞綴物品(護甲)(T2)<等級+2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(手套)(T1近戰寶)
+#[21515][特定詞綴物品(護甲)(T2)<等級+2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(法器)(T1法寶/T1魔力/T1法傷/T1火傷/T1冰傷/T1電傷/T1混傷/T1物法傷)
+#[21520][特定詞綴物品(護甲)(T2)<稀有2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(頭部)(T1~T3稀有 + T1~T3稀有)
+#[21523][特定詞綴物品(護甲)(T2)<稀有3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(頭部,手套,鞋子)(T1~T3稀有/T1~T3稀有/T1~T4(46)生命/T1~T4(46)魔力/T1~T4跑速 + T1~T3混抗 + T1~T5火抗/T1~T5冰抗/T1~T5電抗)
+#[21524][特定詞綴物品(護甲)(T2)<稀有3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(頭部,手套,鞋子)(T1~T3稀有/T1~T3稀有/T1~T4(46)生命/T1~T4(46)魔力/T1~T4跑速 + T1~T5火抗 + T1~T5冰抗/T1~T5電抗)
+#[21525][特定詞綴物品(護甲)(T2)<稀有3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(頭部,手套,鞋子)(T1~T3稀有/T1~T3稀有/T1~T4(46)生命/T1~T4(46)魔力/T1~T4跑速 + T1~T5冰抗 + T1~T5電抗)
+#=========================================================================================================
+#[21528][特定詞綴物品(護甲)(T1)<護甲2>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(塔赫亞塔盾)(T1~T3護甲/T1~T3護甲%)
+#[21529][特定詞綴物品(護甲)(T2)<護甲2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(塔赫亞塔盾,瓦爾塔盾,要塞塔盾,皇族塔盾)(T1~T2護甲/T1~T2護甲%)
+#[21530][特定詞綴物品(護甲)(T3)<護甲1>]魔法,紅框,鵝黃字,紫咖啡底,字體44(塔赫亞塔盾)(T1護甲/T1護甲%)
+#=========================================================================================================
+#[21540][特定詞綴物品(護甲)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾,輕盾,法器,戒指,項鍊,腰帶)(T1~T5火抗 + T1~T5冰抗 + T1~T5電抗/T1~T4(40)元抗/T1~T3混抗)
+#[21541][特定詞綴物品(護甲)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾,輕盾,法器,戒指,項鍊,腰帶)(T1~T5火抗 + T1~T5冰抗/T1~T4(40)元抗/T1~T3混抗 + T1~T5電抗)
+#[21542][特定詞綴物品(護甲)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾,輕盾,法器,戒指,項鍊,腰帶)(T1~T5火抗/T1~T4(40)元抗/T1~T3混抗 + T1~T5冰抗 + T1~T5電抗)
+#[21543][特定詞綴物品(護甲)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾,輕盾,法器,戒指,項鍊,腰帶)(T1~T4(40)元抗 + T1~T3混抗 + T1~T5火抗/T1~T5冰抗/T1~T5電抗)
+#[21580][特定詞綴物品(護甲)(T3)<命抗1>]魔法,紅框,鵝黃字,紫咖啡底,字體44(頭部,手套,鞋子)(T1(60)生命/T1(60)魔力/T1跑速)
+#=========================================================================================================
+#[21591][特定詞綴物品(護甲)(T2)<偏斜3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾)(T1~T4(36)偏斜/T1~T4(36)套用 + T1~T3混抗 + T1~T5火抗/T1~T5冰抗/T1~T5電抗/T1~T7精魂)
+#[21592][特定詞綴物品(護甲)(T2)<偏斜3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾)(T1~T4(36)偏斜/T1~T4(36)套用 + T1~T5火抗 + T1~T5冰抗/T1~T5電抗/T1~T7精魂)
+#[21593][特定詞綴物品(護甲)(T2)<偏斜3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾)(T1~T4(36)偏斜/T1~T4(36)套用 + T1~T5冰抗 + T1~T5電抗/T1~T7精魂)
+#[21594][特定詞綴物品(護甲)(T2)<偏斜3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(胸甲,頭部,手套,鞋子,盾)(T1~T4(36)偏斜/T1~T4(36)套用 + T1~T5電抗 + T1~T7精魂)
+#=========================================================================================================
+#[21656][特定詞綴物品(護甲)(T2)<元傷3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(手套)(T1~T3物傷/T1攻速 + T1~T3火傷 + T1~T3冰傷/T1~T3電傷)
+#[21657][特定詞綴物品(護甲)(T2)<元傷3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(手套)(T1~T3物傷/T1攻速 + T1~T3冰傷 + T1~T3電傷)
+#[21658][特定詞綴物品(護甲)(T2)<元傷3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(手套)(T1~T3物傷 + T1攻速 + T1~T3火傷/T1~T3冰傷/T1~T3電傷)
+#[21659][特定詞綴物品(護甲)(T2)<元傷3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(手套)(T1~T3火傷 + T1~T3冰傷 + T1~T3電傷)
+Show #[21507]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Breach Ring"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 120 255
+    SetFontSize 42
+Show #[21511]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Despot"
+    Class "Helmets"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21513]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Dueling"
+    Class "Gloves"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21515]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Enchanter" "Blue" "Runic" "Pyromancer's" "Cryomancer's" "Electromancer's" "Malevolent" "Torturer's"
+    Class "Foci"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21520]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Hoarder's" "Pirate's" "Dragon's"
+    HasExplicitMod "of Archaeology" "of Excavation" "of Windfall"
+    Class "Helmets"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21523]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Dragon's" "Pirate's" "Hoarder's" "of Windfall" "of Excavation" "of Archaeology" "Fecund" "Athlete's" "Virile" "Rotund" "Mazarine" "Chalybeous" "Gentian" "Opalescent" "Hellion's" "Cheetah's" "Gazelle's" "Stallion's"
+    HasExplicitMod "of Bameth" "of Exile" "of Expulsion"
+    HasExplicitMod "of Tzteosh" "of Magma" "of the Volcano" "of the Furnace" "of the Kiln" "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti" "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead"
+    Class "Helmets" "Gloves" "Boots"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21524]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Dragon's" "Pirate's" "Hoarder's" "of Windfall" "of Excavation" "of Archaeology" "Fecund" "Athlete's" "Virile" "Rotund" "Mazarine" "Chalybeous" "Gentian" "Opalescent" "Hellion's" "Cheetah's" "Gazelle's" "Stallion's"
+    HasExplicitMod "of Tzteosh" "of Magma" "of the Volcano" "of the Furnace" "of the Kiln"
+    HasExplicitMod "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti" "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead"
+    Class "Helmets" "Gloves" "Boots"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21525]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Dragon's" "Pirate's" "Hoarder's" "of Windfall" "of Excavation" "of Archaeology" "Fecund" "Athlete's" "Virile" "Rotund" "Mazarine" "Chalybeous" "Gentian" "Opalescent" "Hellion's" "Cheetah's" "Gazelle's" "Stallion's"
+    HasExplicitMod "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti"
+    HasExplicitMod "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead"
+    Class "Helmets" "Gloves" "Boots"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+#=========================================================================================================
+Show #[21528]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Unmoving" "Abating" "Enveloped"
+    HasExplicitMod "Impenetrable" "Impregnable" "Girded"
+    BaseType "Tawhoan Tower Shield"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[21529]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Unmoving" "Abating"
+    HasExplicitMod "Impenetrable" "Impregnable"
+    BaseType "Tawhoan Tower Shield" "Vaal Tower Shield" "Fortress Tower Shield" "Royal Tower Shield"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21530]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Unmoving" "Impenetrable"
+    BaseType "Tawhoan Tower Shield"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+#=========================================================================================================
+Show #[21540]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Kiln" "of the Furnace" "of the Volcano" "of Magma" "of Tzteosh"
+    HasExplicitMod "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast"
+    HasExplicitMod "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij" "of the Kaleidoscope" "of Variegation" "of the Rainbow" "of the Span" "of Expulsion" "of Exile" "of Bameth"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields" "Bucklers" "Foci" "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21541]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Kiln" "of the Furnace" "of the Volcano" "of Magma" "of Tzteosh"
+    HasExplicitMod "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast" "of the Kaleidoscope" "of Variegation" "of the Rainbow" "of the Span" "of Expulsion" "of Exile" "of Bameth"
+    HasExplicitMod "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields" "Bucklers" "Foci" "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21542]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Kiln" "of the Furnace" "of the Volcano" "of Magma" "of Tzteosh" "of the Kaleidoscope" "of Variegation" "of the Rainbow" "of the Span" "of Expulsion" "of Exile" "of Bameth"
+    HasExplicitMod "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast"
+    HasExplicitMod "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields" "Bucklers" "Foci" "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21543]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Kaleidoscope" "of Variegation" "of the Rainbow" "of the Span"
+    HasExplicitMod "of Expulsion" "of Exile" "of Bameth"
+    HasExplicitMod "of the Kiln" "of the Furnace" "of the Volcano" "of Magma" "of Tzteosh" "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast" "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields" "Bucklers" "Foci" "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21580]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Athlete's" "Chalybeous" "Hellion's"
+    Class "Helmets" "Gloves" "Boots"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+#=========================================================================================================
+Show #[21591]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Warping" "of Flexure" "of Diversion" "of Curvation" "of Thermokryptance" "of Furring" "of Padding" "of Lining"
+    HasExplicitMod "of Bameth" "of Exile" "of Expulsion"
+    HasExplicitMod "of the Kiln" "of the Furnace" "of the Volcano" "of Magma" "of Tzteosh" "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast" "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij" "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21592]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Warping" "of Flexure" "of Diversion" "of Curvation" "of Thermokryptance" "of Furring" "of Padding" "of Lining"
+    HasExplicitMod "of the Kiln" "of the Furnace" "of the Volcano" "of Magma" "of Tzteosh"
+    HasExplicitMod "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast" "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij" "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21593]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Warping" "of Flexure" "of Diversion" "of Curvation" "of Thermokryptance" "of Furring" "of Padding" "of Lining"
+    HasExplicitMod "of the Yeti" "of the Walrus" "of the Polar Bear" "of the Ice" "of Haast"
+    HasExplicitMod "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij" "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21594]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Warping" "of Flexure" "of Diversion" "of Curvation" "of Thermokryptance" "of Furring" "of Padding" "of Lining"
+    HasExplicitMod "of the Thunderhead" "of the Tempest" "of the Maelstrom" "of the Lightning" "of Ephij"
+    HasExplicitMod "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    Class "Body Armours" "Helmets" "Gloves" "Boots" "Shields"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+#=========================================================================================================
+Show #[21656]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flaring" "Tempered" "Razor-sharp" "of Renown"
+    HasExplicitMod "Cremating" "Blasting" "Incinerating"
+    HasExplicitMod "Entombing" "Polar" "Glaciated" "Electrocuting" "Discharging" "Shocking"
+    Class "Gloves"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21657]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flaring" "Tempered" "Razor-sharp" "of Renown"
+    HasExplicitMod "Entombing" "Polar" "Glaciated"
+    HasExplicitMod "Electrocuting" "Discharging" "Shocking"
+    Class "Gloves"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21658]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flaring" "Tempered" "Razor-sharp"
+    HasExplicitMod "of Renown"
+    HasExplicitMod "Cremating" "Blasting" "Incinerating" "Entombing" "Polar" "Glaciated" "Electrocuting" "Discharging" "Shocking"
+    Class "Gloves"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21659]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Cremating" "Blasting" "Incinerating"
+    HasExplicitMod "Entombing" "Polar" "Glaciated"
+    HasExplicitMod "Electrocuting" "Discharging" "Shocking"
+    Class "Gloves"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+
+#[21701-22000][特定詞綴物品(能盾)]
+#[21701][特定詞綴物品(能盾)(T3)<能盾1>]魔法,紅框,鵝黃字,紫咖啡底,字體44(羽絨之衣,惡毒長袍,奔流之衣,聖禮長袍,巫術師披肩)(T1能盾/T1能盾%/T1複合能盾%/T1精魂)
+#[21702][特定詞綴物品(能盾)(T3)<能盾1>]魔法,紅框,鵝黃字,紫咖啡底,字體44(塔薩里安法器)(T1能盾/T1能盾%/T1複合能盾%)
+#[21703][特定詞綴物品(能盾)(T3)<能盾1>]魔法,紅框,鵝黃字,紫咖啡底,字體44(先祖頭冠)(T1能盾/T1能盾%/T1稀有/T1稀有)
+#[21704][特定詞綴物品(能盾)(T3)<能盾1>]魔法,紅框,鵝黃字,紫咖啡底,字體44(海妖鱗手套,絲克瑪便鞋)(T1能盾/T1能盾%/T1稀有)
+#[21709][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(羽絨之衣,惡毒長袍,奔流之衣,聖禮長袍)(T1~T5能盾 + T1~T4能盾%/T1~T7精魂)
+#[21710][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(儀式長袍,信徒之衣,河流之衣,神秘之衣)(T1~T3能盾 + T1~T3能盾%/T1~T7精魂)
+#[21714][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(樸素裝束,光滑外衣,漫步者外衣,訓鷹者外衣)(T1~T5能盾 + T1~T4能盾%)
+#[21715][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(飼鷹者外衣,靈語者裝束,遊歷者外衣,傳道者裝束,上油外衣,苦行者裝束)(T1~T3能盾 + T1~T3能盾%)
+#[21718][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(巫術師披肩)(T1~T3能盾 + T1~T3能盾% + T1~T7精魂)
+#=========================================================================================================
+#[21736][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(先祖頭冠,卡瑪薩頭冠,巫術頭冠,天冠頭冠)(T1~T5能盾 + T1~T4能盾%)
+#[21737][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(叢林頭冠,沙誓頭冠,翠玉頭冠,鍍金頭環)(T1~T3能盾 + T1~T3能盾%)
+#[21742][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(海妖鱗手套,瓦爾手套,奢靡手套,冷酷手套,黃金手套,絲克瑪便鞋,沙誓便鞋,奢華便鞋,綑綁便鞋,沙丘行者便鞋)(T1~T5能盾 + T1~T4能盾%)
+#[21743][特定詞綴物品(能盾)(T2)<能盾2>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(巴洛克手套,海靈鱗手套,優雅便鞋,亞麻便鞋)(T1~T3能盾 + T1~T3能盾%)
+Show #[21701]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Resplendent" "Unfaltering" "Divine" "Queen's"
+    BaseType "Feathered Raiment" "Vile Robe" "Flowing Raiment" "Sacramental Robe" "Conjurer Mantle"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[21702]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Incandescent" "Unassailable" "Angel's"
+    BaseType "Tasalian Focus"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[21703]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Dazzling" "Unassailable" "Dragon's" "of Windfall"
+    BaseType "Ancestral Tiara"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[21704]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Blazing" "Unassailable" "of Windfall"
+    BaseType "Sirenscale Gloves" "Sekhema Sandals"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 44
+Show #[21709]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Resplendent" "Incandescent" "Scintillating" "Dazzling" "Blazing"
+    HasExplicitMod "Unfaltering" "Unassailable" "Indomitable" "Dauntless" "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    BaseType "Feathered Raiment" "Vile Robe" "Flowing Raiment" "Sacramental Robe"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21710]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Resplendent" "Incandescent" "Scintillating"
+    HasExplicitMod "Unfaltering" "Unassailable" "Indomitable" "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    BaseType "Ceremonial Robe" "Adherent's Raiment" "River Raiment" "Mystic Raiment"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21714]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Banshee's" "Apparition's" "Eidolon's" "Spirit's" "Cherub's"
+    HasExplicitMod "Incorporeal" "Illusory" "Unreal" "Evanescent"
+    BaseType "Austere Garb" "Sleek Jacket" "Rambler Jacket" "Falconer's Jacket"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21715]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Banshee's" "Apparition's" "Eidolon's"
+    HasExplicitMod "Incorporeal" "Illusory" "Unreal"
+    BaseType "Hawker's Jacket" "Hatungo Garb" "Itinerant Jacket" "Evangelist Garb" "Oiled Jacket" "Ascetic Garb"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21718]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Godly" "Saintly" "Consecrated"
+    HasExplicitMod "Interpermeated" "Inspired" "Interpolated"
+    HasExplicitMod "Queen's" "Princess'" "Duchess'" "Countess'" "Marchioness'" "Viscountess'" "Baronness'"
+    BaseType "Conjurer Mantle"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+#=========================================================================================================
+Show #[21736]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Dazzling" "Blazing" "Pulsing" "Radiating" "Glowing"
+    HasExplicitMod "Unassailable" "Indomitable" "Dauntless" "Fearless"
+    BaseType "Ancestral Tiara" "Kamasan Tiara" "Sorcerous Tiara" "Skycrown Tiara"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21737]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Dazzling" "Blazing" "Pulsing"
+    HasExplicitMod "Unassailable" "Indomitable" "Dauntless"
+    BaseType "Jungle Tiara" "Sandsworn Tiara" "Jade Tiara" "Vermeil Circlet"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21742]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Blazing" "Pulsing" "Radiating" "Glowing" "Glittering"
+    HasExplicitMod "Unassailable" "Indomitable" "Dauntless" "Fearless"
+    BaseType "Sirenscale Gloves" "Vaal Gloves" "Opulent Gloves" "Grim Gloves" "Gold Gloves" "Sekhema Sandals" "Sandsworn Sandals" "Luxurious Slippers" "Bound Sandals" "Dunerunner Sandals"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[21743]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Blazing" "Pulsing" "Radiating"
+    HasExplicitMod "Unassailable" "Indomitable" "Dauntless"
+    BaseType "Baroque Gloves" "Pauascale Gloves" "Elegant Slippers" "Flax Sandals"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+
+#[22201-23000][特定詞綴物品(飾品)]
+#[22203][特定詞綴物品(飾品)(T1)<等級+3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(項鍊)(T1法寶/T1召寶/T1近戰寶/T1投射寶)
+#[22216][特定詞綴物品(飾品)(T1)<精魂1>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(日耀項鍊)(T1~T2精魂)
+#[22217][特定詞綴物品(飾品)(T2)<精魂1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(項鍊)(T1~T2精魂)
+#[22229][特定詞綴物品(飾品)(T2)<減充1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(精良腰帶,鎖甲腰帶)(T1減充)
+#[22233][特定詞綴物品(飾品)(T1)<稀有2>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指,項鍊)(T1~T3稀有 + T1~T3稀有)
+#[22261][特定詞綴物品(飾品)(T1)<能力3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指,項鍊)(T1~T4力量 + T1~T4敏捷 + T1~T4智慧/T1~T7(22)全能力)
+#[22262][特定詞綴物品(飾品)(T1)<能力3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指,項鍊)(T1~T4力量 + T1~T4敏捷/T1~T7(22)全能力 + T1~T4智慧)
+#[22263][特定詞綴物品(飾品)(T1)<能力3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指,項鍊)(T1~T4力量/T1~T7(22)全能力 + T1~T4敏捷 + T1~T4智慧)
+#=========================================================================================================
+#[22350][特定詞綴物品(飾品)(T2)<命魔1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指)(T1生命/T1魔力)
+#[22361][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(38)生命/T1~T7(46)魔力/T1~T5(46)能盾 + T1~T5火抗 + T1~T5冰抗/T1~T4(40)元抗/T1~T4混抗)
+#[22362][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(38)生命/T1~T7(46)魔力/T1~T5(46)能盾 + T1~T5冰抗 + T1~T5電抗/T1~T4(40)元抗/T1~T4混抗)
+#[22363][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(38)生命/T1~T7(46)魔力/T1~T5(46)能盾 + T1~T5電抗 + T1~T5火抗/T1~T4(40)元抗/T1~T4混抗)
+#[22364][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(38)生命/T1~T7(46)魔力/T1~T5(46)能盾 + T1~T4(40)元抗 + T1~T4混抗)
+#[22365][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(44)力量/T1~T4敏捷/T1~T4智慧/T1~T7(22)全能力 + T1~T5火抗 + T1~T5冰抗/T1~T5電抗/T1~T4(40)元抗/T1~T4混抗)
+#[22366][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(44)力量/T1~T4敏捷/T1~T4智慧/T1~T7(22)全能力 + T1~T5冰抗 + T1~T5電抗/T1~T4(40)元抗/T1~T4混抗)
+#[22367][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(44)力量/T1~T4敏捷/T1~T4智慧/T1~T7(22)全能力 + T1~T5電抗 + T1~T4(40)元抗/T1~T4混抗)
+#[22368][特定詞綴物品(飾品)(T2)<命抗3>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(戒指,項鍊,腰帶)(T1~T5(44)力量/T1~T4敏捷/T1~T4智慧/T1~T7(22)全能力 + T1~T4(40)元抗 + T1~T4混抗)
+#=========================================================================================================
+#[22472][特定詞綴物品(飾品)(T1)<元傷3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指)(T1~T3物傷 + T1~T3火傷 + T1~T3冰傷/電傷)
+#[22473][特定詞綴物品(飾品)(T1)<元傷3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指)(T1~T3物傷 + T1~T3電傷 + T1~T3冰傷)
+#[22474][特定詞綴物品(飾品)(T1)<元傷3>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(戒指)(T1~T3火傷 + T1~T3冰傷 + T1~T3電傷)
+Show #[22203]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Sorcerer" "of the Overseer" "of Battle" "of the Sharpshooter"
+    Class "Amulets"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22216]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Countess'" "Marchioness'"
+    BaseType "Solar Amulet"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22217]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Countess'" "Marchioness'"
+    Class "Amulets"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22229]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Nourishing"
+    BaseType "Fine Belt" "Mail Belt"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22233]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Hoarder's" "Pirate's" "Dragon's"
+    HasExplicitMod "of Archaeology" "of Excavation" "of Windfall"
+    Class "Rings" "Amulets"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22261]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gorilla" "of the Goliath" "of the Leviathan" "of the Titan"
+    HasExplicitMod "of the Panther" "of the Leopard" "of the Jaguar" "of the Phantom"
+    HasExplicitMod "of the Philosopher" "of the Sage" "of the Savant" "of the Virtuoso" "of the Meteor" "of the Comet" "of the Heavens" "of the Galaxy" "of the Universe" "of the Multiverse" "of the Infinite"
+    Class "Rings" "Amulets"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22262]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gorilla" "of the Goliath" "of the Leviathan" "of the Titan"
+    HasExplicitMod "of the Panther" "of the Leopard" "of the Jaguar" "of the Phantom" "of the Meteor" "of the Comet" "of the Heavens" "of the Galaxy" "of the Universe" "of the Multiverse" "of the Infinite"
+    HasExplicitMod "of the Philosopher" "of the Sage" "of the Savant" "of the Virtuoso"
+    Class "Rings" "Amulets"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22263]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gorilla" "of the Goliath" "of the Leviathan" "of the Titan" "of the Meteor" "of the Comet" "of the Heavens" "of the Galaxy" "of the Universe" "of the Multiverse" "of the Infinite"
+    HasExplicitMod "of the Panther" "of the Leopard" "of the Jaguar" "of the Phantom"
+    HasExplicitMod "of the Philosopher" "of the Sage" "of the Savant" "of the Virtuoso"
+    Class "Rings" "Amulets"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+#=========================================================================================================
+Show #[22350]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Virile" "Zaffre"
+    Class "Rings"
+    Rarity = Magic
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22361]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Fecund" "Athlete's" "Virile" "Rotund" "Robust" "Ultramarine" "Zaffre" "Blue" "Mazarine" "Chalybeous" "Gentian" "Opalescent" "Incandescent" "Scintillating" "Dazzling" "Blazing" "Pulsing"
+    HasExplicitMod "of Tzteosh" "of Magma" "of the Volcano" "of the Furnace" "of the Kiln"
+    HasExplicitMod "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti" "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope" "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22362]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Fecund" "Athlete's" "Virile" "Rotund" "Robust" "Ultramarine" "Zaffre" "Blue" "Mazarine" "Chalybeous" "Gentian" "Opalescent"
+    HasExplicitMod "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti"
+    HasExplicitMod "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead" "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope" "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22363]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Fecund" "Athlete's" "Virile" "Rotund" "Robust" "Ultramarine" "Zaffre" "Blue" "Mazarine" "Chalybeous" "Gentian" "Opalescent"
+    HasExplicitMod "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead"
+    HasExplicitMod "of Tzteosh" "of Magma" "of the Volcano" "of the Furnace" "of the Kiln" "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope" "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22364]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Fecund" "Athlete's" "Virile" "Rotund" "Robust" "Ultramarine" "Zaffre" "Blue" "Mazarine" "Chalybeous" "Gentian" "Opalescent"
+    HasExplicitMod "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope"
+    HasExplicitMod "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22365]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gods" "of the Titan" "of the Leviathan" "of the Goliath" "of the Gorilla" "of the Phantom" "of the Jaguar" "of the Leopard" "of the Panther" "of the Virtuoso" "of the Savant" "of the Sage" "of the Philosopher" "of the Infinite" "of the Multiverse" "of the Universe" "of the Galaxy" "of the Heavens" "of the Comet" "of the Meteor"
+    HasExplicitMod "of Tzteosh" "of Magma" "of the Volcano" "of the Furnace" "of the Kiln"
+    HasExplicitMod "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti" "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead" "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope" "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22366]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gods" "of the Titan" "of the Leviathan" "of the Goliath" "of the Gorilla" "of the Phantom" "of the Jaguar" "of the Leopard" "of the Panther" "of the Virtuoso" "of the Savant" "of the Sage" "of the Philosopher" "of the Infinite" "of the Multiverse" "of the Universe" "of the Galaxy" "of the Heavens" "of the Comet" "of the Meteor"
+    HasExplicitMod "of Haast" "of the Ice" "of the Polar Bear" "of the Walrus" "of the Yeti"
+    HasExplicitMod "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead" "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope" "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22367]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gods" "of the Titan" "of the Leviathan" "of the Goliath" "of the Gorilla" "of the Phantom" "of the Jaguar" "of the Leopard" "of the Panther" "of the Virtuoso" "of the Savant" "of the Sage" "of the Philosopher" "of the Infinite" "of the Multiverse" "of the Universe" "of the Galaxy" "of the Heavens" "of the Comet" "of the Meteor"
+    HasExplicitMod "of Ephij" "of the Lightning" "of the Maelstrom" "of the Tempest" "of the Thunderhead"
+    HasExplicitMod "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope" "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[22368]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of the Gods" "of the Titan" "of the Leviathan" "of the Goliath" "of the Gorilla" "of the Phantom" "of the Jaguar" "of the Leopard" "of the Panther" "of the Virtuoso" "of the Savant" "of the Sage" "of the Philosopher" "of the Infinite" "of the Multiverse" "of the Universe" "of the Galaxy" "of the Heavens" "of the Comet" "of the Meteor"
+    HasExplicitMod "of the Span" "of the Rainbow" "of Variegation" "of the Kaleidoscope"
+    HasExplicitMod "of Bameth" "of Exile" "of Expulsion" "of Eviction"
+    Class "Rings" "Amulets" "Belts"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+#=========================================================================================================
+Show #[22472]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flaring" "Tempered" "Razor-sharp"
+    HasExplicitMod "Cremating" "Blasting" "Incinerating"
+    HasExplicitMod "Entombing" "Polar" "Glaciated" "Electrocuting" "Discharging" "Shocking"
+    Class "Rings"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22473]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Flaring" "Tempered" "Razor-sharp"
+    HasExplicitMod "Electrocuting" "Discharging" "Shocking"
+    HasExplicitMod "Entombing" "Polar" "Glaciated"
+    Class "Rings"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[22474]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Cremating" "Blasting" "Incinerating"
+    HasExplicitMod "Entombing" "Polar" "Glaciated"
+    HasExplicitMod "Electrocuting" "Discharging" "Shocking"
+    Class "Rings"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+
+#[23101-24000][特定詞綴物品(珠寶)]
+#[23110][特定詞綴物品(珠寶)(T1)<效果1>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(基礎)(T1箭袋效果/T1盟友生命)
+#[23150][特定詞綴物品(珠寶)(T1)<暴傷2>]灰框,淺紫字,深紫咖啡底,紫光,大紫圓形,音效T1通貨,字體46(基礎)(T1暴傷 + T1法暴)
+#[23772][特定詞綴物品(珠寶)(T2)<暴傷1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(基礎)(T1能盾%/T1攻暴/T1暴傷/T1法暴/T1召暴/T1長矛暴傷/T1攻暴率/T1暴率/T1法暴率/T1召暴率)
+#[23777][特定詞綴物品(珠寶)(T2)<暴傷1>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(時迭)(T1能盾%/T1攻暴/T1暴傷/T1法暴/T1召暴/T1攻暴率/T1暴率/T1法暴率/T1召暴率)
+Show #[23110]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Fletching" "Kindred"
+    Class "Jewel"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[23150]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "of Potency"
+    HasExplicitMod "of Unmaking"
+    Class "Jewel"
+    SetBorderColor 118 107 106 255
+    SetTextColor 255 0 255 255
+    SetBackgroundColor 65 0 35 255
+    PlayEffect Purple
+    MinimapIcon 0 Purple Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T1.wav"
+    SetFontSize 46
+Show #[23772]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Shimmering" "of Demolishing" "of Potency" "of Unmaking" "of Gripping" "of Hunting" "of Deadliness" "of Annihilation" "of Annihilating" "of Marshalling"
+    Class "Jewel"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[23777]
+    DisableDropSound
+    Identified True
+    HasExplicitMod "Shimmering" "of Demolishing" "of Potency" "of Unmaking" "of Gripping" "of Deadliness" "of Annihilation" "of Annihilating" "of Marshalling"
+    Class "Jewel"
+    BaseType "Time-Lost"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+
+#[46001-50000][特殊物品](聯盟基底)
+#[46200][特殊物品(T9)<破裂>]灰框,鵝黃字,群青底,字體44
+#[47800][特殊物品(T3)]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效特殊基底,字體44(獻祭法衣,幽暗項鍊,幽暗戒指,黃昏項鍊,黃昏戒指,半影項鍊,半影戒指,黑暗項鍊,黑暗戒指,深淵之記,Biostatic Ring,Grasping Ring,Corona Amulet,Absent Amulet,Distorted Amulet,Veridical Chain,Aberrant Sledge,Warding Quarterstaff,Heartwood Shortbow,Trarthan Cannon,Twisted Wand,Runic Fork,Perching Staff,Ancient Visor,Ancient Leggings,Ancient Gauntlets,Ornate Ringmail,Ancient Mail,Grasping Mail,Primal Markings,Stalking Belt,Invoking Belt,Sinew Belt,Forking Belt,Glacial Fortress,Venerable Defender)
+#[48090][特殊物品(T2)<詞綴5+>]紅框,鵝黃字,紫咖啡底,黃光,大黃圓形,音效T2通貨,字體44(珠寶)
+#[48097][特殊物品(T9)]紅框,鵝黃字,紫咖啡底,字體42(時迭鑽石,鑽石)
+#[48100][特殊物品(T9)]灰框,鵝黃字,紫咖啡底,字體42(珠寶,聖物)
+#[48890][特殊物品(T9)<特定>]灰框,鵝黃字,深綠底,字體42(褻瀆)
+Show #[46200]
+    DisableDropSound
+    FracturedItem True
+    SetBorderColor 118 107 106 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 0 60 120 255
+    SetFontSize 44
+Show #[47800]
+    DisableDropSound
+    BaseType "Sacrificial Regalia" "Dusk Amulet" "Dusk Ring" "Gloam Amulet" "Gloam Ring" "Penumbra Amulet" "Penumbra Ring" "Tenebrous Amulet" "Tenebrous Ring" "Abyssal Signet" "Biostatic Ring" "Grasping Ring" "Corona Amulet" "Absent Amulet" "Distorted Amulet" "Veridical Chain" "Aberrant Sledge" "Warding Quarterstaff" "Heartwood Shortbow" "Trarthan Cannon" "Twisted Wand" "Runic Fork" "Perching Staff" "Ancient Visor" "Ancient Leggings" "Ancient Gauntlets" "Ornate Ringmail" "Ancient Mail" "Grasping Mail" "Primal Markings" "Stalking Belt" "Invoking Belt" "Sinew Belt" "Forking Belt" "Glacial Fortress" "Venerable Defender"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 9 280
+    CustomAlertSoundOptional "SOLO_IF_Sound_Base_Special.wav" 65
+    SetFontSize 44
+Show #[48090]
+    DisableDropSound
+	Corrupted True
+	HasExplicitMod >=5 "a" "i" "u" "e" "o" "r" "s" "t" "y"
+    Class "Jewel"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    PlayEffect Yellow
+    MinimapIcon 0 Yellow Circle
+    PlayAlertSound 3 155
+    CustomAlertSoundOptional "SOLO_IF_Sound_Stackable_Currency_T2.wav" 130
+    SetFontSize 44
+Show #[48097]
+    DisableDropSound
+    BaseType "Time-Lost Diamond" "Diamond"
+    SetBorderColor 255 0 0 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[48100]
+    DisableDropSound
+    Class "Jewel" "Relics"
+    SetBorderColor 118 107 106 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[48890]
+    DisableDropSound
+    HasExplicitMod "Lightless" "of the Abyss" "Amanamu's" "Kurgal's" "Ulaman's" "of Amanamu" "of Kurgal" "of Ulaman"
+    SetBorderColor 118 107 106 255
+    SetTextColor 230 180 50 255
+    SetBackgroundColor 21 76 64 255
+    SetFontSize 42
+
+#[50001-60000][基底物品]
+#[50888][基底物品(T9)<腐化2>]紅框,黑底,字體42
+#=========================================================================================================
+#[51220][基底物品(T9)<非腐/非複><物等83+/T1詞綴>][T1]灰框,紫咖啡底,字體42(岩石護符,解凍護符,黃金護符)
+#[51223][基底物品(T9)<非腐/非複><物等82+/T1詞綴>][T1]灰框,紫咖啡底,字體42(日耀項鍊,雜響權杖,徵兆權杖,內臟箭袋,毀滅者之弓,蒼涼十字弓,攻城十字弓,尖刺長矛,剃刃細杖,巨型巨錘,惡毒長袍,先祖頭冠,海妖鱗手套,絲克瑪便鞋,捷足輕鞋,塔薩里安法器,聖賢魔符)
+#[51224][基底物品(T9)<非腐/非複><物等82+/T1詞綴>][T2]灰框,紫咖啡底,字體42(恆星項鍊,雙子之弓,雙生之弓,雙子十字弓,雷霆細杖,夢境細杖,神禦細杖,盲信巨錘,塔赫亞巨棍棒,劫掠者便帽,亮澤護腕,龍膚長靴,帝國巨盔,巨型長手套,塔薩里安脛甲,羽絨之衣,快速打擊背心,總督胸甲,士兵胸甲,光滑外衣,訓鷹者外衣,狼皮披肩,巫術師披肩,漫步者外衣,奔流之衣,聖禮長袍,樸素裝束,海洋風暴披肩)
+#[51225][基底物品(T9)<非腐/非複><物等82+/T1詞綴>][T3]灰框,紫咖啡底,字體42(死亡鎖甲,海盜外套,隱祕之冠,衛士之盔,獰笑之面,追隨者腕帶,烏鐵護手,牢固裹手,烏鋼鎧靴,隱祕護腿,捷足輕鞋,烏鋼紋章盾,耀金圓盾,塔赫亞塔盾)
+#[51228][基底物品(T9)<非腐/非複><物等81+/T1詞綴>][T1]灰框,紫咖啡底,字體42(調和法杖,虹吸法杖,單挑法杖,電能法杖,塔赫亞塔盾)
+#[51229][基底物品(T9)<非腐/非複><物等81+/T1詞綴>][T2]灰框,紫咖啡底,字體42(死神長杖,咆哮長杖,映像之杖)
+#=========================================================================================================
+#[51260][基底物品(T9)<非腐/非複>][T1]灰框,黑底,字體42(岩石護符,解凍護符,黃金護符)
+#[51263][基底物品(T9)<非腐/非複>][T1]灰框,黑底,字體42(日耀項鍊,雜響權杖,徵兆權杖,內臟箭袋,毀滅者之弓,蒼涼十字弓,攻城十字弓,尖刺長矛,剃刃細杖,巨型巨錘,惡毒長袍,先祖頭冠,海妖鱗手套,絲克瑪便鞋,捷足輕鞋,塔薩里安法器,聖賢魔符)
+#[51264][基底物品(T9)<非腐/非複>][T2]灰框,黑底,字體42(恆星項鍊,雙子之弓,雙生之弓,雙子十字弓,雷霆細杖,夢境細杖,神禦細杖,盲信巨錘,塔赫亞巨棍棒,劫掠者便帽,亮澤護腕,龍膚長靴,帝國巨盔,巨型長手套,塔薩里安脛甲,羽絨之衣,快速打擊背心,總督胸甲,士兵胸甲,光滑外衣,訓鷹者外衣,狼皮披肩,巫術師披肩,漫步者外衣,奔流之衣,聖禮長袍,樸素裝束,海洋風暴披肩)
+#[51266][基底物品(T9)<非腐/非複>][T3]灰框,黑底,字體42(死亡鎖甲,海盜外套,隱祕之冠,衛士之盔,獰笑之面,追隨者腕帶,烏鐵護手,牢固裹手,烏鋼鎧靴,隱祕護腿,捷足輕鞋,烏鋼紋章盾,耀金圓盾,塔赫亞塔盾)
+#[51268][基底物品(T9)<非腐/非複>][T1]灰框,黑底,字體42(調和法杖,虹吸法杖,單挑法杖,電能法杖,塔赫亞塔盾)
+#[51269][基底物品(T9)<非腐/非複>][T2]灰框,黑底,字體42(死神長杖,咆哮長杖,映像之杖)
+#=========================================================================================================
+#[51400][基底物品(T9)(U)(S)<非腐/非複><未鑑等級3+>]灰框,黑底,字體42(爪,匕首,法杖,單手劍,單手斧,單手錘,權杖,長矛,鏈錘,弓,長杖,魔符,雙手劍,雙手斧,雙手錘,細杖,十字弓,陷阱,箭袋,盾,輕盾,法器,頭部,手套,鞋子,胸甲,戒指,項鍊,腰帶)
+#[51427][基底物品(T9)<非腐/非複>]灰框,黑底,字體42(權杖,潛能之戒,青金石戒指,紅玉戒指,藍玉戒指,黃玉戒指,紫晶戒指,三相戒指,金光戒指,帝金護身符,珠光項鍊,琥珀護身符,翠玉護身符,海玉護身符,恆星項鍊,日耀項鍊,月神項鍊,血石項鍊,Two-Stone Ring,Vitalic Ring,Mnemonic Ring,Kinetic Ring,Oneiric Ring,Lament Amulet,Portent Amulet)
+#[51428][基底物品(T9)<非腐/非複>]普通,灰框,黑底,字體42(重革腰帶<獵首>,部落之面<謎容>)
+#[51496][基底物品(T9)<非腐/非複>]稀有,灰框,黑底,字體42(戒指,項鍊,腰帶,法器,權杖,陷阱,法杖,頭盔,手套,鞋子,箭袋,盾,輕盾)
+#[51498][基底物品(T9)<非腐/非複>]稀有,灰框,黑底,字體42(長杖)
+#=========================================================================================================
+#[59999][基底物品(T9)<區等78->]灰框,黑底,字體42(爪,匕首,法杖,單手劍,單手斧,單手錘,權杖,長矛,鏈錘,弓,長杖,魔符,雙手劍,雙手斧,雙手錘,細杖,十字弓,陷阱,箭袋,盾,輕盾,法器,頭部,手套,鞋子,胸甲,戒指,項鍊,腰帶,護符)
+#[60000][基底物品(T9)<區等79+>]隱藏,黑底,字體34(爪,匕首,法杖,單手劍,單手斧,單手錘,權杖,長矛,鏈錘,弓,長杖,魔符,雙手劍,雙手斧,雙手錘,細杖,十字弓,陷阱,箭袋,盾,輕盾,法器,頭部,手套,鞋子,胸甲,戒指,項鍊,腰帶,護符)
+Show #[50888]
+    DisableDropSound
+    TwiceCorrupted True
+    SetBorderColor 255 0 0 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[51220]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Stone Charm" "Thawing Charm" "Golden Charm"
+    ItemLevel >= 83
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[51223]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Solar Amulet" "Rattling Sceptre" "Omen Sceptre" "Visceral Quiver" "Obliterator Bow" "Desolate Crossbow" "Siege Crossbow" "Spiked Spear" "Razor Quarterstaff" "Massive Greathammer" "Vile Robe" "Ancestral Tiara" "Sirenscale Gloves" "Sekhema Sandals" "Daggerfoot Shoes" "Tasalian Focus" "Maji Talisman"
+    ItemLevel >= 82
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[51224]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Stellar Amulet" "Gemini Bow" "Twin Bow" "Gemini Crossbow" "Bolting Quarterstaff" "Dreaming Quarterstaff" "Aegis Quarterstaff" "Fanatic Greathammer" "Tawhoan Greatclub" "Freebooter Cap" "Polished Bracers" "Drakeskin Boots" "Imperial Greathelm" "Massive Mitts" "Tasalian Greaves" "Feathered Raiment" "Slipstrike Vest" "Warlord Cuirass" "Soldier Cuirass" "Sleek Jacket" "Falconer's Jacket" "Wolfskin Mantle" "Conjurer Mantle" "Rambler Jacket" "Flowing Raiment" "Sacramental Robe" "Austere Garb" "Seastorm Mantle"
+    ItemLevel >= 82
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[51225]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Death Mail" "Corsair Coat" "Cryptic Crown" "Gladiatorial Helm" "Grinning Mask" "Adherent Cuffs" "Blacksteel Gauntlets" "Secured Wraps" "Blacksteel Sabatons" "Cryptic Leggings" "Daggerfoot Shoes" "Blacksteel Crest Shield" "Golden Targe" "Tawhoan Tower Shield"
+    ItemLevel >= 82
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[51228]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Attuned Wand" "Siphoning Wand" "Dueling Wand" "Galvanic Wand" "Tawhoan Tower Shield"
+    ItemLevel >= 81
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+Show #[51229]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Reaping Staff" "Roaring Staff" "Reflecting Staff"
+    ItemLevel >= 81
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 80 0 40 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[51260]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Stone Charm" "Thawing Charm" "Golden Charm"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51263]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Solar Amulet" "Rattling Sceptre" "Omen Sceptre" "Visceral Quiver" "Obliterator Bow" "Desolate Crossbow" "Siege Crossbow" "Spiked Spear" "Razor Quarterstaff" "Massive Greathammer" "Vile Robe" "Ancestral Tiara" "Sirenscale Gloves" "Sekhema Sandals" "Daggerfoot Shoes" "Tasalian Focus" "Maji Talisman"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51264]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Stellar Amulet" "Gemini Bow" "Twin Bow" "Gemini Crossbow" "Bolting Quarterstaff" "Dreaming Quarterstaff" "Aegis Quarterstaff" "Fanatic Greathammer" "Tawhoan Greatclub" "Freebooter Cap" "Polished Bracers" "Drakeskin Boots" "Imperial Greathelm" "Massive Mitts" "Tasalian Greaves" "Feathered Raiment" "Slipstrike Vest" "Warlord Cuirass" "Soldier Cuirass" "Sleek Jacket" "Falconer's Jacket" "Wolfskin Mantle" "Conjurer Mantle" "Rambler Jacket" "Flowing Raiment" "Sacramental Robe" "Austere Garb" "Seastorm Mantle"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51266]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Death Mail" "Corsair Coat" "Cryptic Crown" "Gladiatorial Helm" "Grinning Mask" "Adherent Cuffs" "Blacksteel Gauntlets" "Secured Wraps" "Blacksteel Sabatons" "Cryptic Leggings" "Daggerfoot Shoes" "Blacksteel Crest Shield" "Golden Targe" "Tawhoan Tower Shield"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51268]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Attuned Wand" "Siphoning Wand" "Dueling Wand" "Galvanic Wand" "Tawhoan Tower Shield"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51269]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Reaping Staff" "Roaring Staff" "Reflecting Staff"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[51400]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Claw" "Dagger" "Wands" "One Hand Sword" "One Hand Axe" "One Hand Mace" "Sceptres" "Spear" "Flail" "Bow" "Staves" "Talismans" "Two Hand Sword" "Two Hand Axe" "Two Hand Mace" "Quarterstaves" "Crossbow" "Traps" "Quivers" "Shield" "Bucklers" "Foci" "Helmets" "Gloves" "Boots" "Body Armours" "Rings" "Amulets" "Belts"
+	UnidentifiedItemTier >= 3
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51427]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType " Sceptre" "Unset Ring" "Lazuli Ring" "Ruby Ring" "Sapphire Ring" "Topaz Ring" "Amethyst Ring" "Prismatic Ring" "Gold Ring" "Gold Amulet" "Pearlescent Amulet" "Amber Amulet" "Jade Amulet" "Lapis Amulet" "Stellar Amulet" "Solar Amulet" "Lunar Amulet" "Bloodstone Amulet" "Two-Stone Ring" "Vitalic Ring" "Mnemonic Ring" "Kinetic Ring" "Oneiric Ring" "Lament Amulet" "Portent Amulet"
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51428]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    BaseType "Heavy Belt" "Tribal Mask"
+    Rarity = Normal
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51496]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Rings" "Amulets" "Belts" "Foci" "Sceptres" "Traps" "Wands" "Helmets" "Gloves" "Boots" "Quivers" "Shield" "Bucklers"
+    Rarity = Rare
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Show #[51498]
+    DisableDropSound
+    Corrupted False
+    Mirrored False
+    Class "Staves"
+    BaseType " Staff"
+    Rarity = Rare
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+#=========================================================================================================
+Show #[59999]
+    DisableDropSound
+    Class "Claw" "Dagger" "Wands" "One Hand Sword" "One Hand Axe" "One Hand Mace" "Sceptres" "Spear" "Flail" "Bow" "Staves" "Talismans" "Two Hand Sword" "Two Hand Axe" "Two Hand Mace" "Quarterstaves" "Crossbow" "Traps" "Quivers" "Shield" "Bucklers" "Foci" "Helmets" "Gloves" "Boots" "Body Armours" "Rings" "Amulets" "Belts" "Charm"
+    AreaLevel <= 78
+    SetBorderColor 118 107 106 255
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 42
+Hide #[60000]
+    DisableDropSound
+    Class "Claw" "Dagger" "Wands" "One Hand Sword" "One Hand Axe" "One Hand Mace" "Sceptres" "Spear" "Flail" "Bow" "Staves" "Talismans" "Two Hand Sword" "Two Hand Axe" "Two Hand Mace" "Quarterstaves" "Crossbow" "Traps" "Quivers" "Shield" "Bucklers" "Foci" "Helmets" "Gloves" "Boots" "Body Armours" "Rings" "Amulets" "Belts" "Charm"
+    AreaLevel >= 79
+    SetBackgroundColor 0 0 0 255
+    SetFontSize 34
