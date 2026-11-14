@@ -1,0 +1,56 @@
+
+/* 1. 先宣告字型（加入本機 local 檢查與 swap 機制） */
+@font-face {
+    font-family: 'GenYoMin';
+    /* 優先抓取本機字型（請根據您實際安裝的粗細填寫，例如 Medium） */
+    src: local('GenYoMin2TW-Medium'),
+         local('源樣明體 2 TW Medium'),
+         /* 這裡要寫成網站發布後的網址相對路徑 */
+         url('/tools/GenYoMin2TW-M.woff2') format('woff2');
+    font-display: swap; /* 關鍵：防卡頓空白 */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. 溫和地套用到 Hexo 全站 body（不加 !important，保護主題圖示） */
+body {
+    font-family: 'GenYoMin', "PingFang TC", "Microsoft JhengHei", serif;
+}
+
+/* 3. 針對表單、按鈕、表格等顽固元件進行強制覆蓋 */
+textarea, input, button, label, select, option, table, td, th, textarea::placeholder, input::placeholder {
+    font-family: 'GenYoMin', "PingFang TC", serif !important;
+}
+
+
+/* 「*」代表所有標籤，加上「::placeholder」代表所有提示文字 */
+
+/* 美化文章內的 code 標籤 */
+#article-content code {
+    font-family: "Fira Code", Consolas, "Courier New", monospace; /* 程式碼字型 */
+    font-size: 0.95em;        /* 縮小字體 */
+    background-color: #c2c9c9 !important; /* 淡灰底色 */
+    padding: 0 4px;           /* 左右內距 */
+    border-radius: 3px;       /* 圓角 */
+    color: rgb(31, 29, 29) !important;              /* 文字顏色 */
+}
+
+/* KaTeX 公式樣式調整 */
+.katex {
+    font-size: 1em;       /* 調整大小，可依需求修改 */
+    line-height: 1.2em;
+}
+.katex-display {
+    margin: 0.5em 0;
+}
+
+/* 文章 & 側邊欄外部連結自動加右上箭頭 */
+.post a[target="_blank"]::after,
+.sidebar a[target="_blank"]::after {
+    content: "\f35d";                     /* ↗ Unicode */
+    font-family: "Font Awesome 6 Free";   /* 只給這個 ::after */
+    font-weight: 900;
+    margin-left: 4px;
+    font-size: 0.8em;
+    color: inherit;
+}

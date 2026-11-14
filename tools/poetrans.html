@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>台服裝備轉譯 | 匯入PoB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+        font-family: 'GenYoMin';
+        src: local('GenYoMin2TW-Medium'),
+             local('源樣明體 2 TW Medium'),
+             url('/tools/GenYoMin2TW-M.woff2') format('woff2');
+        font-display: swap;
+        font-weight: normal;
+        font-style: normal;
+        }
+        body, textarea, input, button, label, select, option, table, td, th, textarea::placeholder, input::placeholder {
+        font-family: 'GenYoMin', "PingFang TC", serif !important;
+        }
+
+        :root {
+            --poe-bg: #1a1a1a;
+            --poe-gold: #c8a96e;
+            --poe-border: #3d3b38;
+            --panel-input-text: #d8cfc4;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--poe-bg);
+            background-image:
+                radial-gradient(ellipse at 60% 30%, rgba(60,40,20,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(20,20,60,0.3) 0%, transparent 50%);
+            color: #e0e0e0;
+            font-family: 'GenYoMin', "Microsoft JhengHei", "PingFang TC", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px 40px;
+        }
+
+        h1 {
+            font-family: 'GenYoMin', "Microsoft JhengHei", sans-serif;
+            color: var(--poe-gold);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            text-shadow: 0 0 24px rgba(180,140,80,0.25);
+        }
+        h1 span.sub {
+            display: block;
+            font-size: 0.77em;
+            color: #6e6458;
+            font-weight: normal;
+            letter-spacing: -1px;
+        }
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 110px 1fr;
+            gap: 0;
+            width: 100%;
+            max-width: 1460px;
+            align-items: stretch;
+            margin-top: 0px;
+        }
+        .editor-pane { display: flex; flex-direction: column; }
+        .pane-label {
+            color: var(--poe-gold);
+            font-size: 1.2em;
+            letter-spacing: 0.1px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px 2px;
+            background: #0e0e0e;
+            border: 1px solid var(--poe-border);
+            border-bottom: 1px solid #2a2a2a;
+        }
+        textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 600px;
+            background: #0a0a0a;
+            color: #bab8b8;
+            border: 1px solid var(--poe-border);
+            border-top: none;
+            padding: 10px;
+            font-size: 19.5px;
+            resize: vertical;
+            font-family: "Consolas", monospace;
+            line-height: 1.25;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        textarea:focus { border-color: #555; }
+        textarea::placeholder {
+            color: #e0e0e0a8;
+            font-family: 'GenYoMin', "Microsoft JhengHei", "PingFang TC", sans-serif;
+            font-size: 20px;
+            font-style: italic;
+        }
+        .action-col {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            background: #060504;
+            position: relative;
+            z-index: 1;
+        }
+        .action-col::before,
+        .action-col::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                #2a2010 12%,
+                #4a3820 40%,
+                #4a3820 60%,
+                #2a2010 88%,
+                transparent 100%);
+            pointer-events: none;
+        }
+        .action-col::before { left: 0; }
+        .action-col::after  { right: 0; }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        .pill-toggle-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            height: 35px;
+            background: #0b0906;
+            border: 1px solid var(--poe-border);
+        }
+        .pill-toggle {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: #100d08;
+            border: none;
+            border-radius: 0;
+            overflow: hidden;
+            cursor: pointer;
+            user-select: none;
+        }
+        .pill-toggle .pill-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: #3a2e14;
+            border-radius: 0;
+            transition: left 0.3s cubic-bezier(0.4,0,0.2,1), background 0.4s;
+            border-right: 1px solid #5a4820;
+        }
+        .pill-toggle.poe2 .pill-slider {
+            left: 50%;
+            background: #4a3818;
+            border-right: none;
+            border-left: 1px solid #6a5828;
+        }
+        .pill-toggle .pill-label {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            font-family: 'Cinzel', 'Noto Serif TC', '源流明體', serif;
+        }
+        .pill-toggle .pill-label.left  { color: #c8a050; }
+        .pill-toggle .pill-label.right { color: #3a2e14; }
+        .pill-toggle.poe2 .pill-label.left  { color: #3a2e14; }
+        .pill-toggle.poe2 .pill-label.right { color: #c8a050; }
+        .pill-tooltip-wrap {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .pill-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background: #0e0b06;
+            border: 1px solid #3a2e18;
+            padding: 5px 5px;
+            font-size: 18px;
+            color: #a08050;
+            font-family: 'GenYoMin', "Microsoft JhengHei", "PingFang TC", sans-serif;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+            pointer-events: none;
+            z-index: 999;
+        }
+        .pill-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #3a2e18;
+        }
+        .pill-tooltip-wrap:hover .pill-tooltip { display: block; }
+        .btn-trans,
+        .btn-copy,
+        .btn-reset {
+            flex: 1;
+            width: 100%;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-align: center;
+            font-size: 2em;
+            letter-spacing: 0.5px;
+            transition: all 0.18s;
+            border-left: none;
+            border-right: none;
+            writing-mode: horizontal-tb;
+            padding: 6px 4px;
+        }
+        .btn-trans svg, .btn-copy svg, .btn-reset svg {
+            width: 70px; height: 70px;
+            flex-shrink: 0;
+            transition: transform 0.18s, opacity 0.18s, stroke 0.3s;
+        }
+        .btn-trans {
+            font-weight: 500;
+            border: 1px solid #352a14;
+            border-left: none; border-right: none;
+            background: #1a1508;
+            color: #7a5e2a;
+        }
+        .btn-trans svg { stroke: #7a5e2a; }
+        .btn-trans:hover:not(:disabled) { background: #221c0c; border-color: #4e3c1a; color: #c8a050; }
+        .btn-trans:hover:not(:disabled) svg { stroke: #c8a050; transform: rotate(30deg); }
+        .btn-trans:disabled { opacity: 0.32; cursor: not-allowed; }
+        .btn-trans:active:not(:disabled) { transform: scale(0.97); }
+        .btn-copy {
+            border: 1px solid #12212c;
+            border-left: none; border-right: none;
+            background: #0a1922;
+            color: #306580;
+        }
+        .btn-copy svg { stroke: #3a7a9a; }
+        .btn-copy:hover { background: #122534; color: #5ab8e0; border-color: #2a5a78; }
+        .btn-copy:hover svg { stroke: #5ab8e0; transform: translateY(-2px); }
+        .btn-copy:active { transform: scale(0.97); }
+        .btn-reset {
+            border: 1px solid #282828;
+            border-left: none; border-right: none;
+            background: #111111;
+            color: #4a4a4a;
+        }
+        .btn-reset svg { stroke: #4a4a4a; }
+        .btn-reset:hover { background: #1c1c1c; color: #8a8a8a; border-color: #404040; }
+        .btn-reset:hover svg { stroke: #8a8a8a; transform: rotate(-60deg); }
+        .btn-reset:active { transform: scale(0.97); }
+        .help-btn {
+            position: relative;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 1px solid #594929;
+            background: #1a1408;
+            color: #a18955;
+            font-size: 22px;
+            cursor: pointer;
+            font-family: "Consolas", monospace;
+            font-weight: bold;
+            transition: border-color 0.18s, color 0.18s, background 0.18s;
+            flex-shrink: 0;
+        }
+        .help-btn:hover { border-color: #7a6030; color: #c8a050; background: #221c0c; }
+        .tooltip-box {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: min(452px, 90vw);
+            background: #0e0b06;
+            border: 1px solid #3a2e18;
+            padding: 11px 13px;
+            z-index: 999;
+            font-size: 18px;
+            line-height: 1.3;
+            color: #7a6a50;
+            font-family: 'GenYoMin', "Microsoft JhengHei", "PingFang TC", sans-serif;
+            font-weight: 100;
+            font-style: normal;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+        .tooltip-box::before {
+            content: '';
+            position: absolute;
+            top: -5px; right: 7px;
+            width: 8px; height: 8px;
+            background: #0e0b06;
+            border-left: 1px solid #3a2e18;
+            border-top: 1px solid #3a2e18;
+            transform: rotate(45deg);
+        }
+        .help-btn:hover .tooltip-box,
+        .help-btn:focus .tooltip-box { display: block; }
+        .tstep { display: flex; gap: 3px; margin-bottom: 5px; }
+        .tstep .num { color: #af9d82; flex-shrink: 0; }
+        .tooltip-box code {
+            color: var(--panel-input-text);
+            font-family: Consolas, monospace;
+            background: #1a1810;
+            padding: 0 2px;
+            border: 1px solid #2a2010;
+            font-size: 18px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 32px; left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #1a1408;
+            border: 0.7px solid #6a5010;
+            border-radius: 4px;
+            color: #c8a050;
+            padding: 9px 20px;
+            font-size: 1.2em;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, transform 0.25s;
+            z-index: 2000;
+            white-space: nowrap;
+        }
+        .toast.show { opacity: 0.85; transform: translateX(-50%) translateY(0); }
+
+        .menu-toggle {
+            position: fixed; top: 14px; left: 14px; z-index: 100;
+            background: #0e0c09; border: 1px solid #3a2e18;
+            width: 38px; height: 38px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.7);
+        }
+        .menu-toggle:hover { background: #181410; border-color: #6a5020; }
+        .menu-toggle span { display: block; width: 20px; height: 1.8px; background: #7a6040; border-radius: 2px; }
+        .menu-toggle:hover span { background: #c8a050; }
+        .drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 3000; }
+        .drawer-overlay.show { display: block; }
+        .side-drawer {
+            position: fixed; top: 0; left: 0; bottom: 0; width: 375px;
+            background: #0a0805; border-right: 1px solid #3a2e18;
+            box-shadow: 4px 0 32px rgba(0,0,0,0.8);
+            z-index: 3050;
+            display: flex; flex-direction: column;
+            transform: translateX(-100%);
+            transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+            overflow-y: auto;
+        }
+        .side-drawer.open { transform: translateX(0); }
+        .drawer-header { display: flex; align-items: center; justify-content: flex-end; padding: 8px 10px; border-bottom: 1px solid #1e1608; background: #0e0b06; }
+        .drawer-close { background: none; border: none; color: #776440; cursor: pointer; font-size: 1.4em; padding: 2px 6px; transition: color 0.15s, background 0.15s; }
+        .drawer-close:hover { color: #c8a050; background: #1a1208; }
+        .drawer-section { padding: 0; border-bottom: 1px solid #1a1508; }
+        .drawer-section:last-child { border-bottom: none; }
+        .drawer-item {
+            display: flex; align-items: center; gap: 14px; padding: 9px 16px;
+            cursor: pointer; color: #a38d6d; font-size: 1.3em;
+            transition: background 0.18s, color 0.18s;
+            border: none; background: none; width: 100%; font-family: inherit; text-align: left; text-decoration: none;
+        }
+        .drawer-item:hover { background: #141008; color: #e2ad52; }
+        .drawer-item .di-icon { width: 24px; min-width: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .drawer-item .di-icon svg { width: 24px; height: 24px; stroke: #a38d6d; transition: stroke 0.18s; display: block; }
+        .drawer-item:hover .di-icon svg { stroke: #e2ad52; }
+        .drawer-item .di-label { line-height: 1.3; }
+        .drawer-item .di-sub { font-size: 0.82em; color: #4a3c28; margin-top: 2px; }
+        .drawer-about { padding: 12px 16px 6px; font-size: 1.2em; color: #52452f; line-height: 1.4; }
+        .drawer-footer { padding: 10px 16px 16px; font-size: 1.2em; color: #52452f; border-top: 1px solid #181008; margin-top: auto; }
+        .donate-grid { display: grid; grid-template-columns: 1fr 1fr; }
+        .donate-grid .drawer-item { justify-content: center; text-align: center; padding: 10px 8px; }
+        .donate-grid .drawer-item:first-child { border-right: 1px solid #1f190d; }
+        .donate-grid .drawer-item .di-text .di-label { font-size: 1em; }
+        .donate-grid .drawer-item .di-text .di-sub { font-size: 0.78em; color: #4a3c28; margin-top: 2px; }
+        @media (max-width: 640px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .action-col { flex-direction: row; }
+            .action-col::before, .action-col::after { display: none; }
+            .btn-group { flex-direction: row; }
+            .btn-trans, .btn-copy, .btn-reset { padding: 10px 4px; flex-direction: row; gap: 5px; }
+            .btn-trans svg, .btn-copy svg, .btn-reset svg { width: 20px; height: 20px; }
+            .pill-toggle-wrap {
+                flex: 1;
+                height: auto;
+                padding: 0;
+                align-self: stretch;
+                border-top: none;
+                border-bottom: none;
+            }
+            .pill-tooltip-wrap { flex-direction: column; }
+            .pill-toggle { flex-direction: column; }
+            .pill-toggle .pill-slider {
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 50%;
+            }
+            .pill-toggle.poe2 .pill-slider {
+                left: 0;
+                top: 50%;
+                border-left: none;
+                border-top: 1px solid #6a5828;
+                border-right: none;
+            }
+            .pill-toggle .pill-label { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="openDrawer()">
+    <span></span><span></span><span></span>
+</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="side-drawer" id="side-drawer">
+    <div class="drawer-header">
+        <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://iammissu.github.io/tools/poeeq" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench-icon lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>
+            </span>
+            <div class="di-text"><div class="di-label">台服工藝速算</div><div class="di-sub">武器物傷 · pDPS · 防具防禦值</div></div>
+        </a>
+    </div>
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://iammissu.github.io/tools/poe_filter_preview" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-icon lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg></span>
+            <div class="di-text"><div class="di-label">SOLO Item Filter 預覽</div><div class="di-sub">即時預覽過濾器顯示樣式</div></div>
+        </a>
+    </div>
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://iammissu.github.io/tools/poe_filter_style" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette-icon lucide-palette"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg></span>
+            <div class="di-text"><div class="di-label">POE Filter Style</div><div class="di-sub">即時編輯過濾樣式</div></div>
+        </a>
+    </div>
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://iammissu.github.io/tools/poe_filter_diff" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="5" y1="12" y2="12"/><line x1="19" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="5"/><line x1="12" x2="12" y1="19" y2="22"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <div class="di-text"><div class="di-label">POE Filter Diff</div><div class="di-sub">尋找差異</div></div>
+        </a>
+    </div>
+
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://github.com/iammissu/poe-selection-search" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-puzzle preview-icon"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>
+            </span>
+            <div><div class="di-label">POE 選取文字搜尋</div><div class="di-sub">瀏覽器擴充 &middot; 速查Wiki、poedb</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://discord.com/oauth2/authorize?client_id=934121225209397319&permissions=2147502080&integration_type=0&scope=bot+applications.commands" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" width="20" height="20" fill="currentColor">
+            <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5A52.22,52.22,0,0,0,30.7,78,75.46,75.46,0,0,0,96.44,78a52.22,52.22,0,0,0,2.57,2.52,68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129.89,50.15,123.67,27.33,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+            </svg></span>
+            <div class="di-text"><div class="di-label">邀請 Kitava BOT 至 Discord</div><div class="di-sub">提供 Path of Exile 遊戲資訊查詢</div></div>
+        </a>
+    </div>
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://iammissu.github.io/" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg></span>
+            <div class="di-text"><div class="di-label">主要網站</div><div class="di-sub">iammissu.github.io</div></div>
+        </a>
+    </div>
+    <div class="drawer-section">
+        <a class="drawer-item" href="https://home.gamer.com.tw/profile/index_message_board.php?owner=iammissu" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()">
+            <span class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+            <div class="di-text"><div class="di-label">回報問題</div><div class="di-sub">巴哈姆特</div></div>
+        </a>
+    </div>
+    <div class="drawer-section">
+        <div class="donate-grid">
+            <a class="drawer-item" href="https://www.paypal.com/paypalme/iammissu" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()"><div class="di-text"><div class="di-label">PayPal</div><div class="di-sub">國際贊助</div></div></a>
+            <a class="drawer-item" href="https://payment.opay.tw/Broadcaster/Donate/6613E7A9FF912F36221813026AAE9474" target="_blank" rel="noopener noreferrer" onclick="closeDrawer()"><div class="di-text"><div class="di-label">OPay</div><div class="di-sub">歐付寶贊助</div></div></a>
+        </div>
+    </div>
+    <div class="drawer-section">
+        <div class="drawer-about">
+            <div style="color:#5a4a28;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5a4a28" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                免責聲明
+            </div>
+            本工具為非官方輔助計算，數值僅供參考，實際以遊戲內顯示為準。與 Grinding Gear Games 無任何關聯。
+        </div>
+        <div class="drawer-footer">Created by <span style="color:#6a5830;">iammissu</span></div>
+    </div>
+</div>
+
+<h1>POE 台服裝備轉譯<span class="sub">匯入 Path of Building · 正體中文翻譯</span></h1>
+
+<div class="main-layout">
+    <div class="editor-pane">
+        <div class="pane-label">
+            <span>台服裝備資訊（輸入）</span>
+            <div class="help-btn" tabindex="0">?
+                <div class="tooltip-box">
+                    <div class="tstep"><span class="num">①</span><span>遊戲內對裝備按 <code>Ctrl+C</code>，或在市集複製裝備資訊</span></div>
+                    <div class="tstep"><span class="num">②</span><span> <code>Ctrl+V</code> 貼上至此輸入欄</span></div>
+                    <div class="tstep"><span class="num">③</span><span>選擇版本 <code>POE1</code> <code>POE2</code>，點擊中間「轉譯」</span></div>
+                    <div class="tstep"><span class="num">④</span><span>「複製」右欄結果，貼入 <code>Path of Building</code></span></div>
+                    <div style="border-top:1px solid #2a2010;padding-top:7px;margin-top:5px;font-size:18px;color:#5e5038;">⚠︎1代暫不支援傳奇、藥劑、星團珠寶</div>
+                    <div style="color:#5e5038;">⚠︎2代暫不支援傳奇、藥劑、護符</div>
+                </div>
+            </div>
+        </div>
+        <textarea id="input" placeholder="在遊戲內對裝備按 Ctrl+C，再貼上於此..."></textarea>
+    </div>
+
+    <div class="action-col" id="actionCol">
+        <div class="btn-group">
+            <div class="pill-toggle-wrap">
+                <div class="pill-tooltip-wrap">
+                    <div class="pill-toggle" id="pillToggle" onclick="toggleVersion()">
+                        <div class="pill-slider"></div>
+                        <div class="pill-label left">POE1</div>
+                        <div class="pill-label right">POE2</div>
+                    </div>
+                    <div class="pill-tooltip" id="pillTooltip">目前為1代轉譯模式</div>
+                </div>
+            </div>
+
+            <button id="transBtn" class="btn-trans" onclick="doTranslate()">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4l6 0l-3 5h4l-7 11l1-7H2l2-9z"/>
+                    <path d="M17 3l3 3-3 3M20 6H14"/>
+                    <path d="M17 15l3 3-3 3M20 18H14"/>
+                </svg>
+                <span>轉譯</span>
+            </button>
+            <button class="btn-copy" onclick="copyToClipboard()">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="11" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <span>複製</span>
+            </button>
+            <button class="btn-reset" onclick="doReset()">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                    <path d="M10 11v6M14 11v6"/>
+                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                </svg>
+                <span>重置</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="editor-pane">
+        <div class="pane-label">
+            <span>轉譯結果（輸出）</span>
+        </div>
+        <textarea id="output" placeholder="轉譯後的英文裝備資訊將顯示於此..."></textarea>
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var toggleVersion,applyVersionUI,doTranslate,doReset,copyToClipboard,showToast,openDrawer,closeDrawer;const vmR2_a37025=(function vmUV(vmUp,vmUF){let vmUP,vmUr;let vmUQ={__proto__:null,['toggleVersion']:function(){return vmU_806cc9(this,{'_$uqo2LU':Object['defineProperties']({},{['0']:{'value':applyVersionUI,'writable':!![],'enumerable':!![]},['1']:{'get':function(){return currentVersion;},'enumerable':!![],'set':function(u){currentVersion=u;}},['2']:{'value':showToast,'writable':!![],'enumerable':!![]}}),'_$BkpfqJ':undefined,'_$DAaXeK':0x0},arguments,typeof toggleVersion!=='undefined'?toggleVersion:undefined,new.target,0x0,0x37,0x98);},['applyVersionUI']:function(){return vmU_806cc9(this,{'_$uqo2LU':Object['defineProperties']({},{['0']:{'get':function(){return currentVersion;},'enumerable':!![],'set':function(u){currentVersion=u;}}}),'_$BkpfqJ':undefined,'_$DAaXeK':0x0},arguments,typeof applyVersionUI!=='undefined'?applyVersionUI:undefined,new.target,0x1,0x37,0x98);},['doTranslate']:function doTranslate(){if(new.target)throw new TypeError();return vmU_806cc9(this,{'_$uqo2LU':Object['defineProperties']({},{['0']:{'value':WORKER_URL,'writable':!![],'enumerable':!![]},['1']:{'get':function(){return currentVersion;},'enumerable':!![],'set':function(u){currentVersion=u;}},['2']:{'value':showToast,'writable':!![],'enumerable':!![]}}),'_$BkpfqJ':undefined,'_$DAaXeK':0x0,'_$JbyIAo':[0x1,0x0,0x0]},arguments,undefined,new.target,0x2,0x37,0x98);},['doReset']:function(){return vmU_806cc9(this,{'_$uqo2LU':[showToast],'_$BkpfqJ':undefined,'_$DAaXeK':0x0},arguments,typeof doReset!=='undefined'?doReset:undefined,new.target,0x3,0x37,0x98);},['copyToClipboard']:function copyToClipboard(){if(new.target)throw new TypeError();return vmU_806cc9(this,{'_$uqo2LU':[showToast],'_$BkpfqJ':undefined,'_$DAaXeK':0x0},arguments,undefined,new.target,0x4,0x37,0x98);},['showToast']:function(u){return vmU_806cc9(this,undefined,arguments,typeof showToast!=='undefined'?showToast:undefined,new.target,0x5,0x37,0x98);},['openDrawer']:function(){return vmU_806cc9(this,undefined,arguments,typeof openDrawer!=='undefined'?openDrawer:undefined,new.target,0x6,0x37,0x98);},['closeDrawer']:function(){return vmU_806cc9(this,undefined,arguments,typeof closeDrawer!=='undefined'?closeDrawer:undefined,new.target,0x7,0x37,0x98);}},vmUI=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:typeof self!=='undefined'?self:typeof global!=='undefined'?global:void 0,vmUn,vmUm=vmUp===vmUI&&vmUF;if(vmUm){const vmUO={__proto__:null,["toggleVersion"]:()=>toggleVersion,["applyVersionUI"]:()=>applyVersionUI,["doTranslate"]:()=>doTranslate,["doReset"]:()=>doReset,["copyToClipboard"]:()=>copyToClipboard,["showToast"]:()=>showToast,["openDrawer"]:()=>openDrawer,["closeDrawer"]:()=>closeDrawer};for(const vmR1 in vmUQ){vmUn=Object.getOwnPropertyDescriptor(vmUI,vmR1);if(!vmUn||'value'in vmUn&&vmUn.value!==vmUO[vmR1]()){vmUm=false;}}}if(vmUm){for(const vmR1 in vmUQ){vmUn=Object.getOwnPropertyDescriptor(vmUI,vmR1);if(vmUn&&vmUn.configurable&&('get'in vmUn||vmUn.value!==void 0)){Object.defineProperty(vmUI,vmR1,{value:vmUQ[vmR1],writable:true,enumerable:true,configurable:false});}else if(vmUn&&!vmUn.configurable&&!(vmUn.writable&&vmUn.enumerable)){throw new SyntaxError("Identifier '"+vmR1+"' has already been declared");}else{vmUI[vmR1]=vmUQ[vmR1];}}}else{const vmR0=()=>{toggleVersion=vmUQ["toggleVersion"];applyVersionUI=vmUQ["applyVersionUI"];doTranslate=vmUQ["doTranslate"];doReset=vmUQ["doReset"];copyToClipboard=vmUQ["copyToClipboard"];showToast=vmUQ["showToast"];openDrawer=vmUQ["openDrawer"];closeDrawer=vmUQ["closeDrawer"];};vmR0();}const vmS=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:typeof self!=='undefined'?self:typeof global!=='undefined'?global:void 0x0;const vmR_926372={__proto__:null};const _$ZcYnk4=vmR_926372['_$eCjqef']||(vmR_926372['_$eCjqef']={['_$B0FCLW']:undefined,['_$MVMfub']:undefined,['_$t0re1P']:undefined,['_$beSb6h']:undefined,['_$PhMeuD']:undefined,['_$qWuLUT']:undefined,['_$riDCtR']:undefined,['_$fDIAvf']:undefined});const _$rhyLYY=vmUp===vmS?vmS:vmR_926372;const _$KoX0k3=function(u,T,y){u[T]=y;};const _$7a2zln=function(u,T){return delete u[T];};const _$MKQwO3=function(u,T,y,J){if(y===''){if(T)switch(J){case 0x1:return{'':function(U){'use strict';return u(this,arguments,new.target);}}[''];case 0x2:return{'':function(U,R){'use strict';return u(this,arguments,new.target);}}[''];case 0x3:return{'':function(U,R,W){'use strict';return u(this,arguments,new.target);}}[''];default:return{'':function(){'use strict';return u(this,arguments,new.target);}}[''];}switch(J){case 0x1:return{'':function(U,R=void 0x0){return u(this,arguments,new.target);}}[''];case 0x2:return{'':function(U,R,W=void 0x0){return u(this,arguments,new.target);}}[''];case 0x3:return{'':function(U,R,W,o=void 0x0){return u(this,arguments,new.target);}}[''];default:return{'':function(U=void 0x0){return u(this,arguments,new.target);}}[''];}}if(T)switch(J){case 0x1:return{[y]:function(U){'use strict';return u(this,arguments,new.target);}}[y];case 0x2:return{[y]:function(U,R){'use strict';return u(this,arguments,new.target);}}[y];case 0x3:return{[y]:function(U,R,W){'use strict';return u(this,arguments,new.target);}}[y];default:return{[y]:function(){'use strict';return u(this,arguments,new.target);}}[y];}switch(J){case 0x1:return{[y]:function(U,R=void 0x0){return u(this,arguments,new.target);}}[y];case 0x2:return{[y]:function(U,R,W=void 0x0){return u(this,arguments,new.target);}}[y];case 0x3:return{[y]:function(U,R,W,o=void 0x0){return u(this,arguments,new.target);}}[y];default:return{[y]:function(U=void 0x0){return u(this,arguments,new.target);}}[y];}};const _$kLZL4M=function(u,T,y,J){if(y===''){if(T)switch(J){case 0x1:return{''(U){'use strict';return u(this,arguments);}}[''];case 0x2:return{''(U,R){'use strict';return u(this,arguments);}}[''];case 0x3:return{''(U,R,W){'use strict';return u(this,arguments);}}[''];default:return{''(){'use strict';return u(this,arguments);}}[''];}switch(J){case 0x1:return{''(U,R=void 0x0){return u(this,arguments);}}[''];case 0x2:return{''(U,R,W=void 0x0){return u(this,arguments);}}[''];case 0x3:return{''(U,R,W,o=void 0x0){return u(this,arguments);}}[''];default:return{''(U=void 0x0){return u(this,arguments);}}[''];}}if(T)switch(J){case 0x1:return{[y](U){'use strict';return u(this,arguments);}}[y];case 0x2:return{[y](U,R){'use strict';return u(this,arguments);}}[y];case 0x3:return{[y](U,R,W){'use strict';return u(this,arguments);}}[y];default:return{[y](){'use strict';return u(this,arguments);}}[y];}switch(J){case 0x1:return{[y](U,R=void 0x0){return u(this,arguments);}}[y];case 0x2:return{[y](U,R,W=void 0x0){return u(this,arguments);}}[y];case 0x3:return{[y](U,R,W,o=void 0x0){return u(this,arguments);}}[y];default:return{[y](U=void 0x0){return u(this,arguments);}}[y];}};const _$Mjhezc=function(u,T,y,J){if(T)switch(J){case 0x1:return{async[y](U){'use strict';let R=u(this,arguments);while(R['a']){let W=0x1,o;try{o=await R['v'];}catch(S){W=0x2,o=S;}R['s'](W,o);}return R['v'];}}[y];case 0x2:return{async[y](U,R){'use strict';let W=u(this,arguments);while(W['a']){let o=0x1,S;try{S=await W['v'];}catch(Z){o=0x2,S=Z;}W['s'](o,S);}return W['v'];}}[y];case 0x3:return{async[y](U,R,W){'use strict';let o=u(this,arguments);while(o['a']){let S=0x1,Z;try{Z=await o['v'];}catch(E){S=0x2,Z=E;}o['s'](S,Z);}return o['v'];}}[y];default:return{async[y](){'use strict';let U=u(this,arguments);while(U['a']){let R=0x1,W;try{W=await U['v'];}catch(o){R=0x2,W=o;}U['s'](R,W);}return U['v'];}}[y];}switch(J){case 0x1:return{async[y](U,R=void 0x0){let W=u(this,arguments);while(W['a']){let o=0x1,S;try{S=await W['v'];}catch(Z){o=0x2,S=Z;}W['s'](o,S);}return W['v'];}}[y];case 0x2:return{async[y](U,R,W=void 0x0){let o=u(this,arguments);while(o['a']){let S=0x1,Z;try{Z=await o['v'];}catch(E){S=0x2,Z=E;}o['s'](S,Z);}return o['v'];}}[y];case 0x3:return{async[y](U,R,W,o=void 0x0){let S=u(this,arguments);while(S['a']){let Z=0x1,E;try{E=await S['v'];}catch(M){Z=0x2,E=M;}S['s'](Z,E);}return S['v'];}}[y];default:return{async[y](U=void 0x0){let R=u(this,arguments);while(R['a']){let W=0x1,o;try{o=await R['v'];}catch(S){W=0x2,o=S;}R['s'](W,o);}return R['v'];}}[y];}};const _$BfG9md=function(u,T,y,J){if(T)return(function(){'use strict';switch(J){case 0x1:return{*[y](U,R=void 0x0,...{[(R=u(this,arguments),'length')]:W}){return yield*R;}}[y];case 0x2:return{*[y](U,R,W=void 0x0,...{[(W=u(this,arguments),'length')]:o}){return yield*W;}}[y];case 0x3:return{*[y](U,R,W,o=void 0x0,...{[(o=u(this,arguments),'length')]:S}){return yield*o;}}[y];default:return{*[y](U=void 0x0,...{[(U=u(this,arguments),'length')]:R}){return yield*U;}}[y];}}());switch(J){case 0x1:return{*[y](U,R=void 0x0,...{[(R=u(this,arguments),'length')]:W}){return yield*R;}}[y];case 0x2:return{*[y](U,R,W=void 0x0,...{[(W=u(this,arguments),'length')]:o}){return yield*W;}}[y];case 0x3:return{*[y](U,R,W,o=void 0x0,...{[(o=u(this,arguments),'length')]:S}){return yield*o;}}[y];default:return{*[y](U=void 0x0,...{[(U=u(this,arguments),'length')]:R}){return yield*U;}}[y];}};const vmU_806cc9=(function(){'use strict';var u=WeakMap['prototype']['set'],T=WeakSet['prototype']['add'],y=Reflect['set'],J=Object['getOwnPropertySymbols'],U=Reflect['ownKeys'],R=WeakSet['prototype']['has'],W=Reflect['construct'],o=Object['setPrototypeOf'],S=Array['prototype'][Symbol['iterator']],Z=Reflect['defineProperty'],E=Object['getOwnPropertyDescriptor'],M=Object['getPrototypeOf'],B=Reflect['apply'],g=Function['prototype']['apply'],f=Object['create'],x=WeakMap['prototype']['get'],v=Proxy,z=Object['defineProperty'],d=Object['getOwnPropertyNames'],X=Reflect['deleteProperty'],k=Function['prototype']['call'],i=WeakMap['prototype']['has'],c=Reflect['get'];let C=['512GqvkJJLVcz0pHIBl+yBtRDGlK/RUv2TiZy8gX2TiZy8gu2iXiIzL5EjD+IBpYy8hj6rqJ2ilK/0Unj0UiInrcmmRn5vRViQ/7CQE2vbMov47ONqBO1/3Cacz+NVfcmmRn5vRViQ/7CQE2vbzov47ONqBO1/3Cacz+NVf0JWVxJrJLJlrFLTzRLrI0lVJ2LlTFLTMRLrWoLJqLHTgxJrJLJcq2LrJJJr2gLJqFzTqJfJVFTJFxJTJLJlrFLrFJJr2gLJq2HTgzLw6JJT6qLJq0HTgFhJr0LUqxLTTELTzZJT6JJr66Lr68LrT0dJOmV2qocJ==','512GqvkJLLOcF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJOgI0+5yxtND8s5DrqL2iDZ/RX5j0UNyztYIJOIqnjuICjvsxD+IBpYy89c2zLNDWVcFCp5qGpKW0+KsJO0qRto2bMBC4S+wqnBT1OuhMvb4M8l4c8Nhawihyu72iDeDGier8Uvs0jvsJOkICjPynD+2bMBC4S+wqnBT1OXhMvb4M8l4c8Nhawihyu7RTqJLJqLLTV0JZqLLTJ0JJr0JrqFLTk0JrqLLrJJJrJ0LTI0lJr0JJqzLJqVLTq0JZqLLJqLLTo02TrFLTJ0LZr02Zq0LTk0Jrr0JrqkLTOFLJtJSTMuLsqxzYrLNJjJSTMuLsqxzYrLNJRgLpqxTJcqLkTxfTGvJNVxHTgE+J0JJITxHTGZLVJLhJWVLAVxSTMuLsqxzYrLTJzVLsqxfJ6JJDVxPTgFVb9fjT==','512WVmkJ2xrcF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJOc/RhZsGr0JrOcsCx5sRgcFztuqRhKrBtvJrOrD0+KqRl5DRrcd0UHszLHsJOq4M8l4c8NhMwPMw9v2TYCDGtb/JOgjeU66ej6GHj6WJOVgFUWjJOkyRje/0Uo2wLiIzL5/Rpis0+NywUaI8Uv2iidy8heDRheMjthI0gcdCi+qRt+IBkc2FYWWe9cFBpeIC+vD8+CErO/DGxH/GLPDRhej0j9sJOIqnjuICjvsxD+IBpYy89cdBD+IBpYy89c20lNDzo0JTOFy85cdzpeqGtHIZEPJrOJ2ilK/0Unj0UiInrcrvCSBv/WwvRoavCTvQEhTEQfbmw1wQEObERQbmR0bEwYYTOctGluynVc0m/MovEH+Ew1wQ/XTTOV/BpNyTqJ2TXuDGpHyzrc0mwUwEwP1QRvbm/VoJO6GKL9pRFhpboe2Thby8hKy8X+2TY+IBlNITYT4M8l4c8Nh/6XhYRGSSuk4cvMhaawhYQ+hS/u4MENhOwRhS/uhD8J4cwPh/4/99222ibBiczC5hGYTc7BPhOMaTcgLGDJSTMuLsqxzYrLfTRfLITxQJ0qLlVxPTjJSTMuLsqxzYrLNJGVLtSZLVJLrm92fTGRLt4gJsqxfJ6JJRhJ+JWvLsqxdv9xHTgmdodvJNVxSTGVLr4gLJ9E+JFmzNJ2bJRfLITxfTG9JDTFuJGuLt4JJYTFrm92fTGRLt4gJsqxfJ6JJDrFHTgEfJcJJDVxPTjJHTgECJc2J5TxSTMuLt4gJqZxNJjJSTMuLsqxzYrLuJGuLAJFTJ0gLpqxzNJ2TJz/LmrF+Jj8bJxJSTMuLDrFzYrLTJxJSTMuLsqxzYrLHTGZLVJL+JWRLtSZJOJLaJMoLMTduJgEfJ6JJGcOJYVxPTg0JJqJLTJFLTF0JTqdLTF0LJqJLTJFLJrFLTJFLTF0LrqdLTF0JrqLLTq0LZr0JJr0JrqVLTk0JrqlLTrFLJqcLrJJJTJFLTZ0drr0dTq7LiJ0Frr0FTr0JJqWLrFJJTJ0xrqdLTF0xTqGLTVFLTV0JTqqLJr0JTqDLiOzLwrFLTJFLTF02JqdLTF00ZqFLJg2JJVJLie0JZqLLJrFLi90zZqdLTFFLTVFLwJ0VrqJLJqdLTJFLTF02JqdLTF0JZqwLTrFLrVJJTJ0VZqdLTFFLJr0JJqLLTJ0lrr0lTqJLTk0Jrr0JJr0JrqVLTk0JrqBLTrFLrVJJZJ0cJqdLTFFLTJFLJqLLwo0LZrFLTJFLJZqzB4eJqTLaTzwJDT2+TcqJaV2YJV2tvqLCTcCJT==','512jqvkJJLVcF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJOc/RhZsGr0JrOJ2TY8qRXHDrOkynjeIzje2ilK/0Unj0UiInrcFvRn5vCzbEEU1bV0JFJFSTV0JAVxLTMRLrqdzTqL+JF0LpqxLTGZLJ6JJrqJrJWvJTqLfTg0LPqxLTkELT0gJrqFHTg0LAJFLVJLLrJJJr2gLJqVHTg0JX90JAJ2LVJLLlVxLMqx','512WqmkJJircF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJOkynjeIzjeLTFc2BDiyzj+2ilvqGDYD8xeynVcFCp5/GLwy8xuDJO6snlYs0jgDGie2ilK/0Unj0UiInrccvRn5vwoiQwbNEwz5QRlavwuNmEZNKO0JFJFSTV0JAVxLTMRLrqdzTqL+JF0L7VxLT2fLrqJuJgFQJFFCJrFoTgFPTg0LgJ0LNVxLm92LTAuLrqJuJg0JX90JDrLLVZxLVJLLrJJJr2gLJqlHTg0JX90JAJ2LVJLLlVxLMqxJir/','512sqvk2JJVE2ilAkzTXkCjoDdgcF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJOcs0UiInr0JrO6/RhvDGlgDGie2ilby0xKIeXYInrcLCxoDJOVI8iNsZOqq8X+qGlg/RH+ynje2TiAs0+o2itKDGtg/RH+ynjeLTJzfJO0J+J0JlrxLTx8LrJJJr2CLrqLrJWvJTq2fTg0JUqxLTrELT0gJrqJTTg0JlrFLTJoLTGZLJ6JJrqJ+Jr0LNVxLm92LTAuLrqVHTg0LL90JDrLLVJLLT+JLT2gLJqcfTg0LL90JAJ2LVJLLT2gLJqMrJqkzT6eLJqpzTqmzTq2fJV02NJFLVJLLT2OJT66Lr68Lr==','512jqvkJJLVcF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJORI8+oD6HoICxnDGV0JrO6q8XiInpk/Gpe2TDiD0rc20UZDR9cz0tuqGs+IwHNsCjuy0xh2TiK/0UnmFJ0Jm92L7VxLTzRLrq2zTqd+JF0JAVxLTWvJTWuLrqxHTg0Li90JhrLLT0JJrtJLTdvJTWuLrqLHTg0LX90JhrLLTzuLrqFSTVFfTg0LsqxLTTELTmgJrqLTJFFoTgFPTgF','512jqvkJJLVcF0tNqnjPDRhe2iXBDGtxy0jPDRherB+lDJORI8+oD6HoICxnDGV0JrO6q8XiInpk/Gpe2TXuDRHNsCgc20UZDR9cz0tuqGs+IwHNsCjuy0xh2TiK/0UnmFJ0Jm92L7VxLTzRLrq2zTqd+JF0JAVxLTWvJTWuLrqxHTg0Li90JhrLLT0JJrtJLTdvJTWuLrqLHTg0LX90JhrLLTzuLrqFSTVFfTg0LsqxLTTELTmgJrqLTJFFoTgFPTgF'];var A=Uint8Array,q=DataView,D=String['fromCharCode'];let b=['51JjqvkJJJOcF+fZEdFuDRtoprO6q8XiInpk/Gpe2TXuDRHNsCgc2zpOynI0Jt6gLG/gL7VxSTMuLsqxzYrLPTg0JJqJLrJJJTJ0Jrr0JTqdLTr0Jrr='],l={'0':0x134,'1':0x17f,'2':0x114,'3':0x19a,'4':0x56,'5':0x1b1,'6':0x44,'7':0xf3,'8':0x9b,'9':0xa,'10':0x1fc,'11':0x13f,'12':0xf4,'13':0x1b,'14':0x13d,'15':0x165,'16':0x1fe,'17':0x163,'18':0x1af,'19':0xb7,'20':0x85,'21':0x4a,'22':0xa9,'23':0x1b5,'24':0x1de,'25':0xe,'26':0x1fa,'27':0x184,'28':0x66,'29':0x94,'32':0x144,'40':0x3a,'41':0xe9,'42':0x46,'43':0x199,'44':0x2c,'45':0x106,'46':0x1aa,'47':0x8d,'50':0x55,'51':0x83,'52':0x72,'53':0x1e4,'54':0x2f,'55':0x11d,'56':0x11f,'57':0x16,'58':0x61,'59':0x1ab,'60':0xb1,'61':0x70,'62':0x1ae,'63':0xeb,'64':0x13a,'70':0x11e,'71':0x5d,'72':0x29,'73':0x1df,'74':0x5,'75':0x22,'76':0x14d,'77':0x1d2,'79':0x58,'81':0xc4,'83':0xbc,'84':0x18c,'90':0x188,'91':0x177,'93':0x1d,'94':0xe7,'95':0x6f,'100':0xf6,'104':0x108,'105':0x80,'106':0x100,'107':0x136,'110':0x15d,'111':0x1c4,'112':0x142,'120':0x7c,'121':0x1ec,'122':0x88,'123':0xd1,'124':0x1c5,'127':0x42,'128':0xae,'129':0x6a,'130':0xcd,'131':0x1b8,'132':0x2a,'140':0x11c,'141':0xb,'142':0xe3,'143':0x1d3,'144':0x9d,'145':0xec,'146':0x12d,'147':0x1c9,'148':0x17b,'149':0xa2,'160':0x198,'161':0x128,'162':0x35,'163':0x126,'164':0xf8,'165':0x164,'166':0xef,'167':0xdb,'168':0x2e,'169':0x14b,'170':0x4e,'180':0x52,'181':0x196,'182':0x43,'183':0x1fb,'184':0x127,'185':0x1db,'200':0x14,'201':0x1bf,'210':0x1ea,'213':0x3e,'214':0x141,'220':0x19d,'250':0x102,'251':0x1b0,'252':0xd5,'253':0xb9,'254':0xd,'255':0x1ee,'256':0xac,'262':0x1fd,'263':0x15a,'264':0x19e,'265':0x60,'266':0x38,'267':0x84,'268':0xd7,'269':0x7b,'270':0x146,'272':0x182,'273':0x16c,'274':0x130,'275':0x1b6,'276':0x1f1,'277':0x15f,'278':0x121,'279':0xb8,'280':0xc8,'281':0xed,'282':0x176,'283':0x1a6,'284':0xc5,'285':0xb5,'286':0x104,'287':0x74,'288':0x17c,'293':0x10a,'294':0x1ed,'295':0xf2,'296':0xcb,'297':0xb6,'298':0x13e,'299':0x1f8,'300':0x10f,'301':0x30,'302':0x1e,'303':0x4b,'304':0x67,'305':0x4d,'306':0x1b3,'307':0x168,'308':0x6d,'309':0x51,'310':0xc7,'311':0x1d0,'312':0x113,'320':0x18,'321':0x118,'322':0x57,'323':0x180,'325':0x73,'326':0x14f,'327':0x95,'328':0x139,'329':0x1f4,'330':0x1bb,'332':0x173,'333':0xea,'334':0x13c,'339':0xde,'340':0x17,'341':0x190,'342':0x93,'343':0x124,'344':0x7d,'345':0xdc,'346':0x174,'347':0x1a,'348':0x1c8,'349':0xa7,'350':0x45,'351':0x28,'352':0x194,'353':0x97,'354':0xf0,'355':0x19c,'356':0x1b7,'357':0xa5,'358':0xe2,'359':0x1f6,'360':0x91,'361':0xa8,'362':0x160,'363':0x3b,'364':0x101,'365':0xc0,'366':0xdf,'367':0x192,'368':0x96,'369':0x103,'370':0x1cc,'371':0xba,'372':0xcf,'373':0x48,'374':0x109,'375':0x112,'376':0x6c,'377':0x64,'378':0x11,'379':0xf,'380':0xa1,'381':0xad,'382':0x4f,'383':0x27,'384':0x16d,'385':0x15e};const s=0x1,H=0x2,a=0x3,w=0x4,N=0x134,Y=0x69,K=0x146,t=typeof 0x0n,G=[];let L=0x0;const h=function(){'use strict';return arguments;},V=function(TY){if(typeof TY!=='string')return NaN;let TK=+TY;return TK>=0x0&&TK%0x1===0x0&&String(TK)===TY?TK:NaN;},p=function(TY){return!isNaN(TY)&&TY>=0x0;},F=function(TY,TK){if(TK in TY['deletedArgs'])return undefined;if(TK in TY['extraArgs'])return TY['extraArgs'][TK];if(TK>=TY['entryArgCount'])return undefined;let Tt=TY['paramSlotOf']!==null?TY['paramSlotOf'][TK]:undefined;return Tt>=0x0?TY['paramEnv']['_$uqo2LU'][Tt]:TY['args'][TK];},j=function(TY,TK){if(TK in TY['deletedArgs'])return![];if(TK in TY['extraArgs'])return!![];return TK<TY['entryArgCount']?TK in TY['args']:![];},P=function(TY,TK,Tt){if(TK==='length')return this['argsLength'];if(TK==='callee')return this['calleeDeleted']?undefined:this['calleeValue'];if(TK===Symbol['toStringTag'])return'Arguments';let TG=V(TK);if(p(TG)){if(TG in this['unmappedIndices'])return c(TY,TK,Tt);return F(this,TG);}return c(TY,TK,Tt);},r=function(TY,TK,Tt){if(TK==='length'){if(!this['lengthWritable'])return![];return this['argsLength']=Tt,TY['length']=Tt,!![];}if(TK==='callee'){if(!y(TY,TK,Tt))return![];return this['calleeValue']=Tt,this['calleeDeleted']=![],!![];}let TG=V(TK);if(p(TG)){if(TG in this['unmappedIndices'])return y(TY,TK,Tt);let TL=E(TY,String(TG));if(TL&&!TL['writable'])return![];if(TG in this['deletedArgs'])delete this['deletedArgs'][TG],this['extraArgs'][TG]=Tt;else{if(TG<this['entryArgCount']){let Th=this['paramSlotOf']!==null?this['paramSlotOf'][TG]:undefined;Th>=0x0?this['paramEnv']['_$uqo2LU'][Th]=Tt:this['args'][TG]=Tt;}else this['extraArgs'][TG]=Tt;}return!![];}return y(TY,TK,Tt);},Q=function(TY,TK){if(TK==='length')return!![];if(TK==='callee')return!this['calleeDeleted'];if(TK===Symbol['toStringTag'])return![];let Tt=V(TK);if(p(Tt)){if(String(Tt)in TY)return!![];return j(this,Tt);}return TK in TY;},I=function(TY,TK,Tt){if(TK==='length')return'value'in Tt&&(this['argsLength']=Tt['value']),'writable'in Tt&&(this['lengthWritable']=Tt['writable']),z(TY,TK,Tt),!![];if(TK==='callee')return'value'in Tt&&(this['calleeValue']=Tt['value']),this['calleeDeleted']=![],z(TY,TK,Tt),!![];let TG=V(TK);if(p(TG)){let TL='get'in Tt||'set'in Tt,Th=E(TY,String(TG)),TV=TG in this['unmappedIndices']?Th?Th['value']:undefined:F(this,TG),Tp=Th?Th['writable']!==![]:!![],TF=Th?Th['enumerable']!==![]:!![],Tj=Th?Th['configurable']!==![]:!![],TP;if(TL)TP=Tt,this['unmappedIndices'][TG]=0x1,TG in this['extraArgs']&&delete this['extraArgs'][TG],TG in this['deletedArgs']&&delete this['deletedArgs'][TG];else{let Tr='value'in Tt?Tt['value']:TV,TQ='writable'in Tt?Tt['writable']:Tp,TI='enumerable'in Tt?Tt['enumerable']:TF,Tn='configurable'in Tt?Tt['configurable']:Tj;TP={'value':Tr,'writable':TQ,'enumerable':TI,'configurable':Tn};if('value'in Tt){if(!(TG in this['unmappedIndices'])){if(TG<this['entryArgCount']&&!(TG in this['deletedArgs'])){let Tm=this['paramSlotOf']!==null?this['paramSlotOf'][TG]:undefined;Tm>=0x0?this['paramEnv']['_$uqo2LU'][Tm]=Tt['value']:this['args'][TG]=Tt['value'];}else this['extraArgs'][TG]=Tt['value'],TG in this['deletedArgs']&&delete this['deletedArgs'][TG];}}'writable'in Tt&&Tt['writable']===![]&&(this['unmappedIndices'][TG]=0x1,TG in this['extraArgs']&&delete this['extraArgs'][TG],TG in this['deletedArgs']&&delete this['deletedArgs'][TG]);}return z(TY,String(TG),TP),!![];}return z(TY,TK,Tt),!![];},n=function(TY,TK){if(TK==='callee'){if(!X(TY,TK))return![];return this['calleeDeleted']=!![],!![];}let Tt=V(TK);if(p(Tt)){let TL=E(TY,String(Tt));if(TL&&TL['configurable']===![])return![];return Tt in this['unmappedIndices']&&delete this['unmappedIndices'][Tt],Tt<this['entryArgCount']?this['deletedArgs'][Tt]=0x1:delete this['extraArgs'][Tt],delete TY[TK],!![];}let TG=E(TY,TK);if(TG&&TG['configurable']===![])return![];return delete TY[TK],!![];},m=function(TY){let TK=this['entryArgCount'];for(let Tt=0x0;Tt<TK;Tt++){!(Tt in this['deletedArgs'])&&!E(TY,String(Tt))&&z(TY,String(Tt),{'value':F(this,Tt),'writable':!![],'enumerable':!![],'configurable':!![]});}for(let TG in this['extraArgs']){!E(TY,TG)&&z(TY,TG,{'value':this['extraArgs'][TG],'writable':!![],'enumerable':!![],'configurable':!![]});}return Object['preventExtensions'](TY),!![];},O=function(TY,TK){if(TK==='callee'){if(this['calleeDeleted'])return undefined;return E(TY,'callee');}if(TK==='length')return E(TY,'length');let Tt=V(TK);if(p(Tt)){if(Tt in this['unmappedIndices'])return E(TY,TK);if(j(this,Tt)){let TL=E(TY,String(Tt));return{'value':F(this,Tt),'writable':TL?TL['writable']:!![],'enumerable':TL?TL['enumerable']:!![],'configurable':TL?TL['configurable']:!![]};}return E(TY,TK);}let TG=E(TY,TK);if(TG)return TG;return undefined;},u0=function(TY,TK){for(let Tt=0x0;Tt<TY['length'];Tt++){if(TY[Tt]===TK)return!![];}return![];},u1=function(TY){let TK=[],Tt=this['entryArgCount'];for(let TL=0x0;TL<Tt;TL++){!(TL in this['deletedArgs'])&&(TK[TK['length']]=String(TL));}for(let Th in this['extraArgs']){!u0(TK,Th)&&(TK[TK['length']]=Th);}TK[TK['length']]='length';!this['calleeDeleted']&&(TK[TK['length']]='callee');let TG=U(TY);for(let TV=0x0;TV<TG['length'];TV++){!u0(TK,TG[TV])&&(TK[TK['length']]=TG[TV]);}return TK;},u2=function(TY){throw TY;};var u3=[0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1e,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f,0x0,0xf,0x1a,0x0,0x0,0x0,0x14,0x0,0x0,0x0,0x0,0x0,0x0,0x19,0x0,0x0,0x4,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xb,0x0,0x0,0x0,0x0,0x12,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xc,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x28,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x27,0x0,0x0,0x0,0x22,0x1d,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1b,0x10,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x3,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xe,0x0,0x2a,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x6,0x0,0x0,0x23,0x0,0x0,0x0,0x0,0x0,0xa,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9,0x18,0x20,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x11,0x0,0x1,0x8,0x0,0x0,0x0,0x13,0x0,0x0,0x0,0x24,0x0,0x0,0x0,0x0,0x0,0xd,0x0,0x15,0x16,0x0,0x0,0x0,0x26,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x17,0x29,0x5,0x0,0x25,0x0,0x0,0x0,0x0,0x21,0x0,0x0];let u4={'__proto__':WeakMap['prototype']},u5={'__proto__':WeakSet['prototype']};function u6(){z(u4,'get',{'__proto__':null,'value':x}),z(u4,'set',{'__proto__':null,'value':u}),z(u4,'has',{'__proto__':null,'value':i}),z(u5,'add',{'__proto__':null,'value':T}),z(u5,'has',{'__proto__':null,'value':R});}let u7=function(){},u8=function(){},u9=WeakMap,uu=WeakSet;u7['prototype']=u4,u8['prototype']=u5;function uT(){return W(u9,[],u7);}function uy(){return W(uu,[],u8);}let uJ=uy(),uU=0x0,uR=uy();const uW=uT();function uo(TY,TK){uW['set'](TY,TK);}function uS(TY,TK){return TY['_$Zwblck']=TK,TK;}function uZ(TY){return uW['get'](TY);}function ue(TY){return uW['has'](TY);}let uE=uT(),uM=[],uB=Array['prototype'][Symbol['iterator']],ug=Symbol['iterator'],uf=null;try{let TY=async function*(){};uf=M(TY)['prototype'];}catch(TK){}let ux=uf&&uf['next'],uv=uf&&uf['return'],uz=uf&&uf['throw'];function ud(Tt){return{[Symbol['asyncIterator']]:function(){return this;},'next':function(TG){return B(ux,Tt,[TG]);},'return':function(TG){return B(uv,Tt,[TG]);},'throw':function(TG){return B(uz,Tt,[TG]);}};}function uX(Tt,TG,TL){try{z(Tt,TG,TL);}catch(Th){}}function uk(Tt,TG,TL,Th){let TV=new Array(TL),Tp=![];for(let Tj=0x0;Tj<TL;Tj++){let TP=Th===undefined?Tt[TG+Tj]:Th(Tt[TG+Tj]);uU!==0x0&&TP&&typeof TP==='object'&&uJ['has'](TP)&&(Tp=!![]),TV[Tj]=TP;}if(!Tp)return TV;let TF=[];for(let Tr=0x0;Tr<TL;Tr++){let TQ=TV[Tr];if(TQ&&typeof TQ==='object'&&uJ['has'](TQ)){uU--;let TI=TQ['value'];if(Array['isArray'](TI)){for(let Tn=0x0;Tn<TI['length'];Tn++)TF[TF['length']]=TI[Tn];}}else TF[TF['length']]=TQ;}return TF;}function ui(Tt){return typeof Tt==='object'||typeof Tt==='function';}function uc(Tt,TG){return Tt&&ui(Tt)?Tt:TG;}function uC(Tt){if(Tt===null||typeof Tt!=='object'&&typeof Tt!=='function')throw new TypeError('Iterator\x20result\x20'+Tt+'\x20is\x20not\x20an\x20object');}function uA(Tt){let TG=Tt['done'];return{'done':TG,'value':TG?Tt['value']:undefined};}function uq(Tt){let TG=[];for(let TL in Tt){TG[TG['length']]=TL;}return TG;}const uD=Array['isArray'];function ub(Tt){let TG=Tt['length'],TL=new Array(TG);for(let Th=0x0;Th<TG;Th++){TL[Th]=Tt[Th];}return TL;}function ul(Tt){return typeof Tt==='function'&&Tt['prototype']?Tt['prototype']:Tt;}function us(Tt,TG,TL,Th,TV){if(!Tt||TG[0x10*Th+TV&0x1f]||TG[0x1*Th+TV&0x1f]||TG[0x11*Th+TV&0x1f])return;if(!ue(Tt)){if(TL&&TL['_$DAaXeK'])return;uo(Tt,{['_$632rcw']:TG,['_$k5IIRA']:TL,['_$Zwblck']:TG,['_$MwTz62']:undefined});}}function uH(Tt,TG,TL,Th,TV,Tp,TF,Tj){let TP,Tr=function(TQ,TI,Tn){let Tm=Tn!==undefined?Tn:_$ZcYnk4['_$beSb6h'];return Tn===undefined&&_$ZcYnk4['_$beSb6h']!==undefined&&_$ZcYnk4['_$PhMeuD']===undefined&&(_$ZcYnk4['_$beSb6h']=undefined),Tt(TI,TP,TL,TQ,TG,Tm);};if(Tp){TP=_$kLZL4M(Tr,Th,TF,Tj);try{delete TP['prototype'];}catch(TQ){}}else TP=_$MKQwO3(Tr,Th,TF,Tj);return uo(TP,{['_$632rcw']:TG,['_$k5IIRA']:TL,['_$Zwblck']:undefined,['_$MwTz62']:undefined}),TP;}function ua(Tt,TG,TL,Th,TV,Tp,TF){let Tj=function(Tr,TQ,TI){let Tn=TI!==undefined?TI:_$ZcYnk4['_$beSb6h'];return TI===undefined&&_$ZcYnk4['_$beSb6h']!==undefined&&_$ZcYnk4['_$PhMeuD']===undefined&&(_$ZcYnk4['_$beSb6h']=undefined),Tt(TQ,undefined,TP,TL,Tr,TG,Tn);},TP=_$Mjhezc(Tj,Th,Tp,TF);return TP;}function uw(Tt,TG,TL,Th,TV,Tp,TF,Tj,TP){let Tr=function(TI,Tn){return Tt(Tn,_$ZcYnk4['_$B0FCLW'],TQ,TL,TI,TG,TF);},TQ=_$BfG9md(Tr,TV,Tj,TP);return Th['add'](TQ),TQ;}function uN(Tt,TG,TL,Th,TV,Tp){let TF=_$ZcYnk4['_$B0FCLW'],Tj,TP=function(Tr,TQ){if(TF===undefined)return Tt(TQ,Tj,TL,Th,TG,undefined);let TI=_$ZcYnk4['_$B0FCLW'];_$ZcYnk4['_$MVMfub']=!![],_$ZcYnk4['_$B0FCLW']=TF;try{return Tt(TQ,Tj,TL,Th,TG,undefined);}finally{_$ZcYnk4['_$B0FCLW']=TI;}};return Tj=_$kLZL4M(TP,!![],TV,Tp),Tj;}function uY(Tt,TG,TL,Th,TV,Tp){let TF=function(TP,Tr){return Tt(Tr,undefined,Tj,TL,Th,TG,undefined);},Tj=_$Mjhezc(TF,!![],TV,Tp);return Tj;}function uK(Tt,TG,TL,Th,TV,Tp,TF,Tj,TP){var Tr=0x0,TQ,TI,Tn,Tm,TO,y0,y1,y2,y3,y4=0x0,y5,y6,y7,y8,y9,yu,yT,yy,yJ,yU,yR,yW,yo,yS,yZ,ye,yE,yM,yB,yg,yf,yx,yv,yz,yd,yX,yk,yi,yc,yC,yA,yq;if(TF===undefined){Tr=0x0,TQ=(TV[0x20]||0x0)+(TV[0x21]||0x0),TI=TQ<=0x8?[undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined]:TQ<=0x18?[undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined]:new Array(TQ+0x8)['fill'](undefined),Tr=TQ,Tn=Ti(TV[0x20],TV[0x21]),Tm=Tc(TV[0x20],TV[0x21]);switch(Tm&0x3){case 0x0:y0=TV[0x7*Tn+Tm&0x1f],TO=TV[0x6*Tn+Tm&0x1f],y1=TV[0x18*Tn+Tm&0x1f]||G,y2=TV[0xd*Tn+Tm&0x1f]||G;break;case 0x1:TO=TV[0x6*Tn+Tm&0x1f],y1=TV[0x18*Tn+Tm&0x1f]||G,y2=TV[0xd*Tn+Tm&0x1f]||G,y0=TV[0x7*Tn+Tm&0x1f];break;case 0x2:y1=TV[0x18*Tn+Tm&0x1f]||G,y2=TV[0xd*Tn+Tm&0x1f]||G,y0=TV[0x7*Tn+Tm&0x1f],TO=TV[0x6*Tn+Tm&0x1f];break;default:y2=TV[0xd*Tn+Tm&0x1f]||G,y0=TV[0x7*Tn+Tm&0x1f],TO=TV[0x6*Tn+Tm&0x1f],y1=TV[0x18*Tn+Tm&0x1f]||G;break;}y3=TI,y4=0x0,y5=y0['length']>>0x1,y6=(TV[0x20]*0x4daf^TV[0x21]*0xdf03^y5*0x5549^TO['length']*0xe74d)>>>0x0&0x3;switch(y6){case 0x1:y7=0x0,y8=0x1,y9=0x1;break;case 0x2:y7=y5,y8=0x0,y9=0x0;break;case 0x3:y7=0x0,y8=y5,y9=0x0;break;default:y7=0x1,y8=0x0,y9=0x1;break;}yu=null,yT=null,yy=![],yJ=undefined,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined,ye=-0x1,yE=-0x1,yM=!!TV[0x2*Tn+Tm&0x1f],yB=!!TV[0x12*Tn+Tm&0x1f],yg=!!TV[0x19*Tn+Tm&0x1f],yf=!!TV[0x8*Tn+Tm&0x1f],yx=Th,yv=!!TV[0x11*Tn+Tm&0x1f];!yM&&!yv&&(Th===undefined||Th===null)&&(Th=vmS);yz=TV[0xf*Tn+Tm&0x1f]||0x0,yd={'_$uqo2LU':yz?new Array(yz)['fill'](undefined):G,'_$JbyIAo':null,'_$q5fsZQ':-0x1,'_$BkpfqJ':TL};if(Tt){let yK=TV[0x20]||0x0;for(let yt=0x0,yG=Tt['length']<yK?Tt['length']:yK;yt<yG;yt++){y3[yt]=Tt[yt];}}yX=Tt?Tt['length']:0x0,yk=null,yi=null,yc=![],yC=(TV[0x20]||0x0)+(TV[0x21]||0x0),yA=null,yq=0x0;}else TQ=TF[0x1c],Tn=TF[0x1d]>>>0x0,Tm=TF[0x1e]>>>0x0,TO=TF[0x1f],y0=TF[0x20],y1=TF[0x21],y2=TF[0x22],y5=TF[0x23]|0x0,y6=TF[0x24]|0x0,y7=TF[0x25]|0x0,y8=TF[0x26]|0x0,y9=TF[0x27]|0x0,yM=!!TF[0x28],yB=!!TF[0x29],yg=!!TF[0x2a],yf=!!TF[0x2b],yv=!!TF[0x2c],yz=TF[0x2d]|0x0,yC=TF[0x2e]|0x0;if(TF!==undefined){Tt=TF[0x0],Th=TF[0x1],yx=TF[0x2],TI=TF[0x3],Tr=TF[0x4],y3=TF[0x5],y4=TF[0x6],yu=TF[0x7],yd=TF[0x8],yX=TF[0x9],yk=TF[0xa],yi=TF[0xb],yc=TF[0xc],yA=TF[0xd],yq=TF[0xe];TF[0x10]?(yT=TF[0x11],yy=TF[0x12],yJ=TF[0x13],yU=TF[0x14],yR=TF[0x15],yW=TF[0x16],yo=TF[0x17],yS=TF[0x18],yZ=TF[0x19],ye=TF[0x1a],yE=TF[0x1b]):(yT=null,yy=![],yJ=undefined,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined,ye=-0x1,yE=-0x1);if(Tj===0x1)TI[Tr++]=TP;else{if(Tj===0x2){if(yu){let yL=yu;Tr=yL['_$I3PVxg'];yL['_$jTHyoh']!==undefined&&(yd=yL['_$jTHyoh']);if(yL['_$pTPs5N']!==undefined){TI[Tr++]=TP,y4=yL['_$pTPs5N'],yL['_$pTPs5N']=undefined;if(yL['_$XxifFz']===undefined){if(yu)yu=yu['_$pjj7CZ'];}}else{if(yL['_$XxifFz']!==undefined)y4=yL['_$XxifFz'],yL['_$b1EUsG']=TP;else{y4=yL['_$rwejzx'];if(yu)yu=yu['_$pjj7CZ'];}}}else throw u2(TP);}else{if(Tj===0x3){let yh=TP;while(yu){let yV=yu;if(yV['_$XxifFz']!==undefined)break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let yp=yu;if(yp['_$XxifFz']!==undefined)yT=null,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined,yy=!![],yJ=yh,ye=yp['_$NAO6MA'],yE=yp['_$rwejzx'],y4=yp['_$XxifFz'];else return yh;}else return yh;}}}}var yD,yb,yl,ys,yH,ya,yw,yN;yN=TI,yH=u3,yb=function(yF,yj){let yP=ya,yr=yw,yQ=yN;try{switch(yF){case 0x2f:{let yI=yQ[--yr],yn=yQ[--yr];yQ[yr++]=yn-yI,yP++;break;}case 0x1b:{let ym=yQ[--yr],yO;if(ym===null||ym===undefined)throw new TypeError(ym+'\x20is\x20not\x20iterable');let J0=ym[ug];if(Array['isArray'](ym)&&J0===uB){let J2=ym['length'];yO=new Array(J2);for(let J3=0x0;J3<J2;J3++){yO[J3]=ym[J3];}}else{if(J0===null||J0===undefined||typeof J0!=='function')throw new TypeError(ym+'\x20is\x20not\x20iterable');let J4=B(J0,ym,[]);if(J4===null||typeof J4!=='object')throw new TypeError('Iterator\x20method\x20returned\x20a\x20non-object\x20value');yO=[];while(!![]){let J5=J4['next']();uC(J5);if(J5['done'])break;yO[yO['length']]=J5['value'];}}let J1={'value':yO};uJ['add'](J1),uU++,yQ[yr++]=J1,yP++;break;}case 0x5f:{let J6=yQ[--yr],J7=yQ[--yr],J8=yQ[yr-0x1],J9=ul(J8);!(yj===0x1)&&uX(J6,'name',{'value':'get\x20'+(typeof J7==='symbol'?J7['description']===undefined?'':'['+J7['description']+']':''+J7),'writable':![],'enumerable':![],'configurable':!![]});z(J9,J7,{'get':J6,'enumerable':J9===J8,'configurable':!![]}),yP++;break;}case 0x1d:{let Ju=yQ[--yr],JT=yQ[--yr];if(JT===null||JT===undefined){if(Ju===Symbol['iterator'])throw new TypeError((JT===null?'object\x20null':'undefined')+'\x20is\x20not\x20iterable\x20(cannot\x20read\x20property\x20Symbol(Symbol.iterator))');throw new TypeError('Cannot\x20read\x20properties\x20of\x20'+JT+'\x20(reading\x20'+(typeof Ju==='symbol'?'\x27'+Ju['toString']()+'\x27':typeof Ju==='string'?'\x27'+Ju+'\x27':typeof Ju==='object'||typeof Ju==='function'?'\x27<computed\x20key>\x27':'\x27'+String(Ju)+'\x27')+')');}yQ[yr++]=JT[Ju],yP++;break;}case 0x37:{let Jy=y2[yP];yu={'_$pjj7CZ':yu,'_$pTPs5N':Jy[0x0]>=0x0?Jy[0x0]:undefined,'_$XxifFz':Jy[0x1]>=0x0?Jy[0x1]:undefined,'_$rwejzx':Jy[0x2]>=0x0?Jy[0x2]:undefined,'_$I3PVxg':yr,'_$NAO6MA':yP,'_$jTHyoh':yd},yP++;break;}case 0x15:{let JJ=yQ[--yr],JU=yQ[--yr];yQ[yr++]=JU/JJ,yP++;break;}case 0x7a:{let JR=yQ[--yr],JW=yQ[yr-0x1];(JR===null||ui(JR))&&o(JW,JR);yP++;break;}case 0x2b:{let Jo=yQ[--yr],JS=yQ[--yr];yQ[yr++]=JS^Jo,yP++;break;}case 0x12:{yQ[yr++]=Tt[yj],yP++;break;}case 0x5d:{yQ[yr++]=[],yP++;break;}case 0x32:{let JZ=yQ[--yr],Je=yQ[--yr],JE=yQ[--yr];if(yj&0x1&&typeof JZ==='function'){let JM=typeof Je==='symbol'?Je['description']===undefined?'':'['+Je['description']+']':''+Je;uX(JZ,'name',{'value':JM,'writable':![],'enumerable':![],'configurable':!![]});}z(JE,Je,{'value':JZ,'writable':!![],'enumerable':!![],'configurable':!![]});yj&0x2&&(!_$ZcYnk4['_$t0re1P']&&(_$ZcYnk4['_$t0re1P']=uT()),_$ZcYnk4['_$t0re1P']['set'](JZ,JE));yP++;break;}case 0x2d:{let JB=yQ[--yr],Jg=yQ[--yr];yQ[yr++]=Jg>>JB,yP++;break;}case 0x53:{let Jf=yj&0xffff,Jx=yj>>>0x10,Jv=TO[Jf],Jz=TO[Jx];yQ[yr++]=new RegExp(Jv,Jz),yP++;break;}case 0x51:{yQ[yr++]=Th,yP++;break;}case 0x3b:{let Jd=yQ[--yr],JX={'_$uqo2LU':new Array(yj),'_$JbyIAo':null,'_$q5fsZQ':-0x1,'_$BkpfqJ':Jd};yd=JX,yP++;break;}case 0x6e:{let Jk=yk||Tt,Ji=Jk?Jk['length']:0x0,Jc=[];for(let JC=yj;JC<Ji;JC++){Jc[JC-yj]=Jk[JC];}yQ[yr++]=Jc,yP++;break;}case 0x6a:{let JA=yQ[yr-0x1];JA['length']++,yP++;break;}case 0x3f:{let Jq=TO[yj],JD=_$rhyLYY===vmS;JD&&(Jq in vmS&&(JD=_$7a2zln(vmS,Jq)),JD&&Jq in vmR_926372&&(JD=_$7a2zln(vmR_926372,Jq)));yQ[yr++]=JD,yP++;break;}case 0x16:{let Jb=yQ[--yr],Jl=yQ[--yr],Js=yQ[--yr];if(Js===null||Js===undefined)throw new TypeError('Cannot\x20set\x20properties\x20of\x20'+Js+'\x20(setting\x20'+(typeof Jl==='symbol'?'\x27'+Jl['toString']()+'\x27':typeof Jl==='string'?'\x27'+Jl+'\x27':typeof Jl==='object'||typeof Jl==='function'?'\x27<computed\x20key>\x27':'\x27'+String(Jl)+'\x27')+')');yM?Js[Jl]=Jb:_$KoX0k3(Js,Jl,Jb);yQ[yr++]=Jb,yP++;break;}case 0xd:{yQ[yr++]=yx,yP++;break;}case 0x19:{let JH=TO[yj];JH in vmR_926372?yQ[yr++]=typeof vmR_926372[JH]:yQ[yr++]=typeof vmS[JH];yP++;break;}case 0x5a:{let Ja=yQ[--yr],Jw=yQ[--yr];yQ[yr++]=Jw&Ja,yP++;break;}case 0x3:{let JN=yQ[--yr],JY=yQ[--yr];yQ[yr++]=JY**JN,yP++;break;}case 0x20:{let JK=TO[yj],Jt;if(_$ZcYnk4['_$fDIAvf']&&JK in _$ZcYnk4['_$fDIAvf'])throw new ReferenceError('Cannot\x20access\x20\x27'+JK+'\x27\x20before\x20initialization');if(JK in vmR_926372)Jt=vmR_926372[JK];else{if(JK in vmS)Jt=vmS[JK];else throw new ReferenceError(JK+'\x20is\x20not\x20defined');}yQ[yr++]=Jt,yP++;break;}case 0x11:{yQ[yr++]=null,yP++;break;}case 0x46:{if(yj===-0x2){}else yj===-0x1?yQ[--yr]:yd['_$uqo2LU'][yj]=yQ[--yr];yP++;break;}case 0x39:{u:{let JG=y1[yP];if(JG===yE){if(yT!==null){yy=![],yU=![],yo=![];let JL=yT;yT=null;throw u2(JL);}if(yy){while(yu){let JV=yu;if(JV['_$XxifFz']!==undefined)break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let Jp=yu;if(Jp['_$XxifFz']!==undefined){ye=Jp['_$NAO6MA'],yE=Jp['_$rwejzx'],yP=Jp['_$XxifFz'];break u;}}let Jh=yJ;return yy=![],yJ=undefined,yD=Jh,0x1;}if(yU){while(yu){let Jj=yu;if(Jj['_$XxifFz']!==undefined||!(yR>=Jj['_$rwejzx']||yR<=Jj['_$NAO6MA']))break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let JP=yu;if(JP['_$XxifFz']!==undefined&&(yR>=JP['_$rwejzx']||yR<=JP['_$NAO6MA'])){ye=JP['_$NAO6MA'],yE=JP['_$rwejzx'],yP=JP['_$XxifFz'];break u;}}let JF=yR;yU=![],yR=0x0;yW!==undefined&&(yd=yW,yW=undefined);yP=JF;break u;}if(yo){while(yu){let JQ=yu;if(JQ['_$XxifFz']!==undefined||!(yS>=JQ['_$rwejzx']||yS<=JQ['_$NAO6MA']))break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let JI=yu;if(JI['_$XxifFz']!==undefined&&(yS>=JI['_$rwejzx']||yS<=JI['_$NAO6MA'])){ye=JI['_$NAO6MA'],yE=JI['_$rwejzx'],yP=JI['_$XxifFz'];break u;}}let Jr=yS;yo=![],yS=0x0;yZ!==undefined&&(yd=yZ,yZ=undefined);yP=Jr;break u;}}yP++;}break;}case 0x40:{yQ[--yr],yP++;break;}case 0x3d:{yQ[yr++]=vme[yj],yP++;break;}case 0x6f:{yQ[--yr],yQ[yr++]=undefined,yP++;break;}case 0xf:{yQ[yr++]=TO[yj],yP++;break;}case 0x4a:{let Jn=yQ[--yr],Jm;if(Jn===0x0)Jm=G;else{if(Jn===0x1){let U5=yQ[--yr];Jm=uU!==0x0&&U5&&typeof U5==='object'&&uJ['has'](U5)?(uU--,U5['value']):[U5];}else Jm=uk(yQ,yr-=Jn,Jn);}let JO=yQ[--yr],U0=yQ[--yr];if(typeof JO!=='function')throw new TypeError(JO+'\x20is\x20not\x20a\x20function');let U1=_$ZcYnk4['_$t0re1P'],U2=U1&&U1['get'](JO);!U2&&U1&&(JO===k||JO===g)&&(U2=U1['get'](U0));let U3=_$ZcYnk4['_$B0FCLW'];U2&&(_$ZcYnk4['_$MVMfub']=!![],_$ZcYnk4['_$B0FCLW']=U2);let U4;try{U4=B(JO,U0,Jm),yQ[yr++]=U4;}finally{U2&&(_$ZcYnk4['_$MVMfub']=![]),_$ZcYnk4['_$B0FCLW']=U3;}yP++;break;}case 0x7:{let U6=yQ[--yr],U7=yQ[yr-0x1],U8=TO[yj&0xffffff];U8 in U7?z(U7,U8,{'value':U6,'writable':!![],'enumerable':!![],'configurable':!![]}):U7[U8]=U6;yj&0x1000000&&(!_$ZcYnk4['_$t0re1P']&&(_$ZcYnk4['_$t0re1P']=uT()),_$ZcYnk4['_$t0re1P']['set'](U6,U7));yP++;break;}}}finally{ya=yP,yw=yr;}},yl=function(yF,yj){let yP=ya,yr=yw,yQ=yN;try{switch(yF){case 0x118:{let yI=yQ[--yr],yn=yQ[--yr];yQ[yr++]=yn instanceof yI,yP++;break;}case 0x83:{let ym=yQ[--yr],yO=yQ[--yr];yQ[yr++]=yO>ym,yP++;break;}case 0x10c:{!yQ[--yr]?yP=y1[yP]:yP++;break;}case 0xb8:{u:{let J0=yQ[--yr],J1,J2;if(J0===0x1)J1=yQ[--yr];else J0>0x1&&(J2=uk(yQ,yr-=J0,J0));let J3=yQ[--yr];if(typeof J3!=='function')throw new TypeError(J3+'\x20is\x20not\x20a\x20function');if(J3===TG&&yq<0x100&&TV[0x15*Tn+Tm&0x1f]&&(yv||yx===(yM?undefined:vmS))&&!_$ZcYnk4['_$B0FCLW']&&!_$ZcYnk4['_$beSb6h']&&!(_$ZcYnk4['_$t0re1P']&&_$ZcYnk4['_$t0re1P']['get'](J3))){let Ju=J0===0x0?[]:J0===0x1?uU!==0x0&&J1&&typeof J1==='object'&&uJ['has'](J1)?(uU--,J1['value']):[J1]:J2;!yA&&(yA=[]);yA[yq++]=yr,yA[yq++]=Tt,yA[yq++]=yi,yA[yq++]=yk,yA[yq++]=yP,yA[yq++]=yd;for(let JT=0x0;JT<yC;JT++){yA[yq++]=y3[JT];}Tt=Ju,yi=null,yk=null,yd={'_$uqo2LU':yz?new Array(yz)['fill'](undefined):G,'_$JbyIAo':null,'_$q5fsZQ':-0x1,'_$BkpfqJ':TL};for(let Jy=0x0,JJ=TV[0x20]||0x0;Jy<yC;Jy++){y3[Jy]=Jy<JJ&&Jy<Ju['length']?Ju[Jy]:undefined;}yP=0x0;break u;}let J4=_$ZcYnk4['_$t0re1P'],J5=!_$ZcYnk4['_$B0FCLW']&&!_$ZcYnk4['_$beSb6h']&&!(J4&&J4['get'](J3))&&uZ(J3);if(J5&&J5['_$MwTz62']!==![]){let JU=J5['_$Zwblck']||uS(J5,typeof J5['_$632rcw']==='object'?J5['_$632rcw']['n']!==undefined?0x0?TD(J5['_$632rcw']['n']):J5['_$632rcw']['d']||(J5['_$632rcw']['d']=TD(J5['_$632rcw']['n'])):J5['_$632rcw']:Tq(J5['_$632rcw']));if(JU){let JR;if(J0===0x0)JR=[];else J0===0x1?JR=uU!==0x0&&J1&&typeof J1==='object'&&uJ['has'](J1)?(uU--,J1['value']):[J1]:JR=J2;let JW=JU===TV?Tn:Ti(JU[0x20],JU[0x21]),Jo=JU===TV?Tm:Tc(JU[0x20],JU[0x21]);_$ZcYnk4['_$MVMfub']?_$ZcYnk4['_$MVMfub']=![]:_$ZcYnk4['_$B0FCLW']=undefined;yQ[yr++]=uK(JR,J3,J5['_$k5IIRA'],JU[0x2*JW+Jo&0x1f]?undefined:vmS,JU,undefined),yP++;break u;}}let J6=_$ZcYnk4['_$B0FCLW'],J7=_$ZcYnk4['_$t0re1P'],J8=J7&&J7['get'](J3);J8?(_$ZcYnk4['_$MVMfub']=!![],_$ZcYnk4['_$B0FCLW']=J8):_$ZcYnk4['_$B0FCLW']=undefined;let J9;try{if(J0===0x0)J9=J3();else J0===0x1?J9=uU!==0x0&&J1&&typeof J1==='object'&&uJ['has'](J1)?(uU--,B(J3,undefined,J1['value'])):J3(J1):J9=B(J3,undefined,J2);yQ[yr++]=J9;}finally{J8&&(_$ZcYnk4['_$MVMfub']=![]),_$ZcYnk4['_$B0FCLW']=J6;}yP++;}break;}case 0xc9:{if(typeof yQ[yr-0x1]==='symbol')throw new TypeError('Cannot\x20convert\x20a\x20Symbol\x20value\x20to\x20a\x20string');yQ[yr-0x1]=String(yQ[yr-0x1]),yP++;break;}case 0x8e:{yQ[yr-0x1]=+yQ[yr-0x1],yP++;break;}case 0x10a:{let JS=yj&0xffff,JZ=yj>>>0x10,Je=yd;for(let JB=0x0;JB<JZ;JB++){Je=Je['_$BkpfqJ'];}let JE=Je['_$uqo2LU'],JM=JE[JS];if(JM===JE){let Jg=Je['_$HIovLX'];throw new ReferenceError('Cannot\x20access\x20\x27'+(Jg&&Jg[JS]||'variable')+'\x27\x20before\x20initialization');}yQ[yr++]=JM,yP++;break;}case 0x125:{let Jf=yQ[yr-0x1];yQ[yr-0x1]=yQ[yr-0x2],yQ[yr-0x2]=Jf,yP++;break;}case 0x117:{let Jx=yQ[--yr],Jv=yQ[--yr];yQ[yr++]=Jv*Jx,yP++;break;}case 0xb7:{let Jz=yQ[yr-0x1];yQ[yr++]=Jz,yP++;break;}case 0x11a:{let Jd=yQ[--yr],JX=Jd,Jk=0x0&&typeof Jd!=='object'?TD(Jd,0x1):undefined,Ji,Jc,JC,JA,Jq,JD,Jb,Jl;if(Jk)Jc=Jk[0x0]&0x1,JC=Jk[0x0]&0x2,JA=Jk[0x0]&0x4,Jq=Jk[0x0]&0x8,Jb=Jk[0x0]&0x10,JD=Jk[0x1]||0x0,Jl=Jk[0x2]||undefined,Ji={'n':Jd};else{Ji=typeof Jd==='object'?Jd:TD(Jd);let JN=Ji?Ti(Ji[0x20],Ji[0x21]):undefined,JY=Ji?Tc(Ji[0x20],Ji[0x21]):undefined;Jc=Ji&&Ji[0x11*JN+JY&0x1f],JC=Ji&&Ji[0x10*JN+JY&0x1f],JA=Ji&&Ji[0x1*JN+JY&0x1f],Jq=Ji&&Ji[0xa*JN+JY&0x1f],JD=Ji&&Ji[0x20]||0x0,Jb=Ji&&Ji[0x2*JN+JY&0x1f];let JK=Ji&&Ji[0x9*JN+JY&0x1f];Jl=JK!==undefined?Ji[0x6*JN+JY&0x1f][JK]:undefined;}Jd=0x0&&typeof JX!=='object'?{'n':JX}:Ji;let Js=Jc?yx:undefined,JH=yd,Ja=Jl===undefined?'':Jl,Jw;if(JA)Jw=uw(Tw,Jd,JH,uR,Jb,vmS,JC,Ja,JD);else{if(JC)Jc?Jw=uY(Ts,Jd,JH,Js,Ja,JD):Jw=ua(Ts,Jd,JH,Jb,vmS,Ja,JD);else{if(Jc){Jw=uN(uL,Jd,JH,Js,Ja,JD);let Jt=_$ZcYnk4['_$PhMeuD'];Jt===undefined&&TG&&uE['has'](TG)&&(Jt=uE['get'](TG)),Jt!==undefined&&uE['set'](Jw,Jt);}else Jw=uH(uL,Jd,JH,Jb,vmS,Jq,Ja,JD);}}JD>0x3&&uX(Jw,'length',{'value':JD,'writable':![],'enumerable':![],'configurable':!![]});yQ[yr++]=Jw,yP++;break;}case 0xdc:{if(yu){let JG=yu;if(JG['_$XxifFz']===yP){JG['_$b1EUsG']!==undefined&&(yT=JG['_$b1EUsG'],ye=JG['_$NAO6MA'],yE=JG['_$rwejzx']);JG['_$jTHyoh']!==undefined&&(yd=JG['_$jTHyoh']);if(yu)yu=yu['_$pjj7CZ'];}}yP++;break;}case 0x126:{T:{let JL=y1[yP];while(yu){let Jh=yu;if(Jh['_$XxifFz']!==undefined||!(JL>=Jh['_$rwejzx']||JL<=Jh['_$NAO6MA']))break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let JV=yu;if(JV['_$XxifFz']!==undefined&&(JL>=JV['_$rwejzx']||JL<=JV['_$NAO6MA'])){yT=null,yy=![],yJ=undefined,yU=![],yR=0x0,yW=undefined,yo=!![],yS=JL,yZ=yd,ye=JV['_$NAO6MA'],yE=JV['_$rwejzx'],yP=JV['_$XxifFz'];break T;}}(yy||yU||yo||yT!==null)&&(JL>=yE||JL<=ye)&&(yy=![],yJ=undefined,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined,yT=null),yP=JL;}break;}case 0x95:{let Jp=TO[yj],JF=!![];Jp in vmS&&(JF=_$7a2zln(vmS,Jp));JF&&Jp in vmR_926372&&(JF=_$7a2zln(vmR_926372,Jp));yQ[yr++]=JF,yP++;break;}case 0x130:{let Jj=yQ[--yr],JP=yQ[yr-0x1];JP[JP['length']]=Jj,yP++;break;}case 0x115:{let Jr=yj;yd['_$uqo2LU'][Jr]=TG;let JQ=yd['_$JbyIAo'];!JQ&&(JQ=f(null),yd['_$JbyIAo']=JQ);JQ[Jr]=0x2,yP++;break;}case 0x7c:{yQ[yr-0x1]=!yQ[yr-0x1],yP++;break;}case 0xa8:{let JI=yQ[--yr],Jn=yQ[--yr];yQ[yr++]=Jn+JI,yP++;break;}case 0x8c:{let Jm=yQ[--yr],JO=uk(yQ,yr-=Jm,Jm),U0=yQ[--yr];if(typeof U0!=='function')throw new TypeError(U0+'\x20is\x20not\x20a\x20constructor');if(uR['has'](U0))throw new TypeError(U0['name']+'\x20is\x20not\x20a\x20constructor');let U1=_$ZcYnk4['_$B0FCLW'];_$ZcYnk4['_$B0FCLW']=undefined;let U2;try{U2=W(U0,JO);}finally{_$ZcYnk4['_$B0FCLW']=U1;}yQ[yr++]=U2,yP++;break;}case 0x94:{yd=yd['_$BkpfqJ'],yP++;break;}case 0x8f:{let U3=yQ[--yr],U4=yQ[yr-0x1],U5=TO[yj],U6=ul(U4);z(U6,U5,{'set':U3,'enumerable':U6===U4,'configurable':!![]}),yP++;break;}case 0x12d:{if(yu)yu=yu['_$pjj7CZ'];yP++;break;}case 0xa6:{let U7=yQ[--yr],U8=yQ[--yr];yQ[yr++]=U8==null?U7===U8:U8===U7,yP++;break;}case 0x12f:{let U9=yQ[--yr];if((typeof U9==='object'||typeof U9==='function')&&U9!==null){const Uu=U9[Symbol['toPrimitive']];if(Uu!=null){U9=B(Uu,U9,['number']);if(U9!==null&&(typeof U9==='object'||typeof U9==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}else{const UT=U9['valueOf'];let Uy=typeof UT==='function'?B(UT,U9,[]):U9;if(Uy!==null&&(typeof Uy==='object'||typeof Uy==='function')){const UJ=U9['toString'];Uy=typeof UJ==='function'?B(UJ,U9,[]):Uy;if(Uy!==null&&(typeof Uy==='object'||typeof Uy==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}U9=Uy;}}yQ[yr++]=typeof U9===t?U9-0x1n:+U9-0x1,yP++;break;}case 0x12a:{let UU=yQ[--yr],UR=yQ[--yr];yQ[yr++]=UR==UU,yP++;break;}case 0xa9:{yk===null&&(yM||!yB)&&Tt&&(yk=ub(Tt));Tt&&yj>=Tt['length']&&!uD(Tt)&&(Tt=ub(Tt));Tt[yj]=yQ[--yr],yP++;break;}case 0x81:{throw u2(yQ[--yr]);break;}case 0xa1:{let UW=yd['_$uqo2LU'];UW[yj]=UW,yd['_$q5fsZQ']=yj,yP++;break;}case 0x11e:{yQ[yr++]=vmZ[yj],yP++;break;}case 0x108:{let Uo=yQ[--yr],US=typeof Uo;if(Uo!==null&&(US==='object'||US==='function')){let UZ=f(null);UZ[Uo]=0x0,Uo=U(UZ)[0x0];}else US!=='symbol'&&(Uo=String(Uo));yQ[yr++]=Uo,yP++;break;}case 0x93:{let Ue=yj&0xffff,UE=yj>>>0x10,UM=yQ[--yr],UB=yd;for(let Uv=0x0;Uv<UE;Uv++){UB=UB['_$BkpfqJ'];}let Ug=UB['_$uqo2LU'];if(Ug[Ue]===Ug){let Uz=UB['_$HIovLX'];throw new ReferenceError('Cannot\x20access\x20\x27'+(Uz&&Uz[Ue]||'variable')+'\x27\x20before\x20initialization');}let Uf=UB['_$JbyIAo'],Ux=Uf&&Uf[Ue];if(Ux){if(Ux!==0x2||yM)throw new TypeError('Assignment\x20to\x20constant\x20variable.');}else Ug[Ue]=UM;yP++;break;}case 0xfe:{let Ud=yQ[--yr],UX=yQ[--yr],Uk=yQ[yr-0x1],Ui=ul(Uk);!(yj===0x1)&&uX(Ud,'name',{'value':'set\x20'+(typeof UX==='symbol'?UX['description']===undefined?'':'['+UX['description']+']':''+UX),'writable':![],'enumerable':![],'configurable':!![]});z(Ui,UX,{'set':Ud,'enumerable':Ui===Uk,'configurable':!![]}),yP++;break;}case 0xa3:{let Uc=yQ[--yr],UC=yQ[--yr];yQ[yr++]=UC%Uc,yP++;break;}case 0x80:{let UA=yQ[--yr],Uq=yQ[--yr],UD=(yj^0x2404)>>>0x0,Ub;UD<0x10?UD<0x8?UD<0x4?UD<0x2?Ub=UD<0x1?Uq*UA:Uq!=UA:Ub=UD<0x3?Uq==null?UA===Uq:Uq===UA:Uq>>>UA:UD<0x6?Ub=UD<0x5?Uq<UA:Uq>UA:Ub=UD<0x7?Uq+UA:Uq==null?UA!==Uq:Uq!==UA:UD<0xc?UD<0xa?Ub=UD<0x9?Uq<=UA:Uq|UA:Ub=UD<0xb?Uq&UA:Uq^UA:UD<0xe?Ub=UD<0xd?Uq>=UA:Uq>>UA:Ub=UD<0xf?Uq%UA:Uq==UA:UD<0x14?UD<0x12?Ub=UD<0x11?Uq**UA:Uq-UA:Ub=UD<0x13?Uq/UA:Uq<<UA:UD<0x18?Ub=UD<0x16?Uq|UA:Uq&UA:Ub=UD<0x1c?Uq^UA:UA-Uq;yQ[yr++]=Ub,yP++;break;}case 0x7b:{y:{let Ul=y1[yP];while(yu){let Us=yu;if(Us['_$XxifFz']!==undefined||!(Ul>=Us['_$rwejzx']||Ul<=Us['_$NAO6MA']))break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let UH=yu;if(UH['_$XxifFz']!==undefined&&(Ul>=UH['_$rwejzx']||Ul<=UH['_$NAO6MA'])){yT=null,yy=![],yJ=undefined,yo=![],yS=0x0,yZ=undefined,yU=!![],yR=Ul,yW=yd,ye=UH['_$NAO6MA'],yE=UH['_$rwejzx'],yP=UH['_$XxifFz'];break y;}}(yy||yU||yo||yT!==null)&&(Ul>=yE||Ul<=ye)&&(yy=![],yJ=undefined,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined,yT=null),yP=Ul;}break;}}}finally{ya=yP,yw=yr;}},ys=function(yF,yj){let yP=ya,yr=yw,yQ=yN;try{switch(yF){case 0x180:{let yI=yQ[--yr],yn=yQ[--yr];yQ[yr++]=yn<yI,yP++;break;}case 0x133:{let ym=yQ[--yr],yO=TO[yj];if(yM&&!(yO in vmS)&&!(yO in vmR_926372))throw new ReferenceError(yO+'\x20is\x20not\x20defined');vmR_926372[yO]=ym;yM?vmS[yO]=ym:_$KoX0k3(vmS,yO,ym);yQ[yr++]=ym,yP++;break;}case 0x173:{let J0=yQ[--yr],J1=yQ[--yr];yQ[yr++]=J1<=J0,yP++;break;}case 0x169:{let J2=yQ[--yr],J3=yQ[--yr];yQ[yr++]=J3>=J2,yP++;break;}case 0x148:{let J4=yQ[--yr];if((typeof J4==='object'||typeof J4==='function')&&J4!==null){const J5=J4[Symbol['toPrimitive']];if(J5!=null){J4=B(J5,J4,['number']);if(J4!==null&&(typeof J4==='object'||typeof J4==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}else{const J6=J4['valueOf'];let J7=typeof J6==='function'?B(J6,J4,[]):J4;if(J7!==null&&(typeof J7==='object'||typeof J7==='function')){const J8=J4['toString'];J7=typeof J8==='function'?B(J8,J4,[]):J7;if(J7!==null&&(typeof J7==='object'||typeof J7==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}J4=J7;}}yQ[yr++]=typeof J4===t?J4:+J4,yP++;break;}case 0x142:{if(yi===null){if(yM||!yB){let J9=yk||Tt||G;if(J9['length']<=0x2000)yi=B(h,undefined,J9);else{yi=h();for(let Ju=0x0;Ju<J9['length'];Ju++){yi[Ju]=J9[Ju];}yi['length']=J9['length'];}}else{Tt&&!uD(Tt)&&(Tt=ub(Tt));let JT=null,Jy=null;if(yj!==0x0){JT=yd;for(let JW=yj&0xff;JW>0x0;JW--){JT=JT['_$BkpfqJ'];}let JU=(yj>>>0x8)-0x1,JR=TO[JU];Jy=[];for(let Jo=0x0;Jo<JR;Jo++){Jy[Jo]=TO[JU+0x1+Jo];}}let JJ={};z(JJ,'length',{'value':yX,'writable':!![],'enumerable':![],'configurable':!![]}),z(JJ,'callee',{'value':TG,'writable':!![],'enumerable':![],'configurable':!![]}),z(JJ,Symbol['iterator'],{'value':S,'writable':!![],'enumerable':![],'configurable':!![]}),yi=new v(JJ,{'get':P,'set':r,'has':Q,'defineProperty':I,'deleteProperty':n,'preventExtensions':m,'getOwnPropertyDescriptor':O,'ownKeys':u1,'argsLength':yX,'entryArgCount':yX,'args':Tt,'extraArgs':{},'deletedArgs':{},'unmappedIndices':{},'calleeValue':TG,'calleeDeleted':![],'lengthWritable':!![],'paramEnv':JT,'paramSlotOf':Jy});}}yQ[yr++]=yi,yP++;break;}case 0x179:{let JS=yQ[--yr],JZ=TO[yj];if(JS===null||JS===undefined)throw new TypeError('Cannot\x20read\x20properties\x20of\x20'+JS+'\x20(reading\x20'+'\x27'+String(JZ)+'\x27'+')');yQ[yr++]=JS[JZ],yP++;break;}case 0x164:{yQ[yr++]=y3[yj],yP++;break;}case 0x131:{let Je=yQ[--yr],JE=yQ[--yr];yQ[yr++]=JE>>>Je,yP++;break;}case 0x15f:{let JM,JB;yj>=0x0?(JB=yQ[--yr],JM=TO[yj]):(JM=yQ[--yr],JB=yQ[--yr]);let Jg=yM?delete JB[JM]:_$7a2zln(JB,JM);yQ[yr++]=Jg,yP++;break;}case 0x17e:{let Jf=yQ[--yr];Jf!==null&&Jf!==undefined?yP=y1[yP]:yP++;break;}case 0x156:{yQ[yr-0x1]=typeof yQ[yr-0x1],yP++;break;}case 0x168:{let Jx=yQ[--yr],Jv=yQ[--yr];yQ[yr++]=Jv in Jx,yP++;break;}case 0x16b:{yQ[yr++]=TO[yj],yP++;break;}case 0x132:{yP=y1[yP];break;}case 0x153:{let Jz=yj&0xffff,Jd=yd['_$uqo2LU'];Jd[Jz]=Jd;let JX=yj>>>0x10;JX&&((yd['_$HIovLX']||(yd['_$HIovLX']={}))[Jz]=TO[JX-0x1]);yP++;break;}case 0x15a:{let Jk=yj,Ji=yQ[--yr];yd['_$uqo2LU'][Jk]=Ji,yP++;break;}case 0x178:{let Jc=yQ[--yr],JC=yQ[--yr];yQ[yr++]=JC!=Jc,yP++;break;}case 0x15b:{u:{while(yu){let Jq=yu;if(Jq['_$XxifFz']!==undefined)break;if(yu)yu=yu['_$pjj7CZ'];}if(yu){let JD=yu;if(JD['_$XxifFz']!==undefined){yT=null,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined,yy=!![],yJ=yQ[--yr],ye=JD['_$NAO6MA'],yE=JD['_$rwejzx'],yP=JD['_$XxifFz'];break u;}}(yy||yU||yo)&&(yy=![],yJ=undefined,yU=![],yR=0x0,yW=undefined,yo=![],yS=0x0,yZ=undefined);yT=null;let JA=yQ[--yr];if(yg&&JA===undefined&&!yc)throw new ReferenceError('Must\x20call\x20super\x20constructor\x20in\x20derived\x20class\x20before\x20accessing\x20\x27this\x27\x20or\x20returning\x20from\x20derived\x20constructor');return yD=JA,0x1;}break;}case 0x14e:{let Jb=yQ[--yr],Jl=yQ[yr-0x1],Js=TO[yj],JH=ul(Jl);z(JH,Js,{'get':Jb,'enumerable':JH===Jl,'configurable':!![]}),yP++;break;}case 0x155:{yQ[yr-0x1]=-yQ[yr-0x1],yP++;break;}case 0x141:{let Ja=yj,Jw=yQ[--yr];yd['_$uqo2LU'][Ja]=Jw;let JN=yd['_$JbyIAo'];!JN&&(JN=f(null),yd['_$JbyIAo']=JN);JN[Ja]=0x1,yP++;break;}case 0x149:{yQ[yr++]=undefined,yP++;break;}case 0x15e:{y3[yj]=yQ[--yr],yP++;break;}case 0x167:{yQ[yr-0x1]=~yQ[yr-0x1],yP++;break;}case 0x15d:{let JY=yQ[--yr],JK=yQ[--yr],Jt=TO[yj&0xffffff];z(JK,Jt,{'value':JY,'writable':!![],'enumerable':!![],'configurable':!![]});yj&0x1000000&&(!_$ZcYnk4['_$t0re1P']&&(_$ZcYnk4['_$t0re1P']=uT()),_$ZcYnk4['_$t0re1P']['set'](JY,JK));yP++;break;}case 0x17d:{let JG=yQ[--yr],JL=yQ[yr-0x1];if(yj===0x2)yQ[yr-0x1]={...JG};else{if(yj===0x1)yQ[yr-0x1]={...JL,...JG};else{if(JG!==null&&JG!==undefined){let Jh=Object(JG),JV=U(Jh);for(let Jp=0x0;Jp<JV['length'];Jp++){let JF=JV[Jp],Jj=E(Jh,JF);Jj!==undefined&&Jj['enumerable']&&z(JL,JF,{'value':Jh[JF],'writable':!![],'enumerable':!![],'configurable':!![]});}}}}yP++;break;}case 0x17a:{yP++;break;}case 0x14a:{yQ[yr++]=yd,yP++;break;}case 0x160:{let JP=yQ[--yr],Jr=yQ[yr-0x1];if(Array['isArray'](JP)&&JP[ug]===uB){let JQ=Jr['length'],JI=JP['length'];for(let Jn=0x0;Jn<JI;Jn++){Jr[JQ+Jn]=JP[Jn];}}else for(let Jm of JP){Jr[Jr['length']]=Jm;}yP++;break;}case 0x170:{let JO=yQ[--yr],U0=yQ[--yr];yQ[yr++]=U0|JO,yP++;break;}case 0x176:{yQ[--yr]?yP=y1[yP]:yP++;break;}case 0x16a:{let U1=yQ[--yr],U2=yQ[--yr];yQ[yr++]=U2==null?U1!==U2:U2!==U1,yP++;break;}case 0x138:{let U3=yQ[--yr],U4=yQ[--yr],U5=TO[yj];if(U4===null||U4===undefined)throw new TypeError('Cannot\x20set\x20properties\x20of\x20'+U4+'\x20(setting\x20'+'\x27'+String(U5)+'\x27'+')');yM?U4[U5]=U3:_$KoX0k3(U4,U5,U3);yQ[yr++]=U3,yP++;break;}case 0x177:{yQ[yr++]={},yP++;break;}case 0x175:{let U6=yQ[--yr];if((typeof U6==='object'||typeof U6==='function')&&U6!==null){const U7=U6[Symbol['toPrimitive']];if(U7!=null){U6=B(U7,U6,['number']);if(U6!==null&&(typeof U6==='object'||typeof U6==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}else{const U8=U6['valueOf'];let U9=typeof U8==='function'?B(U8,U6,[]):U6;if(U9!==null&&(typeof U9==='object'||typeof U9==='function')){const Uu=U6['toString'];U9=typeof Uu==='function'?B(Uu,U6,[]):U9;if(U9!==null&&(typeof U9==='object'||typeof U9==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}U6=U9;}}yQ[yr++]=typeof U6===t?U6+0x1n:+U6+0x1,yP++;break;}case 0x165:{let UT=yQ[--yr],Uy=TO[yj];if(_$ZcYnk4['_$fDIAvf']&&Uy in _$ZcYnk4['_$fDIAvf'])throw new ReferenceError('Cannot\x20access\x20\x27'+Uy+'\x27\x20before\x20initialization');let UJ=!(Uy in vmR_926372)&&!(Uy in vmS);vmR_926372[Uy]=UT;(UJ||Uy in vmS)&&(yM?_$rhyLYY[Uy]=UT:_$KoX0k3(_$rhyLYY,Uy,UT));yQ[yr++]=UT,yP++;break;}case 0x172:{let UU=yQ[--yr],UR=yQ[--yr];yQ[yr++]=UR<<UU,yP++;break;}case 0x166:{let UW=yQ[yr-0x3],Uo=yQ[yr-0x2],US=yQ[yr-0x1];yQ[yr-0x3]=Uo,yQ[yr-0x2]=US,yQ[yr-0x1]=UW,yP++;break;}}}finally{ya=yP,yw=yr;}};while(y4<y5){try{while(y4<y5){let yF=y4<<y9,yj=y0[y7+yF],yP=y0[y8+yF];switch(yH[yj]){case 0x1:{TI[Tr-0x1]=-TI[Tr-0x1],y4++;continue;}case 0x2:{let yQ=TI[Tr-0x1];TI[Tr-0x1]=TI[Tr-0x2],TI[Tr-0x2]=yQ,y4++;continue;}case 0x3:{yk===null&&(yM||!yB)&&Tt&&(yk=ub(Tt));Tt&&yP>=Tt['length']&&!uD(Tt)&&(Tt=ub(Tt));Tt[yP]=TI[--Tr],y4++;continue;}case 0x4:{let yI=TO[yP],yn;if(_$ZcYnk4['_$fDIAvf']&&yI in _$ZcYnk4['_$fDIAvf'])throw new ReferenceError('Cannot\x20access\x20\x27'+yI+'\x27\x20before\x20initialization');if(yI in vmR_926372)yn=vmR_926372[yI];else{if(yI in vmS)yn=vmS[yI];else throw new ReferenceError(yI+'\x20is\x20not\x20defined');}TI[Tr++]=yn,y4++;continue;}case 0x5:{TI[Tr++]={},y4++;continue;}case 0x6:{let ym=TI[--Tr];if((typeof ym==='object'||typeof ym==='function')&&ym!==null){const yO=ym[Symbol['toPrimitive']];if(yO!=null){ym=B(yO,ym,['number']);if(ym!==null&&(typeof ym==='object'||typeof ym==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}else{const J0=ym['valueOf'];let J1=typeof J0==='function'?B(J0,ym,[]):ym;if(J1!==null&&(typeof J1==='object'||typeof J1==='function')){const J2=ym['toString'];J1=typeof J2==='function'?B(J2,ym,[]):J1;if(J1!==null&&(typeof J1==='object'||typeof J1==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}ym=J1;}}TI[Tr++]=typeof ym===t?ym-0x1n:+ym-0x1,y4++;continue;}case 0x7:{let J3=TI[Tr-0x1];TI[Tr++]=J3,y4++;continue;}case 0x8:{TI[Tr-0x1]=typeof TI[Tr-0x1],y4++;continue;}case 0x9:{let J4=TI[--Tr];if((typeof J4==='object'||typeof J4==='function')&&J4!==null){const J5=J4[Symbol['toPrimitive']];if(J5!=null){J4=B(J5,J4,['number']);if(J4!==null&&(typeof J4==='object'||typeof J4==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}else{const J6=J4['valueOf'];let J7=typeof J6==='function'?B(J6,J4,[]):J4;if(J7!==null&&(typeof J7==='object'||typeof J7==='function')){const J8=J4['toString'];J7=typeof J8==='function'?B(J8,J4,[]):J7;if(J7!==null&&(typeof J7==='object'||typeof J7==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}J4=J7;}}TI[Tr++]=typeof J4===t?J4:+J4,y4++;continue;}case 0xa:{let J9=TI[--Tr],Ju=TI[--Tr],JT=TO[yP];if(Ju===null||Ju===undefined)throw new TypeError('Cannot\x20set\x20properties\x20of\x20'+Ju+'\x20(setting\x20'+'\x27'+String(JT)+'\x27'+')');yM?Ju[JT]=J9:_$KoX0k3(Ju,JT,J9);TI[Tr++]=J9,y4++;continue;}case 0xb:{let Jy=TI[--Tr],JJ={'_$uqo2LU':new Array(yP),'_$JbyIAo':null,'_$q5fsZQ':-0x1,'_$BkpfqJ':Jy};yd=JJ,y4++;continue;}case 0xc:{TI[Tr++]=[],y4++;continue;}case 0xd:{TI[Tr++]=y3[yP],y4++;continue;}case 0xe:{let JU=yP&0xffff,JR=yP>>>0x10,JW=yd;for(let JZ=0x0;JZ<JR;JZ++){JW=JW['_$BkpfqJ'];}let Jo=JW['_$uqo2LU'],JS=Jo[JU];if(JS===Jo){let Je=JW['_$HIovLX'];throw new ReferenceError('Cannot\x20access\x20\x27'+(Je&&Je[JU]||'variable')+'\x27\x20before\x20initialization');}TI[Tr++]=JS,y4++;continue;}case 0xf:{TI[Tr++]=null,y4++;continue;}case 0x10:{yd=yd['_$BkpfqJ'],y4++;continue;}case 0x11:{let JE=yP&0xffff,JM=yd['_$uqo2LU'];JM[JE]=JM;let JB=yP>>>0x10;JB&&((yd['_$HIovLX']||(yd['_$HIovLX']={}))[JE]=TO[JB-0x1]);y4++;continue;}case 0x12:{TI[--Tr],y4++;continue;}case 0x13:{let Jg=yP,Jf=TI[--Tr];yd['_$uqo2LU'][Jg]=Jf,y4++;continue;}case 0x14:{let Jx=TI[--Tr],Jv=TI[--Tr],Jz=TI[--Tr];if(Jz===null||Jz===undefined)throw new TypeError('Cannot\x20set\x20properties\x20of\x20'+Jz+'\x20(setting\x20'+(typeof Jv==='symbol'?'\x27'+Jv['toString']()+'\x27':typeof Jv==='string'?'\x27'+Jv+'\x27':typeof Jv==='object'||typeof Jv==='function'?'\x27<computed\x20key>\x27':'\x27'+String(Jv)+'\x27')+')');yM?Jz[Jv]=Jx:_$KoX0k3(Jz,Jv,Jx);TI[Tr++]=Jx,y4++;continue;}case 0x15:{let Jd=TI[Tr-0x3],JX=TI[Tr-0x2],Jk=TI[Tr-0x1];TI[Tr-0x3]=JX,TI[Tr-0x2]=Jk,TI[Tr-0x1]=Jd,y4++;continue;}case 0x16:{TI[Tr-0x1]=~TI[Tr-0x1],y4++;continue;}case 0x17:{let Ji=TI[--Tr];if((typeof Ji==='object'||typeof Ji==='function')&&Ji!==null){const Jc=Ji[Symbol['toPrimitive']];if(Jc!=null){Ji=B(Jc,Ji,['number']);if(Ji!==null&&(typeof Ji==='object'||typeof Ji==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}else{const JC=Ji['valueOf'];let JA=typeof JC==='function'?B(JC,Ji,[]):Ji;if(JA!==null&&(typeof JA==='object'||typeof JA==='function')){const Jq=Ji['toString'];JA=typeof Jq==='function'?B(Jq,Ji,[]):JA;if(JA!==null&&(typeof JA==='object'||typeof JA==='function'))throw new TypeError('Cannot\x20convert\x20object\x20to\x20primitive\x20value');}Ji=JA;}}TI[Tr++]=typeof Ji===t?Ji+0x1n:+Ji+0x1,y4++;continue;}case 0x18:{TI[Tr++]=undefined,y4++;continue;}case 0x19:{let JD=TI[--Tr],Jb=TI[--Tr];if(Jb===null||Jb===undefined){if(JD===Symbol['iterator'])throw new TypeError((Jb===null?'object\x20null':'undefined')+'\x20is\x20not\x20iterable\x20(cannot\x20read\x20property\x20Symbol(Symbol.iterator))');throw new TypeError('Cannot\x20read\x20properties\x20of\x20'+Jb+'\x20(reading\x20'+(typeof JD==='symbol'?'\x27'+JD['toString']()+'\x27':typeof JD==='string'?'\x27'+JD+'\x27':typeof JD==='object'||typeof JD==='function'?'\x27<computed\x20key>\x27':'\x27'+String(JD)+'\x27')+')');}TI[Tr++]=Jb[JD],y4++;continue;}case 0x1a:{TI[Tr++]=Tt[yP],y4++;continue;}case 0x1b:{let Jl=yP&0xffff,Js=yP>>>0x10,JH=TI[--Tr],Ja=yd;for(let JK=0x0;JK<Js;JK++){Ja=Ja['_$BkpfqJ'];}let Jw=Ja['_$uqo2LU'];if(Jw[Jl]===Jw){let Jt=Ja['_$HIovLX'];throw new ReferenceError('Cannot\x20access\x20\x27'+(Jt&&Jt[Jl]||'variable')+'\x27\x20before\x20initialization');}let JN=Ja['_$JbyIAo'],JY=JN&&JN[Jl];if(JY){if(JY!==0x2||yM)throw new TypeError('Assignment\x20to\x20constant\x20variable.');}else Jw[Jl]=JH;y4++;continue;}case 0x1c:{TI[Tr++]=Th,y4++;continue;}case 0x1d:{throw u2(TI[--Tr]);continue;}case 0x1e:{let JG=TI[--Tr],JL=TI[Tr-0x1],Jh=TO[yP&0xffffff];Jh in JL?z(JL,Jh,{'value':JG,'writable':!![],'enumerable':!![],'configurable':!![]}):JL[Jh]=JG;yP&0x1000000&&(!_$ZcYnk4['_$t0re1P']&&(_$ZcYnk4['_$t0re1P']=uT()),_$ZcYnk4['_$t0re1P']['set'](JG,JL));y4++;continue;}case 0x1f:{TI[Tr++]=TO[yP],y4++;continue;}case 0x20:{TI[Tr++]=yd,y4++;continue;}case 0x21:{let JV=TI[--Tr];JV!==null&&JV!==undefined?y4=y1[y4]:y4++;continue;}case 0x22:{let Jp=TI[--Tr],JF=TI[--Tr],Jj=(yP^0x2404)>>>0x0,JP;Jj<0x10?Jj<0x8?Jj<0x4?Jj<0x2?JP=Jj<0x1?JF*Jp:JF!=Jp:JP=Jj<0x3?JF==null?Jp===JF:JF===Jp:JF>>>Jp:Jj<0x6?JP=Jj<0x5?JF<Jp:JF>Jp:JP=Jj<0x7?JF+Jp:JF==null?Jp!==JF:JF!==Jp:Jj<0xc?Jj<0xa?JP=Jj<0x9?JF<=Jp:JF|Jp:JP=Jj<0xb?JF&Jp:JF^Jp:Jj<0xe?JP=Jj<0xd?JF>=Jp:JF>>Jp:JP=Jj<0xf?JF%Jp:JF==Jp:Jj<0x14?Jj<0x12?JP=Jj<0x11?JF**Jp:JF-Jp:JP=Jj<0x13?JF/Jp:JF<<Jp:Jj<0x18?JP=Jj<0x16?JF|Jp:JF&Jp:JP=Jj<0x1c?JF^Jp:Jp-JF;TI[Tr++]=JP,y4++;continue;}case 0x23:{y4=y1[y4];continue;}case 0x24:{y3[yP]=TI[--Tr],y4++;continue;}case 0x25:{let Jr=TI[--Tr],JQ=TO[yP];if(Jr===null||Jr===undefined)throw new TypeError('Cannot\x20read\x20properties\x20of\x20'+Jr+'\x20(reading\x20'+'\x27'+String(JQ)+'\x27'+')');TI[Tr++]=Jr[JQ],y4++;continue;}case 0x26:{TI[Tr++]=TO[yP],y4++;continue;}case 0x27:{TI[Tr-0x1]=!TI[Tr-0x1],y4++;continue;}case 0x28:{TI[--Tr],TI[Tr++]=undefined,y4++;continue;}case 0x29:{TI[--Tr]?y4=y1[y4]:y4++;continue;}case 0x2a:{!TI[--Tr]?y4=y1[y4]:y4++;continue;}}if(yj===K||yj===N||yj===Y){let JI=TI[--Tr];y4++;TF===undefined&&(TF=[],TF[0xf]={'_$nKN1Sr':TF},TF[0x1c]=TQ,TF[0x1d]=Tn,TF[0x1e]=Tm,TF[0x1f]=TO,TF[0x20]=y0,TF[0x21]=y1,TF[0x22]=y2,TF[0x23]=y5,TF[0x24]=y6,TF[0x25]=y7,TF[0x26]=y8,TF[0x27]=y9,TF[0x28]=yM,TF[0x29]=yB,TF[0x2a]=yg,TF[0x2b]=yf,TF[0x2c]=yv,TF[0x2d]=yz,TF[0x2e]=yC);TF[0x0]=Tt,TF[0x1]=Th,TF[0x2]=yx,TF[0x3]=TI,TF[0x4]=Tr,TF[0x5]=y3,TF[0x6]=y4,TF[0x7]=yu,TF[0x8]=yd,TF[0x9]=yX,TF[0xa]=yk,TF[0xb]=yi,TF[0xc]=yc,TF[0xd]=yA,TF[0xe]=yq;yT!==null||yy||yU||yo?(TF[0x10]=!![],TF[0x11]=yT,TF[0x12]=yy,TF[0x13]=yJ,TF[0x14]=yU,TF[0x15]=yR,TF[0x16]=yW,TF[0x17]=yo,TF[0x18]=yS,TF[0x19]=yZ,TF[0x1a]=ye,TF[0x1b]=yE):TF[0x10]=![];let Jn=TF[0xf];return Jn['_$dDOW6D']=yj===K?s:yj===N?H:a,Jn['_$9AI7nZ']=JI,Jn;}ya=y4,yw=Tr;let yr;if(yj<0x7b)yr=yb(yj,yP);else yj<0x131?yr=yl(yj,yP):yr=ys(yj,yP);y4=ya,Tr=yw;if(yr){if(yq>0x0){for(let Jm=yC-0x1;Jm>=0x0;Jm--){y3[Jm]=yA[--yq];}yd=yA[--yq],y4=yA[--yq],yk=yA[--yq],yi=yA[--yq],Tt=yA[--yq],Tr=yA[--yq],TI[Tr++]=yD,y4++;continue;}return yD;}}if(yq>0x0){for(let JO=yC-0x1;JO>=0x0;JO--){y3[JO]=yA[--yq];}yd=yA[--yq],y4=yA[--yq],yk=yA[--yq],yi=yA[--yq],Tt=yA[--yq],Tr=yA[--yq],TI[Tr++]=undefined,y4++;continue;}break;}catch(U0){L=0x0;if(yu){let U1=yu;Tr=U1['_$I3PVxg'];U1['_$jTHyoh']!==undefined&&(yd=U1['_$jTHyoh']);if(U1['_$pTPs5N']!==undefined){yT!==null&&(U1['_$pTPs5N']>=yE||U1['_$pTPs5N']<=ye)&&(yT=null);TI[Tr++]=U0,y4=U1['_$pTPs5N'],U1['_$pTPs5N']=undefined;if(U1['_$XxifFz']===undefined){if(yu)yu=yu['_$pjj7CZ'];}}else{if(U1['_$XxifFz']!==undefined)y4=U1['_$XxifFz'],U1['_$b1EUsG']=U0;else{y4=U1['_$rwejzx'];if(yu)yu=yu['_$pjj7CZ'];}}continue;}throw u2(U0);}}let yY=Tr>yC?TI[--Tr]:yc?Th:undefined;if(yg&&!yc&&(yY===undefined||yY===null||typeof yY!=='object'&&typeof yY!=='function'))throw new ReferenceError('Must\x20call\x20super\x20constructor\x20in\x20derived\x20class\x20before\x20accessing\x20\x27this\x27\x20or\x20returning\x20from\x20derived\x20constructor');return yY;}function ut(Tt,TG,TL,Th,TV,Tp){let TF=0x0,Tj,TP=function(Tr,TQ){if(TF===0x2)throw new TypeError('Generator\x20is\x20already\x20running');if(TF===0x3||TF===0x0&&Tr!==0x1){TF=0x3;if(Tr===0x2)throw TQ;return{'value':Tr===0x3?TQ:undefined,'done':!![]};}let TI,Tn=TF===0x1;TF=0x2,uG++;try{TI=Tn?uK(Tt,TG,TL,Th,TV,Tp,Tj,Tr,TQ):uK(Tt,TG,TL,Th,TV,Tp);}catch(Tm){TF=0x3,Tj=undefined;throw Tm;}finally{uG--;}if(TI&&typeof TI==='object'&&TI['_$dDOW6D']!==undefined)return Tj=TI['_$nKN1Sr'],TF=0x1,{'value':TI,'done':![]};return TF=0x3,Tj=undefined,{'value':TI,'done':!![]};};return{'next':function(Tr){return Tr&&typeof Tr==='object'&&Tr['_$dDOW6D']===w?TP(0x3,Tr['_$9AI7nZ']):TP(0x1,Tr);},'throw':function(Tr){return TP(0x2,Tr);},'return':function(Tr){if(TF===0x2)throw new TypeError('Generator\x20is\x20already\x20running');return TF=0x3,Tj=undefined,{'value':Tr,'done':!![]};}};}let uG=0x0,uL=function(Tt,TG,TL,Th,TV,Tp){uG++;let TF=_$ZcYnk4['_$B0FCLW'];try{_$ZcYnk4['_$MVMfub']?_$ZcYnk4['_$MVMfub']=![]:_$ZcYnk4['_$B0FCLW']=undefined;let Tj=typeof TV==='object'?TV['n']!==undefined?0x0?TD(TV['n']):TV['d']||(TV['d']=TD(TV['n'])):TV:Tq(TV),TP=Tj?Ti(Tj[0x20],Tj[0x21]):undefined,Tr=Tj?Tc(Tj[0x20],Tj[0x21]):undefined;return uK(Tt,TG,TL,Th,Tj,Tp);}finally{_$ZcYnk4['_$B0FCLW']=TF,uG--;}},uh=0x4,uV=0x0,up=0xb,uF=0x1,uj=0x6,uP=0x7,ur=0x5,uQ=0x8,uI=0xa,un=0x3,um=0x2,uO=0x9,T0=0x8000,T1=0x400,T2=0x10000,T3=0x40000,T4=0x80,T5=0x8,T6=0x80000,T7=0x100,T8=0x4,T9=0x4000,Tu=0x100000,TT=0x200,Ty=0x400000,TJ=0x2000,TU=0x200000,TR=0x1,TW=0x1000,To=0x40,TS=0x2,TZ=0x20000,Te=0x800,TE=0x20;function TM(Tt){this['_$RAnomf']=Tt,this['_$RPg5bO']=new q(Tt['buffer'],Tt['byteOffset'],Tt['byteLength']),this['_$yjkD1y']=0x0;}TM['prototype']['_$3MW0IR']=function(){return this['_$RAnomf'][this['_$yjkD1y']++];},TM['prototype']['_$R1jNRo']=function(){let Tt=this['_$RPg5bO']['getUint16'](this['_$yjkD1y'],!![]);return this['_$yjkD1y']+=0x2,Tt;},TM['prototype']['_$vvuiz5']=function(){let Tt=this['_$RPg5bO']['getUint32'](this['_$yjkD1y'],!![]);return this['_$yjkD1y']+=0x4,Tt;},TM['prototype']['_$FIGp5B']=function(){let Tt=this['_$RPg5bO']['getInt32'](this['_$yjkD1y'],!![]);return this['_$yjkD1y']+=0x4,Tt;},TM['prototype']['_$BPuFwq']=function(){let Tt=this['_$RPg5bO']['getFloat64'](this['_$yjkD1y'],!![]);return this['_$yjkD1y']+=0x8,Tt;},TM['prototype']['_$AHENph']=function(){let Tt=0x0,TG=0x0,TL;do{TL=this['_$3MW0IR'](),Tt|=(TL&0x7f)<<TG,TG+=0x7;}while(TL>=0x80);return Tt>>>0x1^-(Tt&0x1);},TM['prototype']['_$5He42D']=function(){let Tt=this['_$AHENph'](),TG=this['_$RAnomf'],TL=this['_$yjkD1y'],Th=TL+Tt;this['_$yjkD1y']=Th;var TV='';while(TL<Th){var Tp=TG[TL++];if(Tp<0x80)TV+=D(Tp);else{if(Tp<0xe0)TV+=D((Tp&0x1f)<<0x6|TG[TL++]&0x3f);else{if(Tp<0xf0)TV+=D((Tp&0xf)<<0xc|(TG[TL++]&0x3f)<<0x6|TG[TL++]&0x3f);else{var TF=(Tp&0x7)<<0x12|(TG[TL++]&0x3f)<<0xc|(TG[TL++]&0x3f)<<0x6|TG[TL++]&0x3f;TF-=0x10000,TV+=D((TF>>0xa)+0xd800,(TF&0x3ff)+0xdc00);}}}}return TV;};var TB='JL2dFx0zVlcMkpm7rt6WgjRGqD/yIsEATiwbo+CBOYa15PvNZXuKeH8n9h4SfUQ3',Tg=new A(0x80);for(var Tf=0x0;Tf<TB['length'];Tf++){Tg[TB['charCodeAt'](Tf)]=Tf;}function Tx(Tt){var TG=Tt['charCodeAt'](Tt['length']-0x1)===0x3d?Tt['charCodeAt'](Tt['length']-0x2)===0x3d?0x2:0x1:0x0,TL=(Tt['length']*0x3>>0x2)-TG,Th=new A(TL),TV=0x0;for(var Tp=0x0;Tp<Tt['length'];Tp+=0x4){var TF=Tg[Tt['charCodeAt'](Tp)],Tj=Tg[Tt['charCodeAt'](Tp+0x1)],TP=Tg[Tt['charCodeAt'](Tp+0x2)],Tr=Tg[Tt['charCodeAt'](Tp+0x3)];Th[TV++]=TF<<0x2|Tj>>0x4,TV<TL&&(Th[TV++]=(Tj&0xf)<<0x4|TP>>0x2),TV<TL&&(Th[TV++]=(TP&0x3)<<0x6|Tr);}return Th;}TM['prototype']['_$KnSq57']=function(Tt,TG){var TL=this['_$AHENph'](),Th=this['_$RAnomf'],TV=this['_$yjkD1y'],Tp=TL,TF=(TG^Tt*0x9e3779b1)>>>0x0||0x1,Tj=0x0,TP='',Tr;while(Tj<Tp){Tr=(TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff);if(Tr<0x80)TP+=D(Tr);else{if(Tr<0xe0)TP+=D((Tr&0x1f)<<0x6|(TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff)&0x3f);else{if(Tr<0xf0)TP+=D((Tr&0xf)<<0xc|((TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff)&0x3f)<<0x6|(TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff)&0x3f);else{var TQ=((Tr&0x7)<<0x12|((TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff)&0x3f)<<0xc|((TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff)&0x3f)<<0x6|(TF=(TF^TF<<0xd)>>>0x0,TF=(TF^TF>>>0x11)>>>0x0,TF=(TF^TF<<0x5)>>>0x0,Tj++,Th[TV++]^TF&0xff)&0x3f)-0x10000;TP+=D((TQ>>0xa)+0xd800,(TQ&0x3ff)+0xdc00);}}}}return this['_$yjkD1y']=TV,TP;};function Tv(Tt,TG,TL){let Th=Tt['_$3MW0IR']();switch(Th){case uh:return null;case uV:return undefined;case up:return![];case uF:return!![];case uj:{let TV=Tt['_$3MW0IR']();return TV>0x7f?TV-0x100:TV;}case uP:{let Tp=Tt['_$R1jNRo']();return Tp>0x7fff?Tp-0x10000:Tp;}case ur:return Tt['_$FIGp5B']();case uQ:return Tt['_$BPuFwq']();case uI:return TL?Tt['_$KnSq57'](TG,TL):Tt['_$5He42D']();case un:return BigInt(Tt['_$5He42D']());case um:{let TF=Tt['_$5He42D'](),Tj=Tt['_$5He42D']();return new RegExp(TF,Tj);}case uO:{let TP=Tt['_$AHENph'](),Tr=new A(TP);for(let TQ=0x0;TQ<TP;TQ++){Tr[TQ]=Tt['_$3MW0IR']();}return TC(Tr);}default:return null;}}let Tz=-0x1,Td=-0x1,TX=0x0;function Tk(Tt,TG){if(Tt===Tz&&TG===Td)return TX;return Tz=Tt,Td=TG,TX=(Math['imul']((Tt>>>0x0)+0x1,0xdfb1e2ce|0x1)^Math['imul']((TG>>>0x0)+0x1,0xdfb1e2ce>>>0x9|0x1)^0xdfb1e2ce)>>>0x0;}function Ti(Tt,TG){return(Tk(Tt,TG)|0x1)>>>0x0;}function Tc(Tt,TG){return Math['imul'](Tk(Tt,TG),0xfe351669)+0xb39e0a2f>>>0x0;}function TC(Tt){let TG;if(Tt&&Tt['_$yjkD1y']!==undefined)TG=Tt;else{let y4=typeof Tt==='string'?Tx(Tt):Tt;TG=new TM(y4);}let TL=TG['_$3MW0IR'](),Th=(TG['_$vvuiz5']()^0xe36085b0)>>>0x0,TV=TG['_$AHENph'](),Tp=TG['_$AHENph'](),TF=[undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined],Tj=Ti(TV,Tp),TP=Tc(TV,Tp);TF[0x20]=TV,TF[0x21]=Tp;if(Th&T4){let y5=TG['_$AHENph'](),y6={};for(let y7=0x0;y7<y5;y7++){let y8=TG['_$AHENph'](),y9=TG['_$AHENph']();y6[y8]=y9;}TF[0x5*Tj+TP&0x1f]=y6;}Th&T5&&(TF[0x0*Tj+TP&0x1f]=TG['_$vvuiz5']());Th&T9&&(TF[0x13*Tj+TP&0x1f]=TG['_$AHENph']());Th&T6&&(TF[0x4*Tj+TP&0x1f]=TG['_$vvuiz5']());Th&T7&&(TF[0xe*Tj+TP&0x1f]=TG['_$vvuiz5']());Th&Tu&&(TF[0xc*Tj+TP&0x1f]=TG['_$vvuiz5']());Th&T3&&(TF[0x9*Tj+TP&0x1f]=TG['_$AHENph']());Th&Te&&(TF[0xf*Tj+TP&0x1f]=TG['_$AHENph']());Th&T8&&(TF[0x17*Tj+TP&0x1f]=TG['_$vvuiz5']());Th&T0&&(TF[0x11*Tj+TP&0x1f]=0x1);Th&T1&&(TF[0x10*Tj+TP&0x1f]=0x1);Th&T2&&(TF[0x1*Tj+TP&0x1f]=0x1);Th&TU&&(TF[0xa*Tj+TP&0x1f]=0x1);Th&TR&&(TF[0x2*Tj+TP&0x1f]=0x1);Th&TW&&(TF[0x12*Tj+TP&0x1f]=0x1);Th&To&&(TF[0x19*Tj+TP&0x1f]=0x1);Th&TS&&(TF[0x8*Tj+TP&0x1f]=0x1);Th&TJ&&(TF[0x3*Tj+TP&0x1f]=0x1);Th&TZ&&(TF[0x15*Tj+TP&0x1f]=0x1);let Tr=TG['_$AHENph'](),TQ={'__proto__':(void 0x0,null),'length':Tr},TI=TF[0xe*Tj+TP&0x1f]||0x0;for(let yu=0x0;yu<Tr;yu++){TQ[yu]=Tv(TG,yu,TI);}TF[0x6*Tj+TP&0x1f]=TQ;function Tn(yT){let yy=yT['_$3MW0IR']();switch(yy){case uh:return-0x1;case uj:{let yJ=yT['_$3MW0IR']();return yJ>0x7f?yJ-0x100:yJ;}case uP:{let yU=yT['_$R1jNRo']();return yU>0x7fff?yU-0x10000:yU;}case ur:return yT['_$FIGp5B']();case uQ:return yT['_$BPuFwq']()|0x0;case uI:return yT['_$5He42D']()|0x0;default:return-0x1;}}let Tm=TG['_$AHENph'](),TO=!!(Th&TE),y0=TO?Tm*0x3:Tm<<0x1;if(Tm<0x0||y0<0x0)throw new RangeError('Invalid\x20array\x20length');let y1=null,y2={'__proto__':y1,'length':y0},y3=0x0;if(TO){let yT=TF[0x16*Tj+TP&0x1f]<=0x80;for(let yy=0x0;yy<Tm;yy++){y2[y3++]=TG['_$AHENph'](),y2[y3++]=Tn(TG);let yJ=0x0,yU=0x0,yR;do{yR=TG['_$3MW0IR'](),yJ|=(yR&0x7f)<<yU,yU+=0x7;}while(yR>=0x80);yJ=yJ>>>0x0,y2[y3++]=yT?(yJ&0x7f)<<0x14|(yJ>>>0x7&0x7f)<<0xa|yJ>>>0xe&0x7f:(yJ&0xfff)<<0x14|(yJ>>>0xc&0x3ff)<<0xa|yJ>>>0x16&0x3ff;}}else{let yW=(TV*0x4daf^Tp*0xdf03^Tm*0x5549^Tr*0xe74d)>>>0x0&0x3;switch(yW){case 0x1:for(let yo=0x0;yo<Tm;yo++){y2[y3++]=TG['_$AHENph'](),y2[y3++]=Tn(TG);}break;case 0x2:for(let yS=0x0;yS<Tm;yS++){y2[y3++]=Tn(TG);}for(let yZ=0x0;yZ<Tm;yZ++){y2[y3++]=TG['_$AHENph']();}break;case 0x3:for(let ye=0x0;ye<Tm;ye++){y2[y3++]=TG['_$AHENph']();}for(let yE=0x0;yE<Tm;yE++){y2[y3++]=Tn(TG);}break;default:for(let yM=0x0;yM<Tm;yM++){y2[y3++]=Tn(TG),y2[y3++]=TG['_$AHENph']();}break;}}TF[0x7*Tj+TP&0x1f]=y2;if(Th&TT){let yB=TG['_$AHENph'](),yg={};for(let yf=0x0;yf<yB;yf++){let yx=TG['_$AHENph'](),yv=TG['_$AHENph']();yg[yx]=yv;}TF[0x18*Tj+TP&0x1f]=yg;}if(Th&Ty){let yz=TG['_$AHENph'](),yd={};for(let yX=0x0;yX<yz;yX++){let yk=TG['_$AHENph'](),yi=TG['_$AHENph']()-0x1,yc=TG['_$AHENph']()-0x1,yC=TG['_$AHENph']()-0x1;yd[yk]=[yi,yc,yC];}TF[0xd*Tj+TP&0x1f]=yd;}return TF;}let TA=function(Tt,TG){let TL={};return function(Th){if(TG!==undefined&&(!(Th<TG)||Th<0x0))throw 0x0;let TV=Th;if(TL[TV])return TL[TV];let Tp=Tt[TV];return typeof Tp==='string'?TL[TV]=TC(Tp):TL[TV]=Tp,TL[TV];};},Tq=TA(C);C=null;let TD=TA(b,undefined,0x0);b=null;let Tb=function(Tt,TG,TL,Th,TV,Tp,TF){this['a']=![],this['v']=undefined,this['s']=Tl,this['f']=undefined,this['b']=Tt,this['g']=TG,this['e']=TL,this['c']=Th,this['n']=TV,this['h']=Tp,this['t']=TF;};Tb['prototype']={'__proto__':(void 0x0,null)};let Tl=function(Tt,TG){_$ZcYnk4['_$B0FCLW']=this['h'];let TL=this,Th;try{Th=uK(TL['g'],TL['c'],TL['e'],TL['t'],TL['b'],TL['n'],TL['f'],Tt,TG);}catch(TV){uG--;throw TV;}if(Th&&typeof Th==='object'&&Th['_$dDOW6D']!==undefined){if(Th['_$dDOW6D']!==s){uG--;throw new Error('Unexpected\x20yield\x20in\x20async\x20context');}TL['f']=Th['_$nKN1Sr'],TL['a']=!![],TL['v']=Th['_$9AI7nZ'];}else TL['a']=![],TL['v']=Th,uG--;},Ts=function(Tt,TG,TL,Th,TV,Tp,TF){uG++;let Tj,TP,Tr;try{Tj=typeof Tp==='object'?Tp['n']!==undefined?0x0?TD(Tp['n']):Tp['d']||(Tp['d']=TD(Tp['n'])):Tp:Tq(Tp),TP=Tj?Ti(Tj[0x20],Tj[0x21]):undefined,Tr=Tj?Tc(Tj[0x20],Tj[0x21]):undefined;}catch(Tn){uG--;throw Tn;}let TQ=new Tb(Tj,Tt,Th,TL,TF,TG,TV),TI;try{TI=uK(Tt,TL,Th,TV,Tj,TF);}catch(Tm){uG--;throw Tm;}if(TI&&typeof TI==='object'&&TI['_$dDOW6D']!==undefined){if(TI['_$dDOW6D']!==s){uG--;throw new Error('Unexpected\x20yield\x20in\x20async\x20context');}TQ['f']=TI['_$nKN1Sr'],TQ['a']=!![],TQ['v']=TI['_$9AI7nZ'];}else TQ['a']=![],TQ['v']=TI,uG--;return TQ;},TH=async function(Tt,TG,TL,Th,TV,Tp,TF){let Tj=Ts(Tt,TG,TL,Th,TV,Tp,TF);while(Tj['a']){let TP=0x1,Tr;try{Tr=await Tj['v'];}catch(TQ){TP=0x2,Tr=TQ;}Tj['s'](TP,Tr);}return Tj['v'];},Ta=function(Tt,TG,TL,Th){this['f']=Tt,this['r']=TG,this['m']=TL,this['o']=Th;};Ta['prototype']={'__proto__':(void 0x0,null)};let Tw=function(Tt,TG,TL,Th,TV,Tp,TF){let Tj,TP,Tr;uG++;try{Tj=typeof Tp==='object'?Tp['n']!==undefined?0x0?TD(Tp['n']):Tp['d']||(Tp['d']=TD(Tp['n'])):Tp:Tq(Tp),TP=Tj?Ti(Tj[0x20],Tj[0x21]):undefined,Tr=Tj?Tc(Tj[0x20],Tj[0x21]):undefined;}finally{uG--;}let TQ=ut(Tt,TL,Th,TV,Tj,undefined),TI=Tj&&Tj[0x1*TP+Tr&0x1f]&&!Tj[0x12*TP+Tr&0x1f],Tn=null;TI&&(Tn=TQ['next']());let Tm=![],TO=![],y0=null,y1=undefined,y2=![];function y3(y7,y8){if(Tm)return{'value':undefined,'done':!![]};TO=!![],_$ZcYnk4['_$B0FCLW']=TG;if(y0){let yu,yT,yy;try{if(y8){if(typeof y0['throw']==='function')yu=y0['throw'](y7);else{typeof y0['return']==='function'&&y0['return']();y0=null;throw new TypeError('The\x20iterator\x20does\x20not\x20provide\x20a\x20\x27throw\x27\x20method.');}}else yu=y0['next'](y7);try{uC(yu);}catch(yU){y0=null;throw yU;}let yJ=uA(yu);yT=yJ['done'],yy=yJ['value'];}catch(yR){y0=null;try{let yW=TQ['throw'](yR);return y4(yW);}catch(yo){Tm=!![];throw yo;}}if(!yT)return yu;y0=null,y7=yy,y8=![];}let y9;if(Tn!==null)y9=Tn,Tn=null;else try{y9=y8?TQ['throw'](y7):TQ['next'](y7);}catch(yS){Tm=!![];throw yS;}return y4(y9);}function y4(y7){if(y7['done'])return Tm=!![],y2=![],{'value':y7['value'],'done':!![]};let y8=y7['value'];if(y8['_$dDOW6D']===H)return{'value':y8['_$9AI7nZ'],'done':![]};if(y8['_$dDOW6D']===a){let y9=y8['_$9AI7nZ'],yu;try{if(y9==null)throw new TypeError(y9+'\x20is\x20not\x20iterable');let yU=y9[Symbol['iterator']];if(typeof yU!=='function')throw new TypeError(y9+'\x20is\x20not\x20iterable');yu=B(yU,y9,[]),uC(yu);if(typeof yu['next']!=='function')throw new TypeError('Iterator\x20next\x20is\x20not\x20a\x20function');}catch(yR){try{let yW=TQ['throw'](yR);return y4(yW);}catch(yo){Tm=!![];throw yo;}}let yT,yy,yJ;try{yT=yu['next'](undefined),uC(yT);let yS=uA(yT);yy=yS['done'],yJ=yS['value'];}catch(yZ){try{let ye=TQ['throw'](yZ);return y4(ye);}catch(yE){Tm=!![];throw yE;}}if(!yy)return y0=yu,yT;return y3(yJ,![]);}throw new Error('Unexpected\x20signal\x20in\x20generator');}let y5=Tj&&Tj[0x10*TP+Tr&0x1f],y6=function(y7){if(Tm)return{'value':y7,'done':!![]};if(!TO)return Tm=!![],{'value':y7,'done':!![]};if(y0){let y9,yu=![];try{let yT=y0['return'];typeof yT==='function'&&(yu=!![],y9=B(yT,y0,[y7]),uC(y9));}catch(yy){y0=null;let yJ;try{yJ=TQ['throw'](yy);}catch(yU){Tm=!![];throw yU;}return y4(yJ);}if(yu){let yR;try{yR=y9['done'];}catch(yo){y0=null;let yS;try{yS=TQ['throw'](yo);}catch(yZ){Tm=!![];throw yZ;}return y4(yS);}if(!yR)return y9;let yW;try{yW=y9['value'];}catch(ye){y0=null;let yE;try{yE=TQ['throw'](ye);}catch(yM){Tm=!![];throw yM;}return y4(yE);}y0=null,y7=yW;}}y1=y7,y2=!![];let y8;try{_$ZcYnk4['_$B0FCLW']=TG,y8=TQ['next']({'_$dDOW6D':w,'_$9AI7nZ':y7});}catch(yB){Tm=!![],y2=![];throw yB;}return y4(y8);};if(y5){let y7={},y8=function(yy,yJ){return _$ZcYnk4['_$B0FCLW']=TG,yy?TQ['throw'](yJ):TQ['next'](yJ);},y9=function(){let yy=Tn!==null?Tn:y8(![],undefined);return Tn=null,yy;},yu=async function*(yy){yy===null&&(yy=y9());let yJ=![];while(!yy['done']){let yU=yy['value'],yR=yU['_$dDOW6D'],yW=yU['_$9AI7nZ'];if(yR===0x1&&yW==='_$SisFAS'){yJ=!![],yy=y8(![],undefined);continue;}if(yR===0x1&&yJ){yJ=![];let ye=![],yE;try{return yW;}catch(yM){ye=!![],yE=yM;}finally{if(!ye){let yB=y8(![],{'_$dDOW6D':0x4,'_$9AI7nZ':y7}),yg=yB['done']?yB['value']:yield*yT(yB);if(yg!==y7)return yg;}}yy=y8(!![],yE);continue;}if(yR===0x1){let yf;try{yf=await yW;}catch(yx){yy=y8(!![],yx);continue;}yy=y8(![],yf);continue;}if(yR!==0x2&&yR!==0x3)throw new Error('Unexpected\x20signal\x20in\x20async\x20generator');let yo,yS=![],yZ=![];try{yo=yR===0x2?yield yW:yield*(0x0,yW),yZ=!![];}catch(yv){yo=yv,yS=!![],yZ=!![];}finally{if(!yZ){let yz=y8(![],{'_$dDOW6D':0x4,'_$9AI7nZ':y7}),yd=yz['done']?yz['value']:yield*yT(yz);if(yd!==y7)return yd;}}yy=y8(yS,yo);}if(yy['value']===y7)return y7;return;},yT=function(yy){return ud(yu(yy));};if(TF)return new Ta(y9,y8,y7,yT);return yu['prototype']=uc(TL&&TL['prototype'],uf),yu(null);}else{let yy={'next':function(yJ){return y3(yJ,![]);},'return':y6,'throw':function(yJ){if(Tm)throw yJ;return y3(yJ,!![]);},[Symbol['iterator']]:function(){return this;}};return yy;}};u6();var TN=function(Tt,TG,TL,Th,TV,Tp){uG++;try{let TF=Tq(Tp),Tj=TF?Ti(TF[0x20],TF[0x21]):undefined,TP=TF?Tc(TF[0x20],TF[0x21]):undefined,Tr=Tt;if(TF&&TF[0x1*Tj+TP&0x1f]){let TQ=_$ZcYnk4['_$B0FCLW'];return Tw(TL,TQ,Th,TG,Tr,TF,undefined);}if(TF&&TF[0x10*Tj+TP&0x1f]){let TI=_$ZcYnk4['_$B0FCLW'];return TH(TL,TI,Th,TG,Tr,TF,TV);}return Th&&TF&&us(Th,TF,TG,Tj,TP),uL(TL,Th,TG,Tr,TF,TV);}finally{uG--;}};return TN['_$O8Sr7s']=function(Tt,TG){if(!Tt)return;if(0x0||0x0){!ue(Tt)&&uo(Tt,{['_$632rcw']:TG,['_$k5IIRA']:undefined,['_$Zwblck']:undefined,['_$MwTz62']:undefined});return;}var TL;uG++;try{TL=Tq(TG);}finally{uG--;}if(!TL)return;var Th=Ti(TL[0x20],TL[0x21]),TV=Tc(TL[0x20],TL[0x21]);if(TL[0x10*Th+TV&0x1f]||TL[0x1*Th+TV&0x1f]||TL[0x11*Th+TV&0x1f])return;!ue(Tt)&&uo(Tt,{['_$632rcw']:TG,['_$k5IIRA']:undefined,['_$Zwblck']:TL,['_$MwTz62']:undefined});},TN;}());vmU_806cc9['_$O8Sr7s'](showToast,0x5),vmU_806cc9['_$O8Sr7s'](openDrawer,0x6),vmU_806cc9['_$O8Sr7s'](closeDrawer,0x7),delete vmU_806cc9['_$O8Sr7s'];try{atob,Object['defineProperty'](vmR_926372,'atob',{'get':function(){return atob;},'set':function(u){atob=u;},'configurable':!![]});}catch(vmUa){}try{document,Object['defineProperty'](vmR_926372,'document',{'get':function(){return document;},'set':function(u){document=u;},'configurable':!![]});}catch(vmUw){}try{fetch,Object['defineProperty'](vmR_926372,'fetch',{'get':function(){return fetch;},'set':function(u){fetch=u;},'configurable':!![]});}catch(vmUN){}try{JSON,Object['defineProperty'](vmR_926372,'JSON',{'get':function(){return JSON;},'set':function(u){JSON=u;},'configurable':!![]});}catch(vmUY){}try{Error,Object['defineProperty'](vmR_926372,'Error',{'get':function(){return Error;},'set':function(u){Error=u;},'configurable':!![]});}catch(vmUK){}try{console,Object['defineProperty'](vmR_926372,'console',{'get':function(){return console;},'set':function(u){console=u;},'configurable':!![]});}catch(vmUt){}try{navigator,Object['defineProperty'](vmR_926372,'navigator',{'get':function(){return navigator;},'set':function(u){navigator=u;},'configurable':!![]});}catch(vmUG){}try{clearTimeout,Object['defineProperty'](vmR_926372,'clearTimeout',{'get':function(){return clearTimeout;},'set':function(u){clearTimeout=u;},'configurable':!![]});}catch(vmUL){}try{setTimeout,Object['defineProperty'](vmR_926372,'setTimeout',{'get':function(){return setTimeout;},'set':function(u){setTimeout=u;},'configurable':!![]});}catch(vmUh){}vmR_926372['closeDrawer']=closeDrawer,vmR_926372['openDrawer']=openDrawer,vmR_926372['showToast']=showToast,vmR_926372['copyToClipboard']=copyToClipboard,vmR_926372['doReset']=doReset,vmR_926372['doTranslate']=doTranslate,vmR_926372['applyVersionUI']=applyVersionUI,vmR_926372['toggleVersion']=toggleVersion,_$ZcYnk4['_$fDIAvf']={'__proto__':null,['WORKER_URL']:!![],['currentVersion']:!![]};vmUP=void 0;let vmR3=0,vmR5,vmR6=false,vmR7,vmR8;const vmR4=[vmR9=>{switch(vmR9){case 0:{return atob('aHR0cHM6Ly93ZWF0aGVyZWQtc2VhLTlhNWQuaWFtbWlzc3VtYXgud29ya2Vycy5kZXYv');}case 1:{({}=(delete _$ZcYnk4['_$fDIAvf']['WORKER_URL'],0x0));({}=(vmR_926372['WORKER_URL']=WORKER_URL,0x0));({}=(_$rhyLYY['WORKER_URL']=vmR_926372['WORKER_URL'],0x0));return'poe1';}case 2:{({}=(delete _$ZcYnk4['_$fDIAvf']['currentVersion'],0x0));({}=(vmR_926372['currentVersion']=currentVersion,0x0));({}=(_$rhyLYY['currentVersion']=vmR_926372['currentVersion'],0x0));return vmUP;}}}];return(vmR9,vmRu)=>{if(vmR6){return void 0;}vmR6=true;try{if(vmRu!==void 0){if(vmR9!==vmR3-1||!vmR5){return void 0;}vmR8=vmR8||{__proto__:null};return vmRu in vmR8?vmR8[vmRu]:vmR8[vmRu]=vmR5[vmRu]();}if(vmR9===vmR3&&vmR3<=2){vmR5=void 0;vmR8=void 0;vmR7=void 0;return vmR3===2?vmR4[vmR3>>6](vmR3++):vmR7=vmR4[vmR3>>6](vmR3++);}return vmR9===vmR3-1?vmR7:void 0;}finally{vmR6=false;}};})(this,typeof arguments==='undefined');const WORKER_URL=vmR2_a37025(0);let currentVersion=vmR2_a37025(1);vmR2_a37025(2);
+</script>
+</body>
+</html>
